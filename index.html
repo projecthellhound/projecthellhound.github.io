@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Project Hellhound — We build what we think</title>
-<meta name="description" content="Project Hellhound builds offensive security tools, AI-powered apps, and developer tools.">
+<meta name="description" content="Project Hellhound builds autonomous offensive security tools, AI-powered applications, and developer systems.">
 <meta name="keywords" content="Project Hellhound, TriOps Security, offensive security, bug bounty, autonomous agents, pentesting, OSINT, l4zz3rj0d">
 <meta name="author" content="Project Hellhound">
 <meta name="theme-color" content="#FF4B2B">
@@ -18,25 +18,26 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://projecthellhound.github.io/">
 <meta property="og:title" content="Project Hellhound — We build what we think">
-<meta property="og:description" content="Project Hellhound builds offensive security tools, AI-powered apps, and developer tools.">
+<meta property="og:description" content="Project Hellhound builds autonomous offensive security tools, AI-powered applications, and developer systems.">
 <meta property="og:image" content="assets/banner_prof.png">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Project Hellhound — We build what we think">
-<meta name="twitter:description" content="Project Hellhound builds offensive security tools, AI-powered apps, and developer tools.">
+<meta name="twitter:description" content="Project Hellhound builds autonomous offensive security tools, AI-powered applications, and developer systems.">
 <meta name="twitter:image" content="assets/banner_prof.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 <style>
 :root{
-  --page:#000; --card:#0C0C0C; --ink:#EDEDED; --muted:#A0A0A0;
-  --ember:#FF4B2B; --line:#262626; --ember-ink:#000;
+  --page:#050505; --card:#0A0A0A; --card-hover:#111111; --ink:#EDEDED; --muted:#949494;
+  --ember:#FF4B2B; --line:#1F1F1F; --line-active:#333333; --ember-ink:#000;
   --head:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
   --body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",monospace;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
@@ -44,26 +45,34 @@ html{scroll-behavior:smooth}
 body{margin:0;background:var(--page);color:var(--ink);font:400 1.0625rem/1.65 var(--body);overflow-x:hidden}
 a{color:inherit}
 a:focus-visible,button:focus-visible{outline:3px solid var(--ember);outline-offset:3px}
-.wrap{max-width:62rem;margin:0 auto;padding:0 1.25rem}
+.wrap{max-width:68rem;margin:0 auto;padding:0 1.5rem}
 h1,h2,h3,h4{font-family:var(--head);line-height:1.15;margin:0}
 p{margin:0}
+
+/* Background layers */
 #bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.grid-overlay{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
+  background-size:36px 36px;
+}
 #glow{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(540px circle at var(--mx,50%) var(--my,30%),rgba(255,75,43,.12),transparent 70%)}
 header.top,main,footer{position:relative;z-index:1}
 
 /* header - corner to corner */
-header.top{padding:1.15rem 0;border-bottom:1px solid var(--line);background:rgba(0,0,0,.78);backdrop-filter:blur(8px);position:sticky;top:0;z-index:25;width:100%}
+header.top{padding:1.15rem 0;border-bottom:1px solid var(--line);background:rgba(5,5,5,.82);backdrop-filter:blur(10px);position:sticky;top:0;z-index:30;width:100%}
 .header-bar{display:flex;align-items:center;justify-content:space-between;width:100%;padding:0 2.5rem;box-sizing:border-box}
-.brand{display:flex;align-items:center;gap:.75rem;text-decoration:none;font:700 1.2rem var(--head)}
+.brand{display:flex;align-items:center;gap:.75rem;text-decoration:none;font:700 1.25rem var(--head)}
 .brand img,.brand .mark{width:36px;height:36px;border-radius:6px;display:block;object-fit:cover}
 .brand .mark{background:var(--ember);color:var(--ember-ink);display:grid;place-items:center;font:700 1.1rem var(--head)}
 nav{display:flex;align-items:center}
-nav a{margin-left:1.5rem;text-decoration:none;color:var(--muted);font-weight:500;transition:color .2s;font-size:0.98rem}
+nav a{margin-left:1.5rem;text-decoration:none;color:var(--muted);font-weight:500;transition:color .2s;font-size:0.95rem}
 nav a:hover{color:var(--ink);text-decoration:underline;text-decoration-color:var(--ember);text-underline-offset:6px}
 
-@media (max-width:820px){
+@media (max-width:860px){
   .header-bar{padding:0 1.25rem}
-  nav a{margin-left:.85rem;font-size:.88rem}
+  nav a{margin-left:.85rem;font-size:.85rem}
 }
 
 /* hero */
@@ -73,9 +82,9 @@ nav a:hover{color:var(--ink);text-decoration:underline;text-decoration-color:var
 .typed b{color:var(--ink);font-weight:500}
 .caret{display:inline-block;width:.1em;height:1em;margin-left:.15em;background:var(--ember);vertical-align:-.12em;animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
-.hero .lead{margin-top:1rem;max-width:38rem;color:var(--muted)}
+.hero .lead{margin-top:1rem;max-width:40rem;color:var(--muted)}
 .btns{margin-top:2rem;display:flex;gap:.75rem;flex-wrap:wrap}
-.btn{display:inline-block;padding:.8rem 1.3rem;border-radius:6px;font-weight:500;text-decoration:none;border:2px solid var(--ink);transition:transform .2s,box-shadow .2s}
+.btn{display:inline-block;padding:.8rem 1.35rem;border-radius:6px;font-weight:500;text-decoration:none;border:2px solid var(--ink);transition:transform .2s,box-shadow .2s}
 .btn:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(255,75,43,.25)}
 .btn.primary{background:var(--ember);border-color:var(--ember);color:var(--ember-ink)}
 
@@ -85,81 +94,243 @@ nav a:hover{color:var(--ink);text-decoration:underline;text-decoration-color:var
 .stat span{color:var(--muted)}
 
 /* sections */
-section{padding:3.5rem 0;border-top:1px solid var(--line)}
+section{padding:4rem 0;border-top:1px solid var(--line)}
 section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-bottom:1.25rem}
 .about p{max-width:40rem}
 .about p+p{margin-top:1rem}
 .motto{margin-top:1.75rem;padding:1.1rem 1.25rem;background:var(--card);border-left:4px solid var(--ember);max-width:40rem;font:500 1.25rem var(--head)}
 .kinds{margin-top:2.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:1.25rem}
-.kind{padding:1.25rem;background:var(--card);border:1px solid var(--line);border-radius:8px;transition:transform .3s,border-color .3s}
+.kind{padding:1.4rem;background:var(--card);border:1px solid var(--line);border-radius:8px;transition:transform .3s,border-color .3s}
 .kind:hover{transform:translateY(-6px);border-color:var(--ember)}
 .kind h3{font-size:1.2rem;margin-bottom:.4rem}
-.kind p{color:var(--muted);font-size:.98rem}
+.kind p{color:var(--muted);font-size:.95rem}
+
+/* pipeline section */
+.pipeline-section{padding:4rem 0;border-top:1px solid var(--line)}
+.pipeline-grid{display:flex;align-items:stretch;gap:1.25rem;flex-wrap:wrap;margin-top:1.75rem}
+.pipeline-stage{flex:1;min-width:17rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1.6rem;display:flex;flex-direction:column;gap:.85rem;position:relative;transition:border-color .3s,transform .3s}
+.pipeline-stage:hover{border-color:rgba(255,75,43,.45);transform:translateY(-3px)}
+.stage-num{font-family:var(--head);font-size:2rem;font-weight:700;color:var(--ember);line-height:1}
+.stage-title{font-size:1.2rem;font-weight:700}
+.stage-tools{display:flex;gap:.45rem;flex-wrap:wrap}
+.stage-pill{font-size:.78rem;font-weight:600;padding:.18rem .6rem;background:#151515;border:1px solid #262626;border-radius:4px;color:var(--ink)}
+.stage-desc{color:var(--muted);font-size:.9rem;line-height:1.55;margin-top:auto}
 
 /* filter chips */
-.chips{display:flex;gap:.6rem;flex-wrap:wrap;margin:0 0 1.5rem}
-.chip{font:500 .95rem var(--body);color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:99px;padding:.4rem 1rem;cursor:pointer;transition:all .2s}
+.chips{display:flex;gap:.6rem;flex-wrap:wrap;margin:0 0 1.75rem}
+.chip{font:500 .92rem var(--body);color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:99px;padding:.4rem 1.1rem;cursor:pointer;transition:all .2s}
 .chip:hover{color:var(--ink);border-color:var(--ink)}
 .chip[aria-pressed="true"]{background:var(--ember);border-color:var(--ember);color:var(--ember-ink)}
 
-/* public projects */
-.projects ul{list-style:none;margin:0;padding:0}
-.projects li{position:relative;display:grid;grid-template-columns:13rem 1fr auto;gap:1rem 2rem;padding:1.6rem 1rem;border-top:1px solid var(--line);align-items:start;transition:background .25s,padding-left .25s}
-.projects li:last-child{border-bottom:1px solid var(--line)}
-.projects li::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--ember);transform:scaleY(0);transition:transform .3s;transform-origin:top}
-.projects li:hover{background:var(--card);padding-left:1.5rem}
-.projects li:hover::before{transform:scaleY(1)}
-.projects li:hover .go{color:var(--ember)}
-.projects h3{font-size:1.55rem}
-.projects .why{margin-top:.4rem;color:var(--muted)}
-.status{display:inline-block;margin-top:.5rem;padding:.15rem .65rem;border:1px solid var(--line);border-radius:99px;font-size:.82rem;font-weight:500;color:var(--muted)}
-.status.live{border-color:var(--ember);color:var(--ember)}
-.meta{margin-top:.85rem;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
-.tag{font-size:.82rem;padding:.15rem .6rem;border-radius:4px;background:#1A1A1A;color:var(--muted);transition:all .2s}
+/* ProjectDiscovery-style Tool Cards Grid */
+.projects-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(20rem,1fr));
+  gap:1.4rem;
+}
+.tool-card{
+  position:relative;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:1.6rem;
+  display:flex;
+  flex-direction:column;
+  gap:1.05rem;
+  transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s;
+  overflow:hidden;
+}
+.tool-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(255,75,43,.45);
+  box-shadow:0 12px 32px rgba(255,75,43,.12);
+  background:var(--card-hover);
+}
+.tool-card::after{
+  content:"";
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--ember),transparent);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .4s ease;
+}
+.tool-card:hover::after{
+  transform:scaleX(1);
+}
+
+.tool-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:.75rem;
+}
+.tool-identity{
+  display:flex;
+  align-items:center;
+  gap:.85rem;
+}
+.tool-glyph{
+  width:40px;
+  height:40px;
+  border-radius:6px;
+  background:#141414;
+  border:1px solid rgba(255,75,43,.3);
+  color:var(--ember);
+  font:700 1rem var(--head);
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+  box-shadow:0 0 15px rgba(255,75,43,.12);
+}
+.tool-name{
+  font-size:1.3rem;
+  line-height:1.2;
+}
+.tool-cat{
+  font-size:.75rem;
+  color:var(--muted);
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+
+.tool-body{
+  display:flex;
+  flex-direction:column;
+  gap:.4rem;
+  flex-grow:1;
+}
+.tool-what{
+  font-size:.95rem;
+  color:var(--ink);
+  line-height:1.55;
+}
+.tool-why{
+  font-size:.88rem;
+  color:var(--muted);
+  line-height:1.55;
+}
+
+/* Quick command box */
+.cmd-box{
+  background:#060606;
+  border:1px solid #1C1C1C;
+  border-radius:6px;
+  padding:.45rem .7rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.5rem;
+  font-family:var(--mono);
+  font-size:.78rem;
+  color:#bbb;
+  user-select:all;
+  transition:border-color .2s;
+}
+.tool-card:hover .cmd-box{
+  border-color:#2a2a2a;
+}
+.cmd-text{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.cmd-copy-btn{
+  background:transparent;
+  border:none;
+  color:var(--muted);
+  cursor:pointer;
+  padding:.2rem .35rem;
+  border-radius:3px;
+  display:flex;
+  align-items:center;
+  transition:color .2s,background .2s;
+  flex-shrink:0;
+}
+.cmd-copy-btn:hover{
+  color:var(--ember);
+  background:rgba(255,75,43,.1);
+}
+.cmd-copy-btn.copied{
+  color:var(--ember);
+}
+
+/* Capabilities tags */
+.cap-tags{
+  display:flex;
+  gap:.4rem;
+  flex-wrap:wrap;
+}
+.cap-tag{
+  font-size:.75rem;
+  padding:.12rem .55rem;
+  border-radius:4px;
+  background:#141414;
+  color:#9a9a9a;
+  border:1px solid #222;
+}
+
+/* Bottom footer of card */
+.tool-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding-top:.9rem;
+  border-top:1px solid var(--line);
+  margin-top:auto;
+}
+.tool-repo-link{
+  font-size:.88rem;
+  font-weight:600;
+  color:var(--muted);
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+  transition:color .2s;
+}
+.tool-repo-link:hover{
+  color:var(--ember);
+  text-decoration:underline;
+  text-underline-offset:4px;
+}
 
 /* creator badge */
-.creator{display:inline-flex;align-items:center;gap:.45rem;font-size:.85rem;color:var(--ink);text-decoration:none;padding:.15rem .55rem;border-radius:99px;background:#161616;border:1px solid var(--line);transition:border-color .2s,color .2s}
+.creator{display:inline-flex;align-items:center;gap:.45rem;font-size:.85rem;color:var(--ink);text-decoration:none;padding:.15rem .55rem;border-radius:99px;background:#141414;border:1px solid var(--line);transition:border-color .2s,color .2s}
 .creator:hover{border-color:var(--ember);color:var(--ember)}
 .creator:hover span{text-decoration:underline;text-decoration-color:var(--ember)}
 .ava{width:22px;height:22px;border-radius:50%;background:#222;object-fit:cover;display:inline-grid;place-items:center;font-size:.7rem;color:var(--ember);flex-shrink:0}
-
-.project-actions{display:flex;flex-direction:column;align-items:flex-end;gap:.5rem}
-.projects .go{font-weight:500;white-space:nowrap;transition:color .2s}
-.copy-btn{background:transparent;border:1px solid var(--line);color:var(--muted);padding:.25rem .65rem;border-radius:4px;font-size:.78rem;cursor:pointer;display:inline-flex;align-items:center;gap:.35rem;transition:all .2s;font-family:var(--body)}
-.copy-btn:hover{color:var(--ink);border-color:var(--ember)}
-.copy-btn.copied{border-color:var(--ember);color:var(--ember)}
-
-@media (max-width:720px){
-  .projects li{grid-template-columns:1fr}
-  .project-actions{align-items:flex-start;flex-direction:row}
-}
+.status{display:inline-block;padding:.15rem .65rem;border:1px solid var(--line);border-radius:99px;font-size:.78rem;font-weight:500;color:var(--muted)}
+.status.live{border-color:var(--ember);color:var(--ember)}
 
 /* private & in-development section */
-.private-section{padding:3.5rem 0;border-top:1px solid var(--line)}
-.private-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:1.5rem;margin-top:1.5rem}
-.private-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1.75rem;display:flex;flex-direction:column;gap:1rem;position:relative;transition:border-color .3s,transform .3s}
-.private-card:hover{border-color:var(--ember);transform:translateY(-4px)}
+.private-section{padding:4rem 0;border-top:1px solid var(--line)}
+.private-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(20rem,1fr));gap:1.5rem;margin-top:1.5rem}
+.private-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1.85rem;display:flex;flex-direction:column;gap:1.1rem;position:relative;transition:border-color .3s,transform .3s;overflow:hidden}
+.private-card:hover{border-color:var(--ember);transform:translateY(-4px);background:var(--card-hover)}
 .private-badge-row{display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap;margin-bottom:.35rem}
-.private-badge{display:inline-block;padding:.15rem .6rem;border-radius:4px;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;background:#1a1a1a;color:var(--muted);border:1px solid var(--line)}
+.private-badge{display:inline-block;padding:.15rem .6rem;border-radius:4px;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;background:#141414;color:var(--muted);border:1px solid var(--line)}
 .private-badge.triops{color:var(--ember);background:rgba(255,75,43,.1);border-color:rgba(255,75,43,.3)}
-.private-title{font-size:1.6rem}
+.private-title{font-size:1.65rem}
 .private-subtitle{color:var(--ink);font-weight:500;font-size:.95rem;margin-top:.25rem}
 .private-desc{color:var(--muted);font-size:.95rem;line-height:1.6;flex-grow:1}
 .private-footer{padding-top:1.15rem;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-.private-lock{display:inline-flex;align-items:center;gap:.35rem;font-size:.8rem;color:var(--muted);font-family:monospace}
+.private-lock{display:inline-flex;align-items:center;gap:.35rem;font-size:.8rem;color:var(--muted);font-family:var(--mono)}
 
 /* reveal on scroll */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
 .reveal.in{opacity:1;transform:none}
 
-/* hover text animation: each letter reacts, then settles back */
+/* hover text animation */
 .w{display:inline-block;white-space:nowrap}
 .ch{display:inline-block;transition:transform .7s cubic-bezier(.2,.8,.2,1),color .7s ease,text-shadow .7s ease}
 .ch:hover{transform:translateY(-.14em) scale(1.18) rotate(-4deg);color:var(--ember);text-shadow:0 0 .6em rgba(255,75,43,.55);transition-duration:.08s}
 
 /* triops */
 .trio{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
-.trio .box{padding:1.4rem;background:var(--card);border:1px solid var(--line);border-radius:8px}
+.trio .box{padding:1.6rem;background:var(--card);border:1px solid var(--line);border-radius:8px}
 .trio h3{font-size:1.3rem;margin-bottom:.5rem}
 .trio p{color:var(--muted)}
 .trio .soon{border-style:dashed}
@@ -179,6 +350,7 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
 .member-name{font-size:1.85rem;margin-bottom:.4rem}
 .founder p{max-width:38rem}
 .co-tags{margin-top:.75rem;display:flex;gap:.45rem;flex-wrap:wrap}
+.tag{font-size:.82rem;padding:.15rem .6rem;border-radius:4px;background:#151515;border:1px solid #222;color:var(--muted);transition:all .2s}
 .links{margin-top:1.15rem;display:flex;gap:1.15rem;flex-wrap:wrap}
 .links a{font-weight:500;color:var(--muted);transition:color .2s}
 .links a:hover{color:var(--ember);text-decoration:underline;text-underline-offset:4px}
@@ -188,27 +360,27 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
 .co-section-title{font-size:1.6rem;margin-bottom:.5rem}
 .co-section-sub{color:var(--muted);max-width:38rem;margin-bottom:1.5rem}
 .co-founders-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:1.25rem}
-.co-card{padding:1.5rem;background:var(--card);border:1px solid var(--line);border-radius:10px;display:flex;flex-direction:column;gap:.9rem;transition:border-color .3s,transform .3s}
-.co-card:hover{border-color:var(--ember);transform:translateY(-4px)}
+.co-card{padding:1.6rem;background:var(--card);border:1px solid var(--line);border-radius:10px;display:flex;flex-direction:column;gap:.9rem;transition:border-color .3s,transform .3s}
+.co-card:hover{border-color:var(--ember);transform:translateY(-4px);background:var(--card-hover)}
 .co-header{display:flex;align-items:center;gap:1rem}
 .co-avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--line);background:#1a1a1a;display:grid;place-items:center;font:700 1.4rem var(--head);color:var(--ember);flex-shrink:0}
 .co-name{font-size:1.2rem;margin:0}
-.co-handle{font-size:.85rem;color:var(--muted);font-family:monospace}
+.co-handle{font-size:.85rem;color:var(--muted);font-family:var(--mono)}
 .co-bio{color:var(--muted);font-size:.95rem;margin:0;flex-grow:1;line-height:1.55}
 
 /* contact section */
-.contact-section{padding:3.5rem 0;border-top:1px solid var(--line)}
+.contact-section{padding:4rem 0;border-top:1px solid var(--line)}
 .contact-intro{max-width:38rem;color:var(--muted);margin-bottom:2rem}
 .contact-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:1.25rem}
-.contact-card{display:flex;align-items:flex-start;gap:1.25rem;padding:1.5rem;background:var(--card);border:1px solid var(--line);border-radius:10px;text-decoration:none;transition:border-color .3s,transform .3s,box-shadow .3s;color:inherit}
-.contact-card:hover{border-color:var(--ember);transform:translateY(-4px);box-shadow:0 8px 24px rgba(255,75,43,.18)}
+.contact-card{display:flex;align-items:flex-start;gap:1.25rem;padding:1.6rem;background:var(--card);border:1px solid var(--line);border-radius:10px;text-decoration:none;transition:border-color .3s,transform .3s,box-shadow .3s;color:inherit}
+.contact-card:hover{border-color:var(--ember);transform:translateY(-4px);box-shadow:0 8px 24px rgba(255,75,43,.18);background:var(--card-hover)}
 .contact-icon{color:var(--ember);flex-shrink:0;margin-top:.15rem}
 .contact-details h3{font-size:1.25rem;margin-bottom:.35rem}
 .contact-details p{color:var(--muted);font-size:.92rem;margin-bottom:.85rem}
 .contact-link-label{font-size:.88rem;font-weight:600;color:var(--ember)}
 
 /* footer */
-footer{border-top:1px solid var(--line);padding:2.25rem 0;color:var(--muted);font-size:.95rem;background:rgba(0,0,0,.7)}
+footer{border-top:1px solid var(--line);padding:2.25rem 0;color:var(--muted);font-size:.95rem;background:rgba(5,5,5,.85)}
 footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
 .footer-nav{display:flex;gap:1.25rem;flex-wrap:wrap}
 .footer-nav a{color:var(--muted);text-decoration:none;transition:color .2s}
@@ -219,11 +391,12 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
   .reveal{opacity:1;transform:none;transition:none}
   .ch,.ch:hover{transform:none;text-shadow:none;transition:color .2s}
   .caret,.pulse{animation:none}
-  .kind:hover,.btn:hover,.co-card:hover,.contact-card:hover,.private-card:hover{transform:none}
+  .kind:hover,.btn:hover,.co-card:hover,.contact-card:hover,.private-card:hover,.tool-card:hover{transform:none}
 }
 </style>
 </head>
 <body id="top">
+<div class="grid-overlay" aria-hidden="true"></div>
 <canvas id="bg" aria-hidden="true"></canvas>
 <div id="glow" aria-hidden="true"></div>
 
@@ -236,6 +409,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
     </a>
     <nav aria-label="Main">
       <a href="#about">About</a>
+      <a href="#pipeline">Pipeline</a>
       <a href="#projects">Projects</a>
       <a href="#private-projects">Private R&amp;D</a>
       <a href="#triops">TriOps</a>
@@ -249,19 +423,20 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
 <div class="hero wrap">
   <h1>We build what we think.</h1>
   <div class="typed" aria-live="off">We build <b id="typed"></b><span class="caret"></span></div>
-  <p class="lead">Project Hellhound is an open-source security organization. We build autonomous offensive security tools, everyday applications, and persistent AI developer systems.</p>
+  <p class="lead">Project Hellhound is an open-source offensive security organization. We build autonomous reconnaissance crawlers, exploit automation systems, and persistent AI developer tools.</p>
   <div class="btns">
     <a class="btn primary" href="#projects">Browse projects</a>
     <a class="btn" href="https://github.com/projecthellhound" target="_blank" rel="noopener">GitHub organization</a>
     <a class="btn" href="#contact">Get in touch</a>
   </div>
   <div class="stats">
-    <div class="stat"><b data-count="0" id="s-projects">0</b><span>public projects</span></div>
+    <div class="stat"><b data-count="0" id="s-projects">0</b><span>public tools</span></div>
     <div class="stat"><b data-count="0" id="s-cats">0</b><span>domains & categories</span></div>
     <div class="stat"><b id="s-private">2</b><span>private R&amp;D systems</span></div>
   </div>
 </div>
 
+<!-- About Section -->
 <section id="about" class="about">
   <div class="wrap">
     <h2 class="reveal">About</h2>
@@ -277,12 +452,58 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
   </div>
 </section>
 
-<!-- Public Projects Section -->
+<!-- Offensive Tool Pipeline (Ecosystem Visualizer) -->
+<section id="pipeline" class="pipeline-section">
+  <div class="wrap">
+    <h2 class="reveal">Offensive Pipeline</h2>
+    <p class="reveal" style="color:var(--muted);max-width:40rem;margin-bottom:2rem;">
+      How Hellhound tools chain across a complete offensive lifecycle — from zero-knowledge perimeter crawl to proof-of-concept validation.
+    </p>
+    <div class="pipeline-grid reveal">
+      <div class="pipeline-stage">
+        <div class="stage-num">01</div>
+        <div class="stage-title">Recon &amp; Mapping</div>
+        <div class="stage-tools">
+          <span class="stage-pill">Hellhound Spider</span>
+          <span class="stage-pill">JARVIS</span>
+        </div>
+        <p class="stage-desc">Autonomous crawler maps SPA routes, endpoints, hidden parameters, and aggregates tactical open-source intelligence.</p>
+      </div>
+
+      <div class="pipeline-stage">
+        <div class="stage-num">02</div>
+        <div class="stage-title">Vulnerability Discovery</div>
+        <div class="stage-tools">
+          <span class="stage-pill">Bounty Hunter</span>
+          <span class="stage-pill">CMDMap</span>
+          <span class="stage-pill">GateForge</span>
+        </div>
+        <p class="stage-desc">Autonomous agents test attack surfaces for SSRF, command injection, and authorization logic flaws.</p>
+      </div>
+
+      <div class="pipeline-stage">
+        <div class="stage-num">03</div>
+        <div class="stage-title">Validation &amp; Intel</div>
+        <div class="stage-tools">
+          <span class="stage-pill">X5Sentry</span>
+          <span class="stage-pill">Agent389</span>
+          <span class="stage-pill">Spectre</span>
+        </div>
+        <p class="stage-desc">Headless execution engine validates XSS in real browsers, probes LDAP, and detects anomalous DNS exfiltration.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Public Projects Section (ProjectDiscovery-style Card Grid) -->
 <section id="projects" class="projects">
   <div class="wrap">
     <h2 class="reveal">Public Projects</h2>
+    <p class="reveal" style="color:var(--muted);max-width:40rem;margin-bottom:1.5rem;">
+      Open-source tools built and actively maintained by Project Hellhound builders.
+    </p>
     <div class="chips" id="chips" role="group" aria-label="Filter projects"></div>
-    <ul id="project-list"></ul>
+    <div class="projects-grid" id="project-list"></div>
   </div>
 </section>
 
@@ -516,56 +737,143 @@ const people = {
   h3xiee:    { name: "H3xiee", gh: "H3xiee" }
 };
 
-// Priority ordered public projects:
-// 1. Hellhound Spider (most used)
-// 2. Bounty Hunter (topmost tool)
-// 3. JARVIS
-// Then ranked by traction: CMDMap, X5Sentry, JARVIS Mobile, GateForge, Agent389, Constant, HellCorp, Spectre.
+// Priority ordered public projects with glyphs and capability tags
 const projects = [
-  { repo: "Hellhound-Spider", name: "Hellhound Spider", cat: "Offensive security", creator: "l4zz3rj0d",
+  {
+    repo: "Hellhound-Spider",
+    name: "Hellhound Spider",
+    glyph: "HS",
+    cat: "Offensive security",
+    creator: "l4zz3rj0d",
+    quickCmd: "git clone https://github.com/projecthellhound/Hellhound-Spider.git",
+    caps: ["Autonomous Crawler", "SPA & Endpoint Map", "Parameter Harvest"],
     what: "A fully autonomous crawler that maps endpoints, parameters and security issues across traditional and single-page apps.",
-    why: "You can't test what you haven't found. Drop a URL, walk away, and get the full map." },
-  { repo: "bounty-hunter", name: "Bounty Hunter", cat: "Offensive security", creator: "l4zz3rj0d", status: "Active development",
+    why: "You can't test what you haven't found. Drop a URL, walk away, and get the full map."
+  },
+  {
+    repo: "bounty-hunter",
+    name: "Bounty Hunter",
+    glyph: "BH",
+    cat: "Offensive security",
+    creator: "l4zz3rj0d",
+    status: "Active development",
+    quickCmd: "git clone https://github.com/projecthellhound/bounty-hunter.git",
+    caps: ["AI Bug Bounty Agent", "Recon-to-Report", "Autonomous Chaining"],
     what: "An autonomous AI bug bounty and pentest agent that goes from recon to exploit to report.",
-    why: "Recon and testing repeat the same steps on every target. The agent picks its own tools and chains what it finds." },
-  { repo: "JARVIS", name: "JARVIS", cat: "Offensive security", creator: "l4zz3rj0d", status: "Active development",
+    why: "Recon and testing repeat the same steps on every target. The agent picks its own tools and chains what it finds."
+  },
+  {
+    repo: "JARVIS",
+    name: "JARVIS",
+    glyph: "JV",
+    cat: "Offensive security",
+    creator: "l4zz3rj0d",
+    status: "Active development",
+    quickCmd: "git clone https://github.com/projecthellhound/JARVIS.git",
+    caps: ["Tactical OSINT", "Multi-Source Intel", "Entity Correlation"],
     what: "An autonomous tactical OSINT specialist and intelligence system.",
-    why: "Open-source intelligence means juggling dozens of sources. JARVIS pulls them into one place." },
-  { repo: "cmdmap", name: "CMDMap", cat: "Offensive security", creator: "l4zz3rj0d",
+    why: "Open-source intelligence means juggling dozens of sources. JARVIS pulls them into one place."
+  },
+  {
+    repo: "cmdmap",
+    name: "CMDMap",
+    glyph: "CM",
+    cat: "Offensive security",
+    creator: "l4zz3rj0d",
+    quickCmd: "git clone https://github.com/projecthellhound/cmdmap.git",
+    caps: ["CMDi Detection", "AST Verification", "Zero False Positives"],
     what: "A command injection detector for the modern web, with a multi-tier verification engine.",
-    why: "Most scanners flood you with false positives. CMDMap verifies each finding before reporting it." },
-  { repo: "X5Sentry", name: "X5Sentry", cat: "Offensive security", creator: "ghost",
+    why: "Most scanners flood you with false positives. CMDMap verifies each finding before reporting it."
+  },
+  {
+    repo: "X5Sentry",
+    name: "X5Sentry",
+    glyph: "X5",
+    cat: "Offensive security",
+    creator: "ghost",
+    quickCmd: "git clone https://github.com/projecthellhound/X5Sentry.git",
+    caps: ["Autonomous XSS", "Playwright Automation", "OOB Listener"],
     what: "An autonomous XSS hunter that maps attack surfaces, analyzes which characters survive, and validates bugs in a headless browser.",
-    why: "A reflected payload isn't a bug until it runs. X5Sentry proves it executes." },
-  { repo: "JARVIS-Mobile", name: "JARVIS Mobile", cat: "Offensive security", creator: "l4zz3rj0d", status: "Active development",
+    why: "A reflected payload isn't a bug until it runs. X5Sentry proves it executes."
+  },
+  {
+    repo: "JARVIS-Mobile",
+    name: "JARVIS Mobile",
+    glyph: "JM",
+    cat: "Offensive security",
+    creator: "l4zz3rj0d",
+    status: "Active development",
+    quickCmd: "git clone https://github.com/projecthellhound/JARVIS-Mobile.git",
+    caps: ["Mobile OSINT", "Tactical Intel", "Flutter / Dart"],
     what: "The mobile version of JARVIS tactical OSINT assistant.",
-    why: "Intelligence work shouldn't stop when you leave your desk." },
-  { repo: "GateForge", name: "GateForge", cat: "Offensive security", creator: "abinav",
+    why: "Intelligence work shouldn't stop when you leave your desk."
+  },
+  {
+    repo: "GateForge",
+    name: "GateForge",
+    glyph: "GF",
+    cat: "Offensive security",
+    creator: "abinav",
+    quickCmd: "git clone https://github.com/projecthellhound/GateForge.git",
+    caps: ["SSRF Testing", "Metadata Fuzzing", "Protocol Smuggling"],
     what: "A semi-autonomous SSRF testing agent for vulnerability discovery and exploitation.",
-    why: "SSRF is easy to miss and hard to test by hand across many parameters." },
-  { repo: "Agent389", name: "Agent389", cat: "Offensive security", creator: "abinav",
+    why: "SSRF is easy to miss and hard to test by hand across many parameters."
+  },
+  {
+    repo: "Agent389",
+    name: "Agent389",
+    glyph: "A3",
+    cat: "Offensive security",
+    creator: "abinav",
+    quickCmd: "git clone https://github.com/projecthellhound/Agent389.git",
+    caps: ["LDAP Exploitation", "Active Directory", "Injection Fuzzing"],
     what: "An autonomous LDAP security toolkit for vulnerability discovery and exploitation.",
-    why: "LDAP gets far less tooling than web or network testing. This fills the gap." },
-  { repo: "Constant", name: "Constant", cat: "Everyday apps", creator: "abinav",
+    why: "LDAP gets far less tooling than web or network testing. This fills the gap."
+  },
+  {
+    repo: "Constant",
+    name: "Constant",
+    glyph: "CS",
+    cat: "Everyday apps",
+    creator: "abinav",
+    quickCmd: "git clone https://github.com/projecthellhound/Constant.git",
+    caps: ["Habit Tracker", "AI Insights", "Focus & Consistency"],
     what: "A habit tracker with AI-powered insights to help you stay consistent.",
-    why: "Habits stick when tracking is simple and feedback is useful." },
-  { repo: "HellCorp", name: "HellCorp", cat: "Training labs", creator: "abinav",
+    why: "Habits stick when tracking is simple and feedback is useful."
+  },
+  {
+    repo: "HellCorp",
+    name: "HellCorp",
+    glyph: "HC",
+    cat: "Training labs",
+    creator: "abinav",
+    quickCmd: "git clone https://github.com/projecthellhound/HellCorp.git",
+    caps: ["Vulnerable Web App", "Enterprise Targets", "Hands-on Practice"],
     what: "HellCorp Global Enterprise (HGE), an intentionally vulnerable web app for enterprise-focused security training.",
-    why: "You need a safe, realistic target to practice on." },
-  { repo: "Spectre", name: "Spectre", cat: "Offensive security", creator: "abinav",
+    why: "You need a safe, realistic target to practice on."
+  },
+  {
+    repo: "Spectre",
+    name: "Spectre",
+    glyph: "SP",
+    cat: "Offensive security",
+    creator: "abinav",
+    quickCmd: "git clone https://github.com/projecthellhound/Spectre.git",
+    caps: ["DNS Threat Detection", "Data Exfiltration", "Covert C2 Analysis"],
     what: "Intelligent DNS threat detection for tunneling, data exfiltration, anomalous traffic and covert C2.",
-    why: "DNS is trusted by default, which makes it a quiet channel for attackers." }
+    why: "DNS is trusted by default, which makes it a quiet channel for attackers."
+  }
 ];
 
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* copy clone snippet helper */
+/* copy command helper */
 function copyCommand(text, btn) {
   if (!navigator.clipboard) return;
   navigator.clipboard.writeText(text).then(() => {
     const orig = btn.innerHTML;
     btn.classList.add("copied");
-    btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>Copied!</span>`;
+    btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
     setTimeout(() => {
       btn.innerHTML = orig;
       btn.classList.remove("copied");
@@ -624,7 +932,7 @@ function watch(el, delay){
   el.style.transitionDelay = (delay || 0) + "ms"; io.observe(el);
 }
 
-/* project list + filters */
+/* project card grid renderer */
 const list = document.getElementById("project-list");
 const chipBox = document.getElementById("chips");
 const cats = ["All", ...new Set(projects.map(p => p.cat))];
@@ -633,59 +941,99 @@ let active = "All";
 function render(){
   list.innerHTML = "";
   projects.filter(p => active === "All" || p.cat === active).forEach((p, i) => {
-    const li = document.createElement("li");
-    li.className = "reveal";
-    li.dataset.repo = p.repo;
+    const card = document.createElement("div");
+    card.className = "tool-card reveal";
+    card.dataset.repo = p.repo;
     
-    const c1 = document.createElement("div");
-    const h = document.createElement("h3"); h.textContent = p.name; c1.appendChild(h);
+    // Top row: Glyph + Name + Cat + Status
+    const top = document.createElement("div");
+    top.className = "tool-top";
+    
+    const idWrap = document.createElement("div");
+    idWrap.className = "tool-identity";
+    
+    const glyph = document.createElement("div");
+    glyph.className = "tool-glyph";
+    glyph.textContent = p.glyph || p.name.slice(0, 2).toUpperCase();
+    
+    const titleBox = document.createElement("div");
+    const h = document.createElement("h3");
+    h.className = "tool-name";
+    h.textContent = p.name;
+    const cat = document.createElement("span");
+    cat.className = "tool-cat";
+    cat.textContent = p.cat;
+    titleBox.append(h, cat);
+    
+    idWrap.append(glyph, titleBox);
+    top.appendChild(idWrap);
+    
     if (p.status) {
       const s = document.createElement("span");
       s.className = "status live";
       s.textContent = p.status;
-      c1.appendChild(s);
+      top.appendChild(s);
     }
     
-    const c2 = document.createElement("div");
-    const w = document.createElement("p"); w.textContent = p.what;
-    const y = document.createElement("p"); y.className = "why"; y.textContent = p.why;
+    // Body: What & Why
+    const body = document.createElement("div");
+    body.className = "tool-body";
+    const w = document.createElement("p");
+    w.className = "tool-what";
+    w.textContent = p.what;
+    const y = document.createElement("p");
+    y.className = "tool-why";
+    y.textContent = p.why;
+    body.append(w, y);
     
-    const m = document.createElement("div"); m.className = "meta";
-    const t1 = document.createElement("span"); t1.className = "tag"; t1.textContent = p.cat;
-    const t2 = document.createElement("span"); t2.className = "tag"; t2.textContent = "Project Hellhound";
-    m.append(t1, t2);
-    
-    if (p.creator && people[p.creator]) {
-      m.appendChild(avatar(people[p.creator]));
-    }
-    
-    c2.append(w, y, m);
-    
-    const actions = document.createElement("div");
-    actions.className = "project-actions";
-    
-    const g = document.createElement("a");
-    g.className = "go";
-    g.rel = "noopener";
-    g.target = "_blank";
-    g.href = ORG + p.repo;
-    g.textContent = "View on GitHub →";
+    // Quick command box
+    const cmdBox = document.createElement("div");
+    cmdBox.className = "cmd-box";
+    const cmdText = document.createElement("span");
+    cmdText.className = "cmd-text";
+    cmdText.textContent = "$ " + p.quickCmd;
     
     const copyBtn = document.createElement("button");
-    copyBtn.className = "copy-btn";
+    copyBtn.className = "cmd-copy-btn";
     copyBtn.type = "button";
     copyBtn.title = "Copy git clone command";
-    copyBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> <span>Clone</span>`;
+    copyBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
     copyBtn.onclick = (e) => {
       e.stopPropagation();
-      copyCommand("git clone " + ORG + p.repo + ".git", copyBtn);
+      copyCommand(p.quickCmd, copyBtn);
     };
+    cmdBox.append(cmdText, copyBtn);
     
-    actions.append(g, copyBtn);
-    li.append(c1, c2, actions);
-    list.appendChild(li);
+    // Capabilities tags
+    const capTags = document.createElement("div");
+    capTags.className = "cap-tags";
+    if (p.caps) {
+      p.caps.forEach(c => {
+        const ct = document.createElement("span");
+        ct.className = "cap-tag";
+        ct.textContent = c;
+        capTags.appendChild(ct);
+      });
+    }
+    
+    // Footer row: Creator avatar + View on GitHub
+    const footer = document.createElement("div");
+    footer.className = "tool-footer";
+    if (p.creator && people[p.creator]) {
+      footer.appendChild(avatar(people[p.creator]));
+    }
+    const repoLink = document.createElement("a");
+    repoLink.className = "tool-repo-link";
+    repoLink.href = ORG + p.repo;
+    repoLink.target = "_blank";
+    repoLink.rel = "noopener";
+    repoLink.innerHTML = `<span>View on GitHub</span> <span>↗</span>`;
+    footer.appendChild(repoLink);
+    
+    card.append(top, body, cmdBox, capTags, footer);
+    list.appendChild(card);
     fx(h);
-    watch(li, Math.min(i, 6) * 70);
+    watch(card, Math.min(i, 6) * 60);
   });
 }
 
@@ -703,7 +1051,7 @@ cats.forEach(c => {
 render();
 
 /* headings: hover letters + reveal */
-document.querySelectorAll("h1,h2,.kind h3,.trio h3,.brand-text,.contact-details h3,.private-title").forEach(fx);
+document.querySelectorAll("h1,h2,.kind h3,.trio h3,.brand-text,.contact-details h3,.private-title,.stage-title").forEach(fx);
 document.querySelectorAll(".reveal").forEach((el, i) => { if (!el.classList.contains("in") && !el.closest("#project-list")) watch(el, 0); });
 
 /* stats count-up animation */
@@ -751,8 +1099,8 @@ function size(){
   pts = Array.from({ length: n }, () => ({
     x: Math.random() * W,
     y: Math.random() * H,
-    vx: (Math.random() - .5) * .4,
-    vy: (Math.random() - .5) * .4,
+    vx: (Math.random() - .5) * .35,
+    vy: (Math.random() - .5) * .35,
     size: Math.random() * 1.5 + 1
   }));
 }
