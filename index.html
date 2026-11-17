@@ -228,7 +228,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
   <p class="lead">Project Hellhound is an open-source organization. We make offensive security tools, but we don't stop there: apps people use every day, and developer tools powered by AI.</p>
   <div class="btns">
     <a class="btn primary" href="#projects">Browse projects</a>
-    <a class="btn" href="https://github.com/project-hellhound-org" target="_blank" rel="noopener">GitHub organization</a>
+    <a class="btn" href="https://github.com/projecthellhound" target="_blank" rel="noopener">GitHub organization</a>
     <a class="btn" href="#contact">Get in touch</a>
   </div>
   <div class="stats">
@@ -409,7 +409,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
   <div class="wrap">
     <span>&copy; <span id="yr"></span> Project Hellhound. Part of TriOps Security.</span>
     <div class="footer-nav">
-      <a href="https://github.com/project-hellhound-org" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/projecthellhound" target="_blank" rel="noopener">GitHub</a>
       <a href="https://discord.gg/DUBDAeJVk" target="_blank" rel="noopener">Discord</a>
       <a href="mailto:projectxhellhound@gmail.com">Email</a>
       <a href="https://www.linkedin.com/company/122134385" target="_blank" rel="noopener">TriOps Security</a>
@@ -418,7 +418,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
 </footer>
 
 <script>
-const ORG = "https://github.com/project-hellhound-org/";
+const ORG = "https://github.com/projecthellhound/";
 
 // Projects data
 const projects = [
@@ -647,7 +647,7 @@ async function fetchLiveStats() {
     if (cached) {
       gitHubReposData = JSON.parse(cached);
     } else {
-      const res = await fetch("https://api.github.com/orgs/project-hellhound-org/repos?per_page=100");
+      const res = await fetch("https://api.github.com/orgs/projecthellhound/repos?per_page=100");
       if (res.ok) {
         gitHubReposData = await res.json();
         sessionStorage.setItem("ph_repos_cache", JSON.stringify(gitHubReposData));
