@@ -106,23 +106,298 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
 .kind p{color:var(--muted);font-size:.95rem}
 
 /* pipeline section */
-.pipeline-section{padding:4rem 0;border-top:1px solid var(--line)}
-.pipeline-grid{display:flex;align-items:stretch;gap:1.25rem;flex-wrap:wrap;margin-top:1.75rem}
-.pipeline-stage{flex:1;min-width:17rem;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1.6rem;display:flex;flex-direction:column;gap:.85rem;position:relative;transition:border-color .3s,transform .3s}
-.pipeline-stage:hover{border-color:rgba(255,75,43,.45);transform:translateY(-3px)}
-.stage-num{font-family:var(--head);font-size:2rem;font-weight:700;color:var(--ember);line-height:1}
-.stage-title{font-size:1.2rem;font-weight:700}
-.stage-tools{display:flex;gap:.45rem;flex-wrap:wrap}
-.stage-pill{font-size:.78rem;font-weight:600;padding:.18rem .6rem;background:#151515;border:1px solid #262626;border-radius:4px;color:var(--ink)}
-.stage-desc{color:var(--muted);font-size:.9rem;line-height:1.55;margin-top:auto}
+.pipeline-section{padding:5rem 0;border-top:1px solid var(--line)}
+.pipeline-grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:1.85rem;
+  margin-top:2.25rem;
+}
+@media (max-width:820px){
+  .pipeline-grid{
+    grid-template-columns:1fr;
+    gap:1.35rem;
+  }
+}
+.pipeline-stage{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:2.25rem;
+  display:flex;
+  flex-direction:column;
+  gap:1.15rem;
+  position:relative;
+  transition:border-color .3s,transform .3s,box-shadow .3s;
+}
+.pipeline-stage:hover{
+  border-color:rgba(255,75,43,.5);
+  box-shadow:0 14px 36px rgba(255,75,43,.14);
+  transform:translateY(-3px);
+  background:var(--card-hover);
+}
+.stage-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.stage-num{
+  font-family:var(--head);
+  font-size:2.5rem;
+  font-weight:700;
+  color:var(--ember);
+  line-height:1;
+  letter-spacing:-.03em;
+}
+.stage-flow-tag{
+  font-family:var(--mono);
+  font-size:.72rem;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  background:#141414;
+  padding:.22rem .6rem;
+  border-radius:4px;
+  border:1px solid #242424;
+}
+.stage-title{
+  font-size:1.35rem;
+  font-weight:700;
+  color:var(--ink);
+  letter-spacing:-.01em;
+}
+.stage-tools{
+  display:flex;
+  gap:.55rem;
+  flex-wrap:wrap;
+}
+.stage-pill{
+  font-size:.82rem;
+  font-weight:600;
+  padding:.25rem .75rem;
+  background:#141414;
+  border:1px solid #282828;
+  border-radius:6px;
+  color:var(--ink);
+  transition:border-color .2s;
+}
+.pipeline-stage:hover .stage-pill{
+  border-color:rgba(255,75,43,.35);
+}
+.stage-desc{
+  color:var(--muted);
+  font-size:.95rem;
+  line-height:1.65;
+  margin-top:auto;
+}
+
+/* Flagship Section */
+.flagship-container{
+  margin-bottom:3.5rem;
+}
+.flagship-section-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  flex-wrap:wrap;
+  margin-bottom:1.35rem;
+  padding-bottom:.75rem;
+  border-bottom:1px solid var(--line);
+}
+.flagship-pill-label{
+  font-family:var(--mono);
+  font-size:.8rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  color:var(--ember);
+  text-transform:uppercase;
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+}
+.flagship-header-note{
+  font-family:var(--mono);
+  font-size:.78rem;
+  color:var(--muted);
+}
+.flagship-grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:1.6rem;
+}
+@media (max-width:860px){
+  .flagship-grid{
+    grid-template-columns:1fr;
+  }
+}
+.flagship-card{
+  position:relative;
+  background:#0A0A0A;
+  border:1px solid rgba(255,75,43,.4);
+  box-shadow:0 0 32px rgba(255,75,43,.1), 0 12px 30px rgba(0,0,0,.6);
+  border-radius:12px;
+  padding:2rem;
+  display:flex;
+  flex-direction:column;
+  gap:1.25rem;
+  transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s;
+  cursor:pointer;
+  overflow:hidden;
+}
+.flagship-card:hover{
+  transform:translateY(-5px);
+  border-color:var(--ember);
+  box-shadow:0 0 45px rgba(255,75,43,.22), 0 16px 40px rgba(0,0,0,.8);
+  background:#0E0E0E;
+}
+.flagship-card::after{
+  content:"";
+  position:absolute;
+  top:0;left:0;right:0;
+  height:3px;
+  background:linear-gradient(90deg,var(--ember),rgba(255,75,43,.3),transparent);
+}
+.flagship-meta-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.75rem;
+}
+.flagship-tag{
+  font-family:var(--mono);
+  font-size:.72rem;
+  font-weight:700;
+  letter-spacing:.06em;
+  color:var(--ember);
+  background:rgba(255,75,43,.12);
+  border:1px solid rgba(255,75,43,.3);
+  border-radius:4px;
+  padding:.22rem .6rem;
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+}
+.flagship-identity{
+  display:flex;
+  align-items:center;
+  gap:1rem;
+}
+.flagship-glyph{
+  width:48px;
+  height:48px;
+  border-radius:8px;
+  background:#141414;
+  border:1px solid rgba(255,75,43,.5);
+  color:var(--ember);
+  font:700 1.25rem var(--head);
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+  box-shadow:0 0 20px rgba(255,75,43,.2);
+}
+.flagship-name{
+  font-size:1.55rem;
+  font-weight:700;
+  line-height:1.2;
+}
+.flagship-cat{
+  font-size:.75rem;
+  color:var(--muted);
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  margin-top:.15rem;
+}
+.flagship-tagline{
+  font-size:.95rem;
+  color:var(--ink);
+  line-height:1.6;
+}
+.flagship-specs{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:.65rem;
+  background:#070707;
+  border:1px solid #1C1C1C;
+  border-radius:8px;
+  padding:.85rem;
+}
+@media (max-width:600px){
+  .flagship-specs{
+    grid-template-columns:1fr;
+  }
+}
+.flagship-spec-item{
+  display:flex;
+  flex-direction:column;
+  gap:.18rem;
+}
+.flagship-spec-label{
+  font-family:var(--mono);
+  font-size:.68rem;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+.flagship-spec-val{
+  font-size:.85rem;
+  font-weight:600;
+  color:var(--ink);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.flagship-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding-top:.95rem;
+  border-top:1px solid var(--line);
+  margin-top:auto;
+}
+.flagship-inspect-btn{
+  font-family:var(--mono);
+  font-size:.84rem;
+  color:var(--ember);
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  font-weight:700;
+  transition:gap .2s ease;
+}
+.flagship-card:hover .flagship-inspect-btn{
+  gap:.65rem;
+}
+
+/* Specialized Section Header */
+.specialized-container{
+  margin-top:1rem;
+}
+.specialized-section-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  flex-wrap:wrap;
+  margin-bottom:1.5rem;
+}
+.specialized-pill-label{
+  font-family:var(--mono);
+  font-size:.8rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  color:var(--muted);
+  text-transform:uppercase;
+}
 
 /* filter chips */
-.chips{display:flex;gap:.6rem;flex-wrap:wrap;margin:0 0 1.75rem}
+.chips{display:flex;gap:.6rem;flex-wrap:wrap}
 .chip{font:500 .92rem var(--body);color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:99px;padding:.4rem 1.1rem;cursor:pointer;transition:all .2s}
 .chip:hover{color:var(--ink);border-color:var(--ink)}
 .chip[aria-pressed="true"]{background:var(--ember);border-color:var(--ember);color:var(--ember-ink)}
 
-/* ProjectDiscovery-style Tool Cards Grid */
+/* Project Cards Grid */
 .projects-grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(20rem,1fr));
@@ -136,14 +411,15 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
   padding:1.6rem;
   display:flex;
   flex-direction:column;
-  gap:1.05rem;
+  gap:1rem;
   transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s;
   overflow:hidden;
+  cursor:pointer;
 }
 .tool-card:hover{
   transform:translateY(-4px);
   border-color:rgba(255,75,43,.45);
-  box-shadow:0 12px 32px rgba(255,75,43,.12);
+  box-shadow:0 12px 32px rgba(255,75,43,.14);
   background:var(--card-hover);
 }
 .tool-card::after{
@@ -172,17 +448,22 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
   gap:.85rem;
 }
 .tool-glyph{
-  width:40px;
-  height:40px;
+  width:42px;
+  height:42px;
   border-radius:6px;
   background:#141414;
   border:1px solid rgba(255,75,43,.3);
   color:var(--ember);
-  font:700 1rem var(--head);
+  font:700 1.05rem var(--head);
   display:grid;
   place-items:center;
   flex-shrink:0;
   box-shadow:0 0 15px rgba(255,75,43,.12);
+  transition:border-color .2s,box-shadow .2s;
+}
+.tool-card:hover .tool-glyph{
+  border-color:var(--ember);
+  box-shadow:0 0 20px rgba(255,75,43,.25);
 }
 .tool-name{
   font-size:1.3rem;
@@ -202,59 +483,10 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
   gap:.4rem;
   flex-grow:1;
 }
-.tool-what{
-  font-size:.95rem;
+.tool-tagline{
+  font-size:.92rem;
   color:var(--ink);
   line-height:1.55;
-}
-.tool-why{
-  font-size:.88rem;
-  color:var(--muted);
-  line-height:1.55;
-}
-
-/* Quick command box */
-.cmd-box{
-  background:#060606;
-  border:1px solid #1C1C1C;
-  border-radius:6px;
-  padding:.45rem .7rem;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:.5rem;
-  font-family:var(--mono);
-  font-size:.78rem;
-  color:#bbb;
-  user-select:all;
-  transition:border-color .2s;
-}
-.tool-card:hover .cmd-box{
-  border-color:#2a2a2a;
-}
-.cmd-text{
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-.cmd-copy-btn{
-  background:transparent;
-  border:none;
-  color:var(--muted);
-  cursor:pointer;
-  padding:.2rem .35rem;
-  border-radius:3px;
-  display:flex;
-  align-items:center;
-  transition:color .2s,background .2s;
-  flex-shrink:0;
-}
-.cmd-copy-btn:hover{
-  color:var(--ember);
-  background:rgba(255,75,43,.1);
-}
-.cmd-copy-btn.copied{
-  color:var(--ember);
 }
 
 /* Capabilities tags */
@@ -264,11 +496,11 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
   flex-wrap:wrap;
 }
 .cap-tag{
-  font-size:.75rem;
-  padding:.12rem .55rem;
+  font-size:.74rem;
+  padding:.14rem .55rem;
   border-radius:4px;
   background:#141414;
-  color:#9a9a9a;
+  color:#a5a5a5;
   border:1px solid #222;
 }
 
@@ -277,24 +509,308 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding-top:.9rem;
+  padding-top:.85rem;
   border-top:1px solid var(--line);
   margin-top:auto;
 }
-.tool-repo-link{
-  font-size:.88rem;
-  font-weight:600;
-  color:var(--muted);
-  text-decoration:none;
+.tool-inspect-link{
+  font-family:var(--mono);
+  font-size:.82rem;
+  color:var(--ember);
   display:inline-flex;
   align-items:center;
   gap:.35rem;
+  font-weight:600;
+  transition:gap .2s ease;
+}
+.tool-card:hover .tool-inspect-link{
+  gap:.55rem;
+}
+
+/* Dossier Modal */
+.dossier-overlay{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  background:rgba(5,5,5,.88);
+  backdrop-filter:blur(14px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:1.5rem;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .25s ease,visibility .25s ease;
+}
+.dossier-overlay.active{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+.dossier-modal{
+  position:relative;
+  width:100%;
+  max-width:44rem;
+  max-height:88vh;
+  overflow-y:auto;
+  background:#0B0B0B;
+  border:1px solid rgba(255,75,43,.35);
+  box-shadow:0 0 60px rgba(255,75,43,.18), 0 24px 48px rgba(0,0,0,.9);
+  border-radius:12px;
+  padding:2.2rem;
+  transform:scale(.95) translateY(12px);
+  transition:transform .3s cubic-bezier(.2,.8,.2,1);
+  display:flex;
+  flex-direction:column;
+  gap:1.35rem;
+}
+.dossier-overlay.active .dossier-modal{
+  transform:scale(1) translateY(0);
+}
+.dossier-corner-tag{
+  position:absolute;
+  top:.85rem;
+  left:1.15rem;
+  font-family:var(--mono);
+  font-size:.7rem;
+  color:rgba(255,75,43,.7);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-weight:600;
+}
+.dossier-close{
+  position:absolute;
+  top:1rem;
+  right:1.15rem;
+  background:#141414;
+  border:1px solid #282828;
+  color:var(--muted);
+  border-radius:6px;
+  padding:.35rem .75rem;
+  font-family:var(--mono);
+  font-size:.8rem;
+  cursor:pointer;
+  transition:all .2s;
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+}
+.dossier-close:hover{
+  color:var(--ink);
+  border-color:var(--ember);
+  background:rgba(255,75,43,.1);
+}
+.dossier-header{
+  display:flex;
+  align-items:flex-start;
+  gap:1.15rem;
+  padding-bottom:1.25rem;
+  border-bottom:1px solid var(--line);
+  margin-top:.75rem;
+}
+.dossier-glyph{
+  width:50px;
+  height:50px;
+  border-radius:8px;
+  background:#141414;
+  border:1px solid rgba(255,75,43,.4);
+  color:var(--ember);
+  font:700 1.3rem var(--head);
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+  box-shadow:0 0 20px rgba(255,75,43,.18);
+}
+.dossier-title-box{
+  flex-grow:1;
+}
+.dossier-title-row{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+  flex-wrap:wrap;
+}
+.dossier-title{
+  font-size:1.75rem;
+  font-weight:700;
+  color:var(--ink);
+  line-height:1.2;
+}
+.dossier-repo-path{
+  font-family:var(--mono);
+  font-size:.85rem;
+  color:var(--muted);
+  margin-top:.2rem;
+}
+.dossier-stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));
+  gap:.75rem;
+}
+.dossier-stat-card{
+  background:#111;
+  border:1px solid #222;
+  border-radius:6px;
+  padding:.75rem .95rem;
+  display:flex;
+  flex-direction:column;
+  gap:.2rem;
+}
+.dossier-stat-label{
+  font-family:var(--mono);
+  font-size:.7rem;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+.dossier-stat-val{
+  font-size:.92rem;
+  font-weight:600;
+  color:var(--ink);
+}
+.dossier-terminal-wrap{
+  display:flex;
+  flex-direction:column;
+  gap:.4rem;
+}
+.dossier-terminal-label{
+  font-family:var(--mono);
+  font-size:.72rem;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+.dossier-terminal{
+  background:#050505;
+  border:1px solid #222;
+  border-radius:6px;
+  padding:.65rem .95rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.75rem;
+  font-family:var(--mono);
+  font-size:.82rem;
+  color:#f0f0f0;
+}
+.dossier-terminal code{
+  overflow-x:auto;
+  white-space:nowrap;
+  color:#f0f0f0;
+}
+.dossier-copy-btn{
+  background:#181818;
+  border:1px solid #333;
+  color:var(--ink);
+  padding:.35rem .75rem;
+  border-radius:4px;
+  font-family:var(--mono);
+  font-size:.75rem;
+  font-weight:600;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+  transition:all .2s;
+  flex-shrink:0;
+}
+.dossier-copy-btn:hover{
+  background:var(--ember);
+  border-color:var(--ember);
+  color:var(--ember-ink);
+}
+.dossier-copy-btn.copied{
+  background:#00e676;
+  border-color:#00e676;
+  color:#000;
+}
+.dossier-desc-box{
+  display:flex;
+  flex-direction:column;
+  gap:.85rem;
+  line-height:1.65;
+  color:#d0d0d0;
+  font-size:.95rem;
+}
+.dossier-desc-box p{
+  white-space:pre-line;
+}
+.dossier-desc-why{
+  padding:.85rem 1.1rem;
+  background:#111;
+  border-left:3px solid var(--ember);
+  border-radius:0 6px 6px 0;
+  font-size:.9rem;
+  color:var(--ink);
+  line-height:1.6;
+}
+.dossier-caps-wrap{
+  display:flex;
+  flex-direction:column;
+  gap:.45rem;
+}
+.dossier-caps-label{
+  font-family:var(--mono);
+  font-size:.72rem;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+.dossier-caps-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.4rem;
+}
+.dossier-cap-pill{
+  font-size:.78rem;
+  padding:.2rem .65rem;
+  background:#151515;
+  border:1px solid #282828;
+  border-radius:4px;
+  color:var(--ink);
+}
+.dossier-actions{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  flex-wrap:wrap;
+  padding-top:1.25rem;
+  border-top:1px solid var(--line);
+  margin-top:.5rem;
+}
+.dossier-gh-btn{
+  background:var(--ember);
+  color:var(--ember-ink);
+  font-family:var(--mono);
+  font-size:.85rem;
+  font-weight:700;
+  padding:.65rem 1.4rem;
+  border-radius:6px;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  transition:transform .2s,box-shadow .2s;
+}
+.dossier-gh-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(255,75,43,.35);
+}
+.dossier-dismiss-btn{
+  background:transparent;
+  border:none;
+  color:var(--muted);
+  font-family:var(--mono);
+  font-size:.8rem;
+  cursor:pointer;
+  padding:.4rem .75rem;
   transition:color .2s;
 }
-.tool-repo-link:hover{
-  color:var(--ember);
+.dossier-dismiss-btn:hover{
+  color:var(--ink);
   text-decoration:underline;
-  text-underline-offset:4px;
 }
 
 /* creator badge */
@@ -302,8 +818,42 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
 .creator:hover{border-color:var(--ember);color:var(--ember)}
 .creator:hover span{text-decoration:underline;text-decoration-color:var(--ember)}
 .ava{width:22px;height:22px;border-radius:50%;background:#222;object-fit:cover;display:inline-grid;place-items:center;font-size:.7rem;color:var(--ember);flex-shrink:0}
-.status{display:inline-block;padding:.15rem .65rem;border:1px solid var(--line);border-radius:99px;font-size:.78rem;font-weight:500;color:var(--muted)}
-.status.live{border-color:var(--ember);color:var(--ember)}
+.status{
+  display:inline-flex;
+  align-items:center;
+  gap:.38rem;
+  padding:.22rem .62rem;
+  border:1px solid rgba(255,75,43,.35);
+  background:rgba(255,75,43,.08);
+  border-radius:99px;
+  font-family:var(--mono);
+  font-size:.72rem;
+  font-weight:600;
+  color:var(--ember);
+  white-space:nowrap;
+  flex-shrink:0;
+  line-height:1;
+  letter-spacing:.02em;
+}
+.status.live{
+  border-color:rgba(255,75,43,.45);
+  background:rgba(255,75,43,.1);
+  color:var(--ember);
+}
+.status .live-dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--ember);
+  box-shadow:0 0 8px var(--ember);
+  animation:status-pulse 2s ease-in-out infinite;
+  display:inline-block;
+  flex-shrink:0;
+}
+@keyframes status-pulse{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.35;transform:scale(.8)}
+}
 
 /* private & in-development section */
 .private-section{padding:4rem 0;border-top:1px solid var(--line)}
@@ -461,49 +1011,90 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
     </p>
     <div class="pipeline-grid reveal">
       <div class="pipeline-stage">
-        <div class="stage-num">01</div>
-        <div class="stage-title">Recon &amp; Mapping</div>
+        <div class="stage-head">
+          <div class="stage-num">01</div>
+          <span class="stage-flow-tag">PHASE 1 &middot; SURFACE CRAWL</span>
+        </div>
+        <div class="stage-title">Perimeter Recon &amp; Mapping</div>
         <div class="stage-tools">
           <span class="stage-pill">Hellhound Spider</span>
           <span class="stage-pill">JARVIS</span>
+          <span class="stage-pill">JARVIS-Mobile</span>
         </div>
-        <p class="stage-desc">Autonomous crawler maps SPA routes, endpoints, hidden parameters, and aggregates tactical open-source intelligence.</p>
+        <p class="stage-desc">Dual-engine crawler maps dynamic SPA routes, endpoints, hidden parameters, and gathers cross-vector tactical OSINT.</p>
       </div>
 
       <div class="pipeline-stage">
-        <div class="stage-num">02</div>
-        <div class="stage-title">Vulnerability Discovery</div>
+        <div class="stage-head">
+          <div class="stage-num">02</div>
+          <span class="stage-flow-tag">PHASE 2 &middot; PROTOCOL FUZZ</span>
+        </div>
+        <div class="stage-title">Injection Fuzzing &amp; Testing</div>
         <div class="stage-tools">
-          <span class="stage-pill">Bounty Hunter</span>
           <span class="stage-pill">CMDMap</span>
           <span class="stage-pill">GateForge</span>
+          <span class="stage-pill">Agent389</span>
         </div>
-        <p class="stage-desc">Autonomous agents test attack surfaces for SSRF, command injection, and authorization logic flaws.</p>
+        <p class="stage-desc">Specialized analyzers fuzz for command injection, cloud metadata SSRF, and Active Directory LDAP injection.</p>
       </div>
 
       <div class="pipeline-stage">
-        <div class="stage-num">03</div>
-        <div class="stage-title">Validation &amp; Intel</div>
-        <div class="stage-tools">
-          <span class="stage-pill">X5Sentry</span>
-          <span class="stage-pill">Agent389</span>
-          <span class="stage-pill">Spectre</span>
+        <div class="stage-head">
+          <div class="stage-num">03</div>
+          <span class="stage-flow-tag">PHASE 3 &middot; EXPLOIT CHAIN</span>
         </div>
-        <p class="stage-desc">Headless execution engine validates XSS in real browsers, probes LDAP, and detects anomalous DNS exfiltration.</p>
+        <div class="stage-title">Autonomous Exploitation</div>
+        <div class="stage-tools">
+          <span class="stage-pill">Bounty Hunter</span>
+          <span class="stage-pill">X5Sentry</span>
+        </div>
+        <p class="stage-desc">Autonomous agents chain multi-step vulnerabilities and prove exploitability in headless browser environments.</p>
+      </div>
+
+      <div class="pipeline-stage">
+        <div class="stage-head">
+          <div class="stage-num">04</div>
+          <span class="stage-flow-tag">PHASE 4 &middot; C2 &amp; RANGE</span>
+        </div>
+        <div class="stage-title">Telemetry &amp; Training Labs</div>
+        <div class="stage-tools">
+          <span class="stage-pill">Spectre</span>
+          <span class="stage-pill">HellCorp</span>
+        </div>
+        <p class="stage-desc">Detects covert DNS tunneling/exfiltration and provides realistic enterprise targets for safe security practice.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Public Projects Section (ProjectDiscovery-style Card Grid) -->
+<!-- Public Projects Section -->
 <section id="projects" class="projects">
   <div class="wrap">
-    <h2 class="reveal">Public Projects</h2>
-    <p class="reveal" style="color:var(--muted);max-width:40rem;margin-bottom:1.5rem;">
-      Open-source tools built and actively maintained by Project Hellhound builders.
+    <h2 class="reveal">Arsenal &amp; Projects</h2>
+    <p class="reveal" style="color:var(--muted);max-width:40rem;margin-bottom:2.2rem;">
+      Open-source tools and autonomous systems built and actively maintained by Project Hellhound builders.
     </p>
-    <div class="chips" id="chips" role="group" aria-label="Filter projects"></div>
-    <div class="projects-grid" id="project-list"></div>
+
+    <!-- Flagship Showcase (Hellhound Spider & Bounty Hunter) -->
+    <div id="flagship-container" class="flagship-container reveal">
+      <div class="flagship-section-header">
+        <div class="flagship-pill-label">
+          <span>⚡</span>
+          <span>FLAGSHIP ARSENAL</span>
+        </div>
+        <span class="flagship-header-note">Core offensive systems engineered for automated recon and end-to-end exploit chains</span>
+      </div>
+      <div class="flagship-grid" id="flagship-list"></div>
+    </div>
+
+    <!-- Specialized Arsenal Tier -->
+    <div class="specialized-container reveal">
+      <div class="specialized-section-header">
+        <span class="specialized-pill-label">SPECIALIZED ARSENAL</span>
+        <div class="chips" id="chips" role="group" aria-label="Filter projects"></div>
+      </div>
+      <div class="projects-grid" id="project-list"></div>
+    </div>
   </div>
 </section>
 
@@ -520,7 +1111,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
         <div class="private-top">
           <div class="private-badge-row">
             <span class="private-badge">Project Hellhound R&amp;D</span>
-            <span class="status live">Under Active Dev</span>
+            <span class="status live"><span class="live-dot"></span><span>Active Dev</span></span>
           </div>
           <h3 class="private-title">Oryn</h3>
           <p class="private-subtitle">Autonomous AI Engineering Assistant — Chat + Code, Grounded in Evidence</p>
@@ -545,7 +1136,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
         <div class="private-top">
           <div class="private-badge-row">
             <span class="private-badge triops">TriOps Security</span>
-            <span class="status live">In Development</span>
+            <span class="status live"><span class="live-dot"></span><span>In Dev</span></span>
           </div>
           <h3 class="private-title">Ghost</h3>
           <p class="private-subtitle">Attack Surface Mapper &amp; Continuous Exposure Intelligence</p>
@@ -712,6 +1303,13 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
     </div>
   </div>
 </section>
+
+<!-- Interactive Project Dossier Modal -->
+<div id="dossier-overlay" class="dossier-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="dossier-modal" id="dossier-modal-content">
+    <!-- Populated by JavaScript -->
+  </div>
+</div>
 </main>
 
 <footer>
@@ -737,7 +1335,7 @@ const people = {
   h3xiee:    { name: "H3xiee", gh: "H3xiee" }
 };
 
-// Priority ordered public projects with glyphs and capability tags
+// Priority ordered public projects with glyphs, stats, and capability tags
 const projects = [
   {
     repo: "Hellhound-Spider",
@@ -745,10 +1343,17 @@ const projects = [
     glyph: "HS",
     cat: "Offensive security",
     creator: "l4zz3rj0d",
+    tagline: "High-speed dual-engine crawler mapping SPA endpoints, hidden parameters, and forms with zero blind spots.",
     quickCmd: "git clone https://github.com/projecthellhound/Hellhound-Spider.git",
-    caps: ["Autonomous Crawler", "SPA & Endpoint Map", "Parameter Harvest"],
-    what: "A fully autonomous crawler that maps endpoints, parameters and security issues across traditional and single-page apps.",
-    why: "You can't test what you haven't found. Drop a URL, walk away, and get the full map."
+    pypiCmd: "pip install hellhound-spider",
+    stats: [
+      { label: "Engines", val: "Async HTTP + Chromium" },
+      { label: "Coverage", val: "Traditional + SPA DOM" },
+      { label: "Piping", val: "httpx / ffuf / nuclei" }
+    ],
+    overview: "Hellhound Spider is an autonomous high-concurrency reconnaissance crawler engineered for modern web applications. It features dual extraction engines: an ultra-fast asynchronous HTTP engine for classic web endpoints, and an automated headless Chromium (Playwright/Patchright) engine for client-rendered Single-Page Applications (React, Angular, Vue).\n\nIt dynamically intercepts XHR/fetch POST requests, captures body parameters, performs hierarchical directory ancestor walking, parses robots.txt/sitemaps, and streams output directly into httpx and other bug bounty pipelines.",
+    why: "Modern targets rely heavily on client-side JS rendering where standard scrapers fail. You cannot test what you haven't discovered. Hellhound Spider eliminates crawler blind spots automatically.",
+    caps: ["Dual-Engine (HTTP + Chromium)", "SPA / DOM Event Crawl", "XHR & Fetch Parameter Intercept", "Ancestor Path Walking", "PyPI CLI Package"]
   },
   {
     repo: "bounty-hunter",
@@ -757,10 +1362,16 @@ const projects = [
     cat: "Offensive security",
     creator: "l4zz3rj0d",
     status: "Active development",
+    tagline: "Autonomous AI bug bounty agent chaining multi-step reconnaissance, exploit generation, and reporting.",
     quickCmd: "git clone https://github.com/projecthellhound/bounty-hunter.git",
-    caps: ["AI Bug Bounty Agent", "Recon-to-Report", "Autonomous Chaining"],
-    what: "An autonomous AI bug bounty and pentest agent that goes from recon to exploit to report.",
-    why: "Recon and testing repeat the same steps on every target. The agent picks its own tools and chains what it finds."
+    stats: [
+      { label: "Agent Codename", val: "Beast" },
+      { label: "Training Base", val: "15k+ Disclosed H1 Reports" },
+      { label: "Verification", val: "Real Exploit Proof" }
+    ],
+    overview: "Bounty Hunter is an autonomous AI penetration testing agent that bridges the gap between passive scanning and active exploit validation. Instead of drowning researchers in unverified alerts, the agent formulates an attack strategy, invokes appropriate tools, and autonomously chains findings.\n\nIt proves XSS via headless browser alert triggers, SSRF through cloud IAM metadata verification, and IDOR through multi-account privilege testing. Features a persistent per-target blackboard architecture (~/.beast/targets/) and automated markdown report generation.",
+    why: "Repetitive recon and manual validation waste hours during bug bounty hunts. Bounty Hunter automates the end-to-end offensive workflow, validating bugs before human submission.",
+    caps: ["Autonomous Attack Chaining", "Real Exploit Proofs", "15k+ Disclosed H1 Training", "Persistent Case Blackboard", "Headless Browser Validation"]
   },
   {
     repo: "JARVIS",
@@ -769,10 +1380,16 @@ const projects = [
     cat: "Offensive security",
     creator: "l4zz3rj0d",
     status: "Active development",
+    tagline: "Autonomous tactical OSINT specialist and personal intelligence framework with multi-source pivoting.",
     quickCmd: "git clone https://github.com/projecthellhound/JARVIS.git",
-    caps: ["Tactical OSINT", "Multi-Source Intel", "Entity Correlation"],
-    what: "An autonomous tactical OSINT specialist and intelligence system.",
-    why: "Open-source intelligence means juggling dozens of sources. JARVIS pulls them into one place."
+    stats: [
+      { label: "Registry Scans", val: "300+ Platforms" },
+      { label: "Telemetry", val: "ADS-B Flight & Geointel" },
+      { label: "Interfaces", val: "Desktop GUI + CLI" }
+    ],
+    overview: "J.A.R.V.I.S. (Just A Rather Very Intelligent System) is an authoritative, autonomous OSINT powerhouse. It performs deep multi-platform username scans across 300+ platforms, multi-vector entity pivoting (email to GitHub to commit history to PGP), WHOIS/DNS mapping, historical breach telemetry, and real-time military ADS-B flight tracking.\n\nAll intelligence is bound by strict anti-hallucination grounding onto a persistent target blackboard (cases/<target>/) with 2D/3D topology graphing and exportable intelligence dossiers.",
+    why: "OSINT usually requires switching between dozens of disjointed tools and sites. JARVIS consolidates cross-source correlation, verification, and tactical reporting into a unified intelligence officer.",
+    caps: ["300+ Service Username Scans", "Multi-Vector Entity Pivoting", "Military ADS-B Tracking", "PyWebView GUI + Terminal CLI", "Exportable Dossiers"]
   },
   {
     repo: "cmdmap",
@@ -780,10 +1397,16 @@ const projects = [
     glyph: "CM",
     cat: "Offensive security",
     creator: "l4zz3rj0d",
+    tagline: "Command injection detection engine for modern web architectures with multi-tier AST verification.",
     quickCmd: "git clone https://github.com/projecthellhound/cmdmap.git",
-    caps: ["CMDi Detection", "AST Verification", "Zero False Positives"],
-    what: "A command injection detector for the modern web, with a multi-tier verification engine.",
-    why: "Most scanners flood you with false positives. CMDMap verifies each finding before reporting it."
+    stats: [
+      { label: "Specialization", val: "Command Injection" },
+      { label: "Verification", val: "Multi-Tier AST" },
+      { label: "Precision", val: "Zero False Positives" }
+    ],
+    overview: "CMDMap is a specialized command injection detector engineered to replace crude string-matching scanners. It incorporates multi-tier verification: behavioral timing analysis, out-of-band echo callbacks, and response AST verification to confirm that code was genuinely executed by the host operating system.\n\nDesigned for integration into continuous testing pipelines and bug bounty reconnaissance stacks.",
+    why: "Generic vulnerability scanners flood engineers with thousands of false positives for command injection. CMDMap verifies every execution before alerting.",
+    caps: ["Multi-Tier Verification", "Time-Based & OOB Detection", "AST Flow Analysis", "Zero False Positive Filter", "CLI & Pipeline Ready"]
   },
   {
     repo: "X5Sentry",
@@ -791,10 +1414,16 @@ const projects = [
     glyph: "X5",
     cat: "Offensive security",
     creator: "ghost",
+    tagline: "AI-driven autonomous XSS hunter with filter classification and headless browser execution proof.",
     quickCmd: "git clone https://github.com/projecthellhound/X5Sentry.git",
-    caps: ["Autonomous XSS", "Playwright Automation", "OOB Listener"],
-    what: "An autonomous XSS hunter that maps attack surfaces, analyzes which characters survive, and validates bugs in a headless browser.",
-    why: "A reflected payload isn't a bug until it runs. X5Sentry proves it executes."
+    stats: [
+      { label: "Engine", val: "Adaptive State Machine" },
+      { label: "Validation", val: "Playwright Headless" },
+      { label: "Listener", val: "Embedded OOB Blind XSS" }
+    ],
+    overview: "X5Sentry is an AI-driven autonomous XSS hunter and exploit generator. Rather than blindly firing static wordlists, it analyzes reflection contexts, classifies input filters, and dynamically computes state-machine bypass sequences.\n\nCrucially, it executes payloads inside a Playwright headless browser to confirm DOM execution in real time, and provides an embedded Out-Of-Band (OOB) listener for blind XSS callbacks.",
+    why: "A reflected character is not a vulnerability until payload execution succeeds. X5Sentry eliminates theoretical bugs and provides indisputable browser execution proof.",
+    caps: ["Filter Classification Engine", "State-Machine Bypass Generator", "Playwright Execution Proof", "Blind XSS OOB Listener", "Hellhound Spider Integration"]
   },
   {
     repo: "JARVIS-Mobile",
@@ -803,10 +1432,16 @@ const projects = [
     cat: "Offensive security",
     creator: "l4zz3rj0d",
     status: "Active development",
+    tagline: "Tactical Flutter/Dart companion extending JARVIS intelligence operations to mobile devices.",
     quickCmd: "git clone https://github.com/projecthellhound/JARVIS-Mobile.git",
-    caps: ["Mobile OSINT", "Tactical Intel", "Flutter / Dart"],
-    what: "The mobile version of JARVIS tactical OSINT assistant.",
-    why: "Intelligence work shouldn't stop when you leave your desk."
+    stats: [
+      { label: "Framework", val: "Flutter / Dart" },
+      { label: "Platform", val: "Android & iOS" },
+      { label: "Sync", val: "Live Case Telemetry" }
+    ],
+    overview: "JARVIS Mobile is the handheld field client for the JARVIS intelligence framework. Engineered in Flutter/Dart for cross-platform mobile performance, it connects directly to your JARVIS backend instance to display live target blackboards, real-time ADS-B airspace alerts, and quick OSINT lookups while in the field.",
+    why: "Intelligence operations and threat monitoring don't pause when you step away from your workstation. JARVIS Mobile keeps mission data at your fingertips.",
+    caps: ["Live Blackboard Sync", "Mobile OSINT Lookups", "Real-Time Airspace Alerts", "Cross-Platform Mobile", "Secure Encrypted Transport"]
   },
   {
     repo: "GateForge",
@@ -814,10 +1449,16 @@ const projects = [
     glyph: "GF",
     cat: "Offensive security",
     creator: "abinav",
+    tagline: "Semi-autonomous SSRF testing agent targeting cloud metadata endpoints and protocol smuggling.",
     quickCmd: "git clone https://github.com/projecthellhound/GateForge.git",
-    caps: ["SSRF Testing", "Metadata Fuzzing", "Protocol Smuggling"],
-    what: "A semi-autonomous SSRF testing agent for vulnerability discovery and exploitation.",
-    why: "SSRF is easy to miss and hard to test by hand across many parameters."
+    stats: [
+      { label: "Target Vectors", val: "Cloud IMDSv1/v2 & Intranet" },
+      { label: "Bypasses", val: "DNS Rebind & Smuggling" },
+      { label: "Automation", val: "Parameter Fuzzing" }
+    ],
+    overview: "GateForge is a semi-autonomous SSRF (Server-Side Request Forgery) discovery and exploitation framework. It systematically tests parameters, headers, and API endpoints for internal network routing, specializing in cloud metadata service enumeration (AWS 169.254.169.254 IMDSv1/v2, GCP, Azure, Kubernetes etcd), protocol smuggling (gopher://, dict://), and DNS rebinding attacks.",
+    why: "SSRF vulnerabilities in cloud architectures frequently lead to full infrastructure compromise, yet testing hundreds of microservices manually is error-prone. GateForge automates the discovery and exploitation chain.",
+    caps: ["Cloud Metadata Fuzzing", "Protocol Smuggling (gopher/dict)", "DNS Rebinding Payloads", "IPv6 & Decimal Encoding Bypasses", "OOB Webhook Integration"]
   },
   {
     repo: "Agent389",
@@ -825,10 +1466,16 @@ const projects = [
     glyph: "A3",
     cat: "Offensive security",
     creator: "abinav",
+    tagline: "Autonomous LDAP and Active Directory security toolkit for directory enumeration and injection.",
     quickCmd: "git clone https://github.com/projecthellhound/Agent389.git",
-    caps: ["LDAP Exploitation", "Active Directory", "Injection Fuzzing"],
-    what: "An autonomous LDAP security toolkit for vulnerability discovery and exploitation.",
-    why: "LDAP gets far less tooling than web or network testing. This fills the gap."
+    stats: [
+      { label: "Protocol", val: "LDAP / LDAPS (Port 389/636)" },
+      { label: "Domain", val: "Active Directory" },
+      { label: "Capabilities", val: "Blind Injection & Dump" }
+    ],
+    overview: "Agent389 is an offensive security agent built specifically for LDAP directory auditing and injection exploitation. Named after LDAP's standard port 389, it audits directory configurations, detects blind LDAP injection vectors in web interfaces, and automates attribute extraction across Active Directory and OpenLDAP systems.",
+    why: "LDAP security receives significantly less open-source tooling attention compared to SQL or web vulnerabilities, despite being the backbone of enterprise authentication. Agent389 fills this operational void.",
+    caps: ["Blind LDAP Injection Fuzzing", "Active Directory Object Dumping", "Filter Syntax Manipulation", "Null & Anonymous Bind Audits", "Encrypted LDAPS Support"]
   },
   {
     repo: "Constant",
@@ -836,10 +1483,16 @@ const projects = [
     glyph: "CS",
     cat: "Everyday apps",
     creator: "abinav",
+    tagline: "Minimalist habit and focus consistency tracker engineered with AI behavioral analytics.",
     quickCmd: "git clone https://github.com/projecthellhound/Constant.git",
-    caps: ["Habit Tracker", "AI Insights", "Focus & Consistency"],
-    what: "A habit tracker with AI-powered insights to help you stay consistent.",
-    why: "Habits stick when tracking is simple and feedback is useful."
+    stats: [
+      { label: "Category", val: "Productivity / Focus" },
+      { label: "Telemetry", val: "Consistency Analytics" },
+      { label: "Design", val: "Minimalist Terminal/Web" }
+    ],
+    overview: "Constant is a focused habit tracking and personal discipline system designed for developers and researchers. It discards gamified distractions in favor of clean daily logging, consistency heatmaps, and AI-assisted behavioral feedback to sustain deep-work routines over months and years.",
+    why: "Building complex software and conducting security research requires relentless, unglamorous daily consistency. Constant provides the minimal structure to sustain it.",
+    caps: ["Distraction-Free Logging", "Habit Streak Analytics", "AI Discipline Telemetry", "Local-First Storage", "Developer Workflow Sync"]
   },
   {
     repo: "HellCorp",
@@ -847,10 +1500,16 @@ const projects = [
     glyph: "HC",
     cat: "Training labs",
     creator: "abinav",
+    tagline: "HellCorp Global Enterprise (HGE) — an intentionally vulnerable enterprise training range.",
     quickCmd: "git clone https://github.com/projecthellhound/HellCorp.git",
-    caps: ["Vulnerable Web App", "Enterprise Targets", "Hands-on Practice"],
-    what: "HellCorp Global Enterprise (HGE), an intentionally vulnerable web app for enterprise-focused security training.",
-    why: "You need a safe, realistic target to practice on."
+    stats: [
+      { label: "Architecture", val: "Enterprise Multi-Tier" },
+      { label: "Target Lab", val: "Corporate Active Directory" },
+      { label: "Vulnerabilities", val: "Modern Enterprise Vectors" }
+    ],
+    overview: "HellCorp Global Enterprise (HGE) is a realistic, intentionally vulnerable simulated corporation built as an open-source offensive training range. Unlike artificial CTF challenges, HellCorp models corporate internal infrastructure: Active Directory trusts, internal ticketing systems, vulnerable microservices, and misconfigured IAM privileges.",
+    why: "Security researchers and red teams need safe, legal, and authentic environments to battle-test exploit chains and autonomous agents before touching production targets.",
+    caps: ["Enterprise Topology Simulation", "Multi-Stage Attack Paths", "Containerized Deployment", "Realistic Misconfigurations", "Red & Blue Proving Ground"]
   },
   {
     repo: "Spectre",
@@ -858,28 +1517,20 @@ const projects = [
     glyph: "SP",
     cat: "Offensive security",
     creator: "abinav",
+    tagline: "Intelligent DNS threat telemetry for detecting data exfiltration, covert tunneling, and C2 channels.",
     quickCmd: "git clone https://github.com/projecthellhound/Spectre.git",
-    caps: ["DNS Threat Detection", "Data Exfiltration", "Covert C2 Analysis"],
-    what: "Intelligent DNS threat detection for tunneling, data exfiltration, anomalous traffic and covert C2.",
-    why: "DNS is trusted by default, which makes it a quiet channel for attackers."
+    stats: [
+      { label: "Protocol", val: "DNS / DoH / DoT" },
+      { label: "Detection", val: "Entropy & Query Timing" },
+      { label: "Analysis", val: "C2 & Tunneling Signatures" }
+    ],
+    overview: "Spectre is an intelligent DNS threat detection and telemetry engine. It monitors DNS traffic patterns in real time, detecting covert data exfiltration, protocol tunneling (iodine, dnscat2), high-entropy subdomain generation (DGA), and low-and-slow Command & Control (C2) beaconing that bypass standard perimeter firewalls.",
+    why: "DNS is nearly always permitted outbound by corporate firewalls, making it the preferred fallback channel for sophisticated adversaries and malware exfiltration. Spectre provides immediate visibility into covert DNS activity.",
+    caps: ["Shannon Entropy Query Analysis", "DNS Tunneling Protocol Signatures", "Covert C2 Beacon Detection", "Real-Time Query Telemetry", "PCAP & Live Interface Capture"]
   }
 ];
 
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-/* copy command helper */
-function copyCommand(text, btn) {
-  if (!navigator.clipboard) return;
-  navigator.clipboard.writeText(text).then(() => {
-    const orig = btn.innerHTML;
-    btn.classList.add("copied");
-    btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
-    setTimeout(() => {
-      btn.innerHTML = orig;
-      btn.classList.remove("copied");
-    }, 2000);
-  }).catch(() => {});
-}
 
 /* creator avatar builder */
 function avatar(p){
@@ -889,6 +1540,7 @@ function avatar(p){
   a.href = "https://github.com/" + p.gh;
   a.rel = "noopener";
   a.target = "_blank";
+  a.onclick = (e) => e.stopPropagation();
   
   const img = document.createElement("img");
   img.className = "ava";
@@ -932,6 +1584,246 @@ function watch(el, delay){
   el.style.transitionDelay = (delay || 0) + "ms"; io.observe(el);
 }
 
+/* Dossier Modal Management */
+const dossierOverlay = document.getElementById("dossier-overlay");
+const dossierModalContent = document.getElementById("dossier-modal-content");
+
+function closeDossier() {
+  if (!dossierOverlay) return;
+  dossierOverlay.classList.remove("active");
+  dossierOverlay.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+function copyDossierCommand(text, btn) {
+  if (!navigator.clipboard) return;
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.innerHTML;
+    btn.classList.add("copied");
+    btn.textContent = "COPIED ✓";
+    setTimeout(() => {
+      btn.innerHTML = orig;
+      btn.classList.remove("copied");
+    }, 2000);
+  }).catch(() => {});
+}
+
+function openDossier(repo) {
+  const p = projects.find(item => item.repo === repo);
+  if (!p || !dossierModalContent) return;
+
+  const creatorObj = p.creator && people[p.creator] ? people[p.creator] : null;
+  const creatorHtml = creatorObj ? `
+    <a class="creator" href="https://github.com/${creatorObj.gh}" target="_blank" rel="noopener">
+      <img class="ava" src="https://github.com/${creatorObj.gh}.png?size=48" alt="${creatorObj.name}" onerror="this.outerHTML='<span class=\\'ava\\'>${creatorObj.name[0]}</span>'">
+      <span>${creatorObj.name}</span>
+    </a>
+  ` : "";
+
+  const statsHtml = p.stats ? `
+    <div class="dossier-stats-grid">
+      ${p.stats.map(s => `
+        <div class="dossier-stat-card">
+          <span class="dossier-stat-label">${s.label}</span>
+          <span class="dossier-stat-val">${s.val}</span>
+        </div>
+      `).join("")}
+    </div>
+  ` : "";
+
+  const capsHtml = p.caps ? `
+    <div class="dossier-caps-wrap">
+      <span class="dossier-caps-label">Key Capabilities</span>
+      <div class="dossier-caps-list">
+        ${p.caps.map(c => `<span class="dossier-cap-pill">${c}</span>`).join("")}
+      </div>
+    </div>
+  ` : "";
+
+  const pypiTerminalHtml = p.pypiCmd ? `
+    <div class="dossier-terminal-wrap" style="margin-top: .4rem;">
+      <span class="dossier-terminal-label">PyPI Distribution</span>
+      <div class="dossier-terminal">
+        <code>$ ${p.pypiCmd}</code>
+        <button class="dossier-copy-btn" type="button" onclick="copyDossierCommand('${p.pypiCmd}', this)">Copy</button>
+      </div>
+    </div>
+  ` : "";
+
+  dossierModalContent.innerHTML = `
+    <span class="dossier-corner-tag">${p.cat} &middot; DOSSIER</span>
+    <button class="dossier-close" type="button" onclick="closeDossier()" aria-label="Close dossier">
+      <span>[✕]</span> <span>CLOSE</span>
+    </button>
+
+    <div class="dossier-header">
+      <div class="dossier-glyph">${p.glyph || p.name.slice(0, 2).toUpperCase()}</div>
+      <div class="dossier-title-box">
+        <div class="dossier-title-row">
+          <h3 class="dossier-title">${p.name}</h3>
+          ${p.status ? `<span class="status live"><span class="live-dot"></span><span>Active Dev</span></span>` : ""}
+        </div>
+        <div class="dossier-repo-path">projecthellhound/${p.repo}</div>
+      </div>
+    </div>
+
+    <div class="dossier-desc-box">
+      <p>${p.overview || p.what}</p>
+      ${p.why ? `<div class="dossier-desc-why"><strong>Why it exists:</strong> ${p.why}</div>` : ""}
+    </div>
+
+    ${statsHtml}
+
+    <div class="dossier-terminal-wrap">
+      <span class="dossier-terminal-label">Quickstart / Repository Clone</span>
+      <div class="dossier-terminal">
+        <code>$ ${p.quickCmd}</code>
+        <button class="dossier-copy-btn" type="button" onclick="copyDossierCommand('${p.quickCmd}', this)">Copy</button>
+      </div>
+    </div>
+
+    ${pypiTerminalHtml}
+
+    ${capsHtml}
+
+    <div class="dossier-actions">
+      <div style="display:flex;align-items:center;gap:.75rem;">
+        <span style="font-family:var(--mono);font-size:.78rem;color:var(--muted)">AUTHOR:</span>
+        ${creatorHtml}
+      </div>
+      <div style="display:flex;align-items:center;gap:.75rem;">
+        <a class="dossier-gh-btn" href="${ORG + p.repo}" target="_blank" rel="noopener">
+          <span>View on GitHub</span> <span>↗</span>
+        </a>
+        <button class="dossier-dismiss-btn" type="button" onclick="closeDossier()">Close</button>
+      </div>
+    </div>
+  `;
+
+  dossierOverlay.classList.add("active");
+  dossierOverlay.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+if (dossierOverlay) {
+  dossierOverlay.addEventListener("click", (e) => {
+    if (e.target === dossierOverlay) closeDossier();
+  });
+}
+
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeDossier();
+});
+
+/* Flagship & Specialized Arsenal renderer */
+const flagships = ["Hellhound-Spider", "bounty-hunter"];
+const flagshipList = document.getElementById("flagship-list");
+const flagshipContainer = document.getElementById("flagship-container");
+
+function renderFlagships() {
+  if (!flagshipList) return;
+  flagshipList.innerHTML = "";
+  
+  const flagshipProjects = projects.filter(p => flagships.includes(p.repo));
+  flagshipProjects.forEach((p, idx) => {
+    const card = document.createElement("div");
+    card.className = "flagship-card reveal";
+    card.dataset.repo = p.repo;
+    card.setAttribute("role", "button");
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("aria-label", `Open dossier for ${p.name}`);
+    card.onclick = () => openDossier(p.repo);
+    card.onkeydown = (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openDossier(p.repo);
+      }
+    };
+
+    // Meta top: Flagship badge + Status
+    const metaTop = document.createElement("div");
+    metaTop.className = "flagship-meta-top";
+
+    const tag = document.createElement("span");
+    tag.className = "flagship-tag";
+    tag.innerHTML = `<span>⚡</span> <span>${idx === 0 ? "FLAGSHIP RECON CRAWLER" : "FLAGSHIP AI AGENT"}</span>`;
+
+    metaTop.appendChild(tag);
+
+    const s = document.createElement("span");
+    s.className = "status live";
+    s.innerHTML = `<span class="live-dot"></span><span>${p.status ? "Active Dev" : "Production Ready"}</span>`;
+    metaTop.appendChild(s);
+
+    // Identity row: Glyph + Title + Category
+    const idRow = document.createElement("div");
+    idRow.className = "flagship-identity";
+
+    const glyph = document.createElement("div");
+    glyph.className = "flagship-glyph";
+    glyph.textContent = p.glyph || p.name.slice(0, 2).toUpperCase();
+
+    const titleBox = document.createElement("div");
+    const h = document.createElement("h3");
+    h.className = "flagship-name";
+    h.textContent = p.name;
+    const cat = document.createElement("div");
+    cat.className = "flagship-cat";
+    cat.textContent = p.cat;
+    titleBox.append(h, cat);
+
+    idRow.append(glyph, titleBox);
+
+    // Tagline
+    const tagline = document.createElement("p");
+    tagline.className = "flagship-tagline";
+    tagline.textContent = p.tagline || p.what;
+
+    // Architectural Specs (3 boxes)
+    const specsBox = document.createElement("div");
+    specsBox.className = "flagship-specs";
+    if (p.stats) {
+      p.stats.forEach(st => {
+        const item = document.createElement("div");
+        item.className = "flagship-spec-item";
+        item.innerHTML = `
+          <span class="flagship-spec-label">${st.label}</span>
+          <span class="flagship-spec-val" title="${st.val}">${st.val}</span>
+        `;
+        specsBox.appendChild(item);
+      });
+    }
+
+    // Capability tags
+    const capTags = document.createElement("div");
+    capTags.className = "cap-tags";
+    if (p.caps) {
+      p.caps.slice(0, 4).forEach(c => {
+        const ct = document.createElement("span");
+        ct.className = "cap-tag";
+        ct.textContent = c;
+        capTags.appendChild(ct);
+      });
+    }
+
+    // Footer
+    const footer = document.createElement("div");
+    footer.className = "flagship-footer";
+    if (p.creator && people[p.creator]) {
+      footer.appendChild(avatar(people[p.creator]));
+    }
+    const inspectBtn = document.createElement("span");
+    inspectBtn.className = "flagship-inspect-btn";
+    inspectBtn.innerHTML = `<span>Inspect Full Dossier</span> <span>&rarr;</span>`;
+    footer.appendChild(inspectBtn);
+
+    card.append(metaTop, idRow, tagline, specsBox, capTags, footer);
+    flagshipList.appendChild(card);
+    fx(h);
+    watch(card, idx * 80);
+  });
+}
+
 /* project card grid renderer */
 const list = document.getElementById("project-list");
 const chipBox = document.getElementById("chips");
@@ -939,102 +1831,99 @@ const cats = ["All", ...new Set(projects.map(p => p.cat))];
 let active = "All";
 
 function render(){
+  // Toggle flagship visibility based on category filter
+  if (flagshipContainer) {
+    if (active === "All" || active === "Offensive security") {
+      flagshipContainer.style.display = "block";
+    } else {
+      flagshipContainer.style.display = "none";
+    }
+  }
+
   list.innerHTML = "";
-  projects.filter(p => active === "All" || p.cat === active).forEach((p, i) => {
-    const card = document.createElement("div");
-    card.className = "tool-card reveal";
-    card.dataset.repo = p.repo;
-    
-    // Top row: Glyph + Name + Cat + Status
-    const top = document.createElement("div");
-    top.className = "tool-top";
-    
-    const idWrap = document.createElement("div");
-    idWrap.className = "tool-identity";
-    
-    const glyph = document.createElement("div");
-    glyph.className = "tool-glyph";
-    glyph.textContent = p.glyph || p.name.slice(0, 2).toUpperCase();
-    
-    const titleBox = document.createElement("div");
-    const h = document.createElement("h3");
-    h.className = "tool-name";
-    h.textContent = p.name;
-    const cat = document.createElement("span");
-    cat.className = "tool-cat";
-    cat.textContent = p.cat;
-    titleBox.append(h, cat);
-    
-    idWrap.append(glyph, titleBox);
-    top.appendChild(idWrap);
-    
-    if (p.status) {
-      const s = document.createElement("span");
-      s.className = "status live";
-      s.textContent = p.status;
-      top.appendChild(s);
-    }
-    
-    // Body: What & Why
-    const body = document.createElement("div");
-    body.className = "tool-body";
-    const w = document.createElement("p");
-    w.className = "tool-what";
-    w.textContent = p.what;
-    const y = document.createElement("p");
-    y.className = "tool-why";
-    y.textContent = p.why;
-    body.append(w, y);
-    
-    // Quick command box
-    const cmdBox = document.createElement("div");
-    cmdBox.className = "cmd-box";
-    const cmdText = document.createElement("span");
-    cmdText.className = "cmd-text";
-    cmdText.textContent = "$ " + p.quickCmd;
-    
-    const copyBtn = document.createElement("button");
-    copyBtn.className = "cmd-copy-btn";
-    copyBtn.type = "button";
-    copyBtn.title = "Copy git clone command";
-    copyBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`;
-    copyBtn.onclick = (e) => {
-      e.stopPropagation();
-      copyCommand(p.quickCmd, copyBtn);
-    };
-    cmdBox.append(cmdText, copyBtn);
-    
-    // Capabilities tags
-    const capTags = document.createElement("div");
-    capTags.className = "cap-tags";
-    if (p.caps) {
-      p.caps.forEach(c => {
-        const ct = document.createElement("span");
-        ct.className = "cap-tag";
-        ct.textContent = c;
-        capTags.appendChild(ct);
-      });
-    }
-    
-    // Footer row: Creator avatar + View on GitHub
-    const footer = document.createElement("div");
-    footer.className = "tool-footer";
-    if (p.creator && people[p.creator]) {
-      footer.appendChild(avatar(people[p.creator]));
-    }
-    const repoLink = document.createElement("a");
-    repoLink.className = "tool-repo-link";
-    repoLink.href = ORG + p.repo;
-    repoLink.target = "_blank";
-    repoLink.rel = "noopener";
-    repoLink.innerHTML = `<span>View on GitHub</span> <span>↗</span>`;
-    footer.appendChild(repoLink);
-    
-    card.append(top, body, cmdBox, capTags, footer);
-    list.appendChild(card);
-    fx(h);
-    watch(card, Math.min(i, 6) * 60);
-  });
+  projects
+    .filter(p => !flagships.includes(p.repo) && (active === "All" || p.cat === active))
+    .forEach((p, i) => {
+      const card = document.createElement("div");
+      card.className = "tool-card reveal";
+      card.dataset.repo = p.repo;
+      card.setAttribute("role", "button");
+      card.setAttribute("tabindex", "0");
+      card.setAttribute("aria-label", `Open dossier for ${p.name}`);
+      card.onclick = () => openDossier(p.repo);
+      card.onkeydown = (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openDossier(p.repo);
+        }
+      };
+      
+      // Top row: Glyph + Name + Cat + Status
+      const top = document.createElement("div");
+      top.className = "tool-top";
+      
+      const idWrap = document.createElement("div");
+      idWrap.className = "tool-identity";
+      
+      const glyph = document.createElement("div");
+      glyph.className = "tool-glyph";
+      glyph.textContent = p.glyph || p.name.slice(0, 2).toUpperCase();
+      
+      const titleBox = document.createElement("div");
+      const h = document.createElement("h3");
+      h.className = "tool-name";
+      h.textContent = p.name;
+      const cat = document.createElement("span");
+      cat.className = "tool-cat";
+      cat.textContent = p.cat;
+      titleBox.append(h, cat);
+      
+      idWrap.append(glyph, titleBox);
+      top.appendChild(idWrap);
+      
+      if (p.status) {
+        const s = document.createElement("span");
+        s.className = "status live";
+        s.innerHTML = `<span class="live-dot"></span><span>Active Dev</span>`;
+        top.appendChild(s);
+      }
+      
+      // Body: Tagline (Clean, minimalist)
+      const body = document.createElement("div");
+      body.className = "tool-body";
+      const tag = document.createElement("p");
+      tag.className = "tool-tagline";
+      tag.textContent = p.tagline || p.what;
+      body.appendChild(tag);
+      
+      // Capabilities tags
+      const capTags = document.createElement("div");
+      capTags.className = "cap-tags";
+      if (p.caps) {
+        p.caps.slice(0, 3).forEach(c => {
+          const ct = document.createElement("span");
+          ct.className = "cap-tag";
+          ct.textContent = c;
+          capTags.appendChild(ct);
+        });
+      }
+      
+      // Footer row: Creator avatar + Inspect Dossier prompt
+      const footer = document.createElement("div");
+      footer.className = "tool-footer";
+      if (p.creator && people[p.creator]) {
+        footer.appendChild(avatar(people[p.creator]));
+      }
+      const inspectPrompt = document.createElement("span");
+      inspectPrompt.className = "tool-inspect-link";
+      inspectPrompt.innerHTML = `<span>Inspect Dossier</span> <span>&rarr;</span>`;
+      footer.appendChild(inspectPrompt);
+      
+      card.append(top, body, capTags, footer);
+      list.appendChild(card);
+      fx(h);
+      watch(card, Math.min(i, 6) * 60);
+    });
 }
 
 cats.forEach(c => {
@@ -1048,6 +1937,7 @@ cats.forEach(c => {
   };
   chipBox.appendChild(b);
 });
+renderFlagships();
 render();
 
 /* headings: hover letters + reveal */
