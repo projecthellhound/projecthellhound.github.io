@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project Hellhound: we build what we think</title>
+<meta name="description" content="Project Hellhound builds offensive security tools, AI-powered apps and developer tools. Part of TriOps Security.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+<style>
+:root{
+  --page:#000; --card:#0C0C0C; --ink:#EDEDED; --muted:#A0A0A0;
+  --ember:#FF4B2B; --line:#262626; --ember-ink:#000;
+  --head:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--page);color:var(--ink);font:400 1.0625rem/1.65 var(--body);overflow-x:hidden}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--ember);outline-offset:3px}
+.wrap{max-width:62rem;margin:0 auto;padding:0 1.25rem}
+h1,h2,h3{font-family:var(--head);line-height:1.1;margin:0}
+p{margin:0}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+#glow{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(520px circle at var(--mx,50%) var(--my,30%),rgba(255,75,43,.10),transparent 70%)}
+header.top,main,footer{position:relative;z-index:1}
+
+/* header */
+header.top{padding:1.25rem 0;border-bottom:1px solid var(--line);background:rgba(0,0,0,.6);backdrop-filter:blur(6px);position:sticky;top:0;z-index:5}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;font:700 1.15rem var(--head)}
+.brand img,.brand .mark{width:36px;height:36px;border-radius:6px;display:block}
+.brand .mark{background:var(--ember);color:var(--ember-ink);display:grid;place-items:center;font:700 1.1rem var(--head)}
+nav a{margin-left:1.25rem;text-decoration:none;color:var(--muted);font-weight:500}
+nav a:hover{color:var(--ink);text-decoration:underline;text-decoration-color:var(--ember);text-underline-offset:6px}
+
+/* hero */
+.hero{padding:5.5rem 0 3.5rem}
+.hero h1{font-size:clamp(2.8rem,9vw,6.4rem);font-weight:700;letter-spacing:-.035em;max-width:12ch}
+.typed{margin-top:1.75rem;font:500 clamp(1.15rem,3vw,1.6rem) var(--head);color:var(--muted);min-height:2.2em}
+.typed b{color:var(--ink);font-weight:500}
+.caret{display:inline-block;width:.1em;height:1em;margin-left:.15em;background:var(--ember);vertical-align:-.12em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero .lead{margin-top:1rem;max-width:38rem;color:var(--muted)}
+.btns{margin-top:2rem;display:flex;gap:.75rem;flex-wrap:wrap}
+.btn{display:inline-block;padding:.8rem 1.3rem;border-radius:6px;font-weight:500;text-decoration:none;border:2px solid var(--ink);transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(255,75,43,.25)}
+.btn.primary{background:var(--ember);border-color:var(--ember);color:var(--ember-ink)}
+
+/* stats */
+.stats{display:flex;gap:3rem;flex-wrap:wrap;padding:2rem 0 3rem}
+.stat b{display:block;font:700 clamp(2.2rem,6vw,3.4rem) var(--head);letter-spacing:-.03em;color:var(--ember)}
+.stat span{color:var(--muted)}
+
+/* sections */
+section{padding:3.5rem 0;border-top:1px solid var(--line)}
+section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-bottom:1.25rem}
+.about p{max-width:40rem}
+.about p+p{margin-top:1rem}
+.motto{margin-top:1.75rem;padding:1.1rem 1.25rem;background:var(--card);border-left:4px solid var(--ember);max-width:40rem;font:500 1.25rem var(--head)}
+.kinds{margin-top:2.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:1.25rem}
+.kind{padding:1.25rem;background:var(--card);border:1px solid var(--line);border-radius:8px;transition:transform .3s,border-color .3s}
+.kind:hover{transform:translateY(-6px);border-color:var(--ember)}
+.kind h3{font-size:1.2rem;margin-bottom:.4rem}
+.kind p{color:var(--muted);font-size:.98rem}
+
+/* filter chips */
+.chips{display:flex;gap:.6rem;flex-wrap:wrap;margin:0 0 1.5rem}
+.chip{font:500 .95rem var(--body);color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:99px;padding:.4rem 1rem;cursor:pointer;transition:all .2s}
+.chip:hover{color:var(--ink);border-color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ember);border-color:var(--ember);color:var(--ember-ink)}
+
+/* projects */
+.projects ul{list-style:none;margin:0;padding:0}
+.projects li{position:relative;display:grid;grid-template-columns:13rem 1fr auto;gap:1rem 2rem;padding:1.6rem 1rem;border-top:1px solid var(--line);align-items:start;transition:background .25s,padding-left .25s}
+.projects li:last-child{border-bottom:1px solid var(--line)}
+.projects li::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--ember);transform:scaleY(0);transition:transform .3s;transform-origin:top}
+.projects li:hover{background:var(--card);padding-left:1.5rem}
+.projects li:hover::before{transform:scaleY(1)}
+.projects li:hover .go{color:var(--ember)}
+.projects h3{font-size:1.55rem}
+.projects .why{margin-top:.4rem;color:var(--muted)}
+.status{display:inline-block;margin-top:.5rem;padding:.1rem .6rem;border:1px solid var(--line);border-radius:99px;font-size:.85rem;color:var(--muted)}
+.status.live{border-color:var(--ember);color:var(--ember)}
+.meta{margin-top:.8rem;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.tag{font-size:.82rem;padding:.1rem .55rem;border-radius:4px;background:#1A1A1A;color:var(--muted)}
+.creator{display:inline-flex;align-items:center;gap:.4rem;font-size:.9rem;color:var(--ink);text-decoration:none}
+.creator:hover span{text-decoration:underline;text-decoration-color:var(--ember)}
+.ava{width:22px;height:22px;border-radius:50%;background:#222;object-fit:cover;display:inline-grid;place-items:center;font-size:.7rem;color:var(--ember)}
+.projects a.go{font-weight:500;white-space:nowrap;transition:color .2s}
+@media (max-width:720px){.projects li{grid-template-columns:1fr}}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* hover text animation: each letter reacts, then settles back */
+.w{display:inline-block;white-space:nowrap}
+.ch{display:inline-block;transition:transform .7s cubic-bezier(.2,.8,.2,1),color .7s ease,text-shadow .7s ease}
+.ch:hover{transform:translateY(-.14em) scale(1.18) rotate(-4deg);color:var(--ember);text-shadow:0 0 .6em rgba(255,75,43,.55);transition-duration:.08s}
+
+/* triops */
+.trio{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.trio .box{padding:1.4rem;background:var(--card);border:1px solid var(--line);border-radius:8px}
+.trio h3{font-size:1.3rem;margin-bottom:.5rem}
+.trio p{color:var(--muted)}
+.trio .soon{border-style:dashed}
+.pulse{display:inline-block;width:.6rem;height:.6rem;border-radius:50%;background:var(--ember);margin-right:.5rem;animation:pulse 1.8s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,75,43,.7)}100%{box-shadow:0 0 0 .8rem rgba(255,75,43,0)}}
+@media (max-width:720px){.trio{grid-template-columns:1fr}}
+
+/* principles */
+.principles dl{margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:2rem}
+.principles dt{font:700 1.25rem var(--head);margin-bottom:.4rem}
+.principles dd{margin:0;color:var(--muted)}
+
+/* founder */
+.founder .who{display:flex;gap:1.5rem;align-items:flex-start;flex-wrap:wrap}
+.avatar{width:96px;height:96px;border-radius:50%;background:var(--card);border:2px solid var(--line);object-fit:cover;display:grid;place-items:center;font:700 1.8rem var(--head);color:var(--ember)}
+.founder p{max-width:34rem}
+.links{margin-top:1rem;display:flex;gap:1.25rem;flex-wrap:wrap}
+.links a{font-weight:500}
+
+footer{border-top:1px solid var(--line);padding:2rem 0;color:var(--muted);font-size:.95rem;background:rgba(0,0,0,.6)}
+footer .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  .ch,.ch:hover{transform:none;text-shadow:none;transition:color .2s}
+  .caret,.pulse{animation:none}
+  .kind:hover,.btn:hover{transform:none}
+}
+</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div id="glow" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#">
+      <!-- Put your logo at assets/logo.png. The letter mark shows until it exists. -->
+      <img src="assets/logo.png" alt="" onerror="this.outerHTML='<span class=&quot;mark&quot;>H</span>'">
+      <span class="brand-text">Project Hellhound</span>
+    </a>
+    <nav aria-label="Main">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#triops">TriOps</a>
+      <a href="#founder">Founder</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="hero wrap">
+  <h1>We build what we think.</h1>
+  <div class="typed" aria-live="off">We build <b id="typed"></b><span class="caret"></span></div>
+  <p class="lead">Project Hellhound is an open-source organization. We make offensive security tools, but we don't stop there: apps people use every day, and developer tools powered by AI.</p>
+  <div class="btns">
+    <a class="btn primary" href="#projects">Browse projects</a>
+    <a class="btn" href="https://github.com/project-hellhound-org">GitHub organization</a>
+  </div>
+  <div class="stats">
+    <div class="stat"><b data-count="0" id="s-projects">0</b><span>public projects</span></div>
+    <div class="stat"><b data-count="0" id="s-cats">0</b><span>categories</span></div>
+    <div class="stat"><b data-count="0" id="s-people">0</b><span>builders</span></div>
+  </div>
+</div>
+
+<section id="about" class="about">
+  <div class="wrap">
+    <h2 class="reveal">About</h2>
+    <p class="reveal">Hellhound started as an independent GitHub organization for building the tools its founder wanted while doing security research. It has grown into a home for many projects, built by more than one person, each solving one specific problem.</p>
+    <p class="reveal">Security is where we started, not where we stop. If we think it should exist, we build it, and we publish it openly.</p>
+    <div class="motto reveal">We build what we think.</div>
+    <div class="kinds">
+      <div class="kind reveal"><h3>Offensive security</h3><p>Autonomous agents and scanners for bug bounty, pentesting, OSINT and defense research.</p></div>
+      <div class="kind reveal"><h3>Everyday apps</h3><p>Normal apps for normal life, like habit trackers, with AI where it actually helps.</p></div>
+      <div class="kind reveal"><h3>AI developer tools</h3><p>Tools that make building software faster. We're working on these and they'll appear here as they ship.</p></div>
+      <div class="kind reveal"><h3>Training labs</h3><p>Intentionally vulnerable apps for practicing security testing safely.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="projects">
+  <div class="wrap">
+    <h2 class="reveal">Projects</h2>
+    <div class="chips" id="chips" role="group" aria-label="Filter projects"></div>
+    <ul id="project-list"></ul>
+  </div>
+</section>
+
+<section id="triops">
+  <div class="wrap">
+    <h2 class="reveal">Hellhound and TriOps Security</h2>
+    <div class="trio">
+      <div class="box reveal">
+        <h3>One home for projects</h3>
+        <p>Project Hellhound began on its own and is now also part of TriOps Security. It's where projects are hosted and published for TriOps. For now, every project here is published under Project Hellhound.</p>
+      </div>
+      <div class="box soon reveal">
+        <h3><span class="pulse"></span>On the way: Ghost</h3>
+        <p>Ghost is an attack surface management tool from TriOps Security. It's in development and will be published here when it's ready.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="why" class="principles">
+  <div class="wrap">
+    <h2 class="reveal">How we work</h2>
+    <dl>
+      <div class="reveal"><dt>Build first, explain later</dt><dd>An idea becomes a working repo quickly. We improve it in public.</dd></div>
+      <div class="reveal"><dt>Test on real targets</dt><dd>Security tools run against vulnerable labs and real programs, then we fix what fails.</dd></div>
+      <div class="reveal"><dt>Open by default</dt><dd>Public code gets reviewed, broken and improved faster than private code.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section id="founder" class="founder">
+  <div class="wrap">
+    <h2 class="reveal">Founder</h2>
+    <div class="who reveal">
+      <!-- Swap this for your photo: <img class="avatar" src="assets/founder.jpg" alt="Sree Danush S"> -->
+      <div class="avatar" aria-hidden="true">S</div>
+      <div>
+        <p><strong>Sree Danush S</strong>, known as LAZZER. Security researcher and tool builder from Tamil Nadu, India. Founder of Project Hellhound and co-founder of TriOps Security. Open to work in web pentesting, OSINT, and AI/LLM pentesting.</p>
+        <div class="links">
+          <a href="https://github.com/l4zz3rj0d">GitHub</a>
+          <!-- Replace each # with your real profile URL -->
+          <a href="#">Medium</a>
+          <a href="#">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; <span id="yr"></span> Project Hellhound</span>
+    <span>Part of TriOps Security &middot; <a href="https://github.com/project-hellhound-org">GitHub</a></span>
+  </div>
+</footer>
+
+<script>
+const ORG = "https://github.com/project-hellhound-org/";
+const people = {
+  lazzer: { name: "LAZZER", gh: "l4zz3rj0d" },
+  abinav: { name: "Abinav3ac", gh: "Abinav3ac" },
+  ghost:  { name: "L33TxGH05T", gh: "L33TxGH05T" }
+};
+// Add a project by adding one object here. creator = key from `people`.
+const projects = [
+  { repo: "bounty-hunter", name: "Bounty Hunter", cat: "Offensive security", creator: "lazzer", status: "Active development",
+    what: "An autonomous AI bug bounty and pentest agent that goes from recon to exploit to report.",
+    why: "Recon and testing repeat the same steps on every target. The agent picks its own tools and chains what it finds." },
+  { repo: "Hellhound-Spider", name: "Hellhound Spider", cat: "Offensive security", creator: "lazzer",
+    what: "A fully autonomous crawler that maps endpoints, parameters and security issues across traditional and single-page apps.",
+    why: "You can't test what you haven't found. Drop a URL, walk away, and get the full map." },
+  { repo: "JARVIS", name: "JARVIS", cat: "Offensive security", creator: "lazzer", status: "Active development",
+    what: "An autonomous tactical OSINT specialist and intelligence system.",
+    why: "Open-source intelligence means juggling dozens of sources. JARVIS pulls them into one place." },
+  { repo: "JARVIS-Mobile", name: "JARVIS Mobile", cat: "Offensive security", creator: "lazzer", status: "Active development",
+    what: "The mobile version of JARVIS.",
+    why: "Intelligence work shouldn't stop when you leave your desk." },
+  { repo: "cmdmap", name: "CMDMap", cat: "Offensive security", creator: "lazzer",
+    what: "A command injection detector for the modern web, with a multi-tier verification engine.",
+    why: "Most scanners flood you with false positives. CMDMap verifies each finding before reporting it." },
+  { repo: "X5Sentry", name: "X5Sentry", cat: "Offensive security", creator: "ghost",
+    what: "An autonomous XSS hunter that maps attack surfaces, analyzes which characters survive, and validates bugs in a headless browser.",
+    why: "A reflected payload isn't a bug until it runs. X5Sentry proves it executes." },
+  { repo: "GateForge", name: "GateForge", cat: "Offensive security", creator: "abinav",
+    what: "A semi-autonomous SSRF testing agent for vulnerability discovery and exploitation.",
+    why: "SSRF is easy to miss and hard to test by hand across many parameters." },
+  { repo: "Agent389", name: "Agent389", cat: "Offensive security", creator: "abinav",
+    what: "An autonomous LDAP security toolkit for vulnerability discovery and exploitation.",
+    why: "LDAP gets far less tooling than web or network testing. This fills the gap." },
+  { repo: "Spectre", name: "Spectre", cat: "Offensive security", creator: "abinav",
+    what: "Intelligent DNS threat detection for tunneling, data exfiltration, anomalous traffic and covert C2.",
+    why: "DNS is trusted by default, which makes it a quiet channel for attackers." },
+  { repo: "HellCorp", name: "HellCorp", cat: "Training labs", creator: "abinav",
+    what: "HellCorp Global Enterprise (HGE), an intentionally vulnerable web app for enterprise-focused security training.",
+    why: "You need a safe, realistic target to practice on." },
+  { repo: "Constant", name: "Constant", cat: "Everyday apps", creator: "abinav",
+    what: "A habit tracker with AI-powered insights to help you stay consistent.",
+    why: "Habits stick when tracking is simple and feedback is useful." }
+];
+
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* letter-by-letter hover text */
+function fx(el){
+  if (el.dataset.fx) return; el.dataset.fx = 1;
+  const text = el.textContent;
+  el.setAttribute("aria-label", text);
+  el.textContent = "";
+  text.split(" ").forEach((word, i, arr) => {
+    const w = document.createElement("span");
+    w.className = "w"; w.setAttribute("aria-hidden", "true");
+    for (const c of word) { const ch = document.createElement("span"); ch.className = "ch"; ch.textContent = c; w.appendChild(ch); }
+    el.appendChild(w);
+    if (i < arr.length - 1) el.appendChild(document.createTextNode(" "));
+  });
+}
+
+/* scroll reveal */
+const io = "IntersectionObserver" in window ? new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+}), { threshold: .12 }) : null;
+function watch(el, delay){
+  if (!io) { el.classList.add("in"); return; }
+  el.style.transitionDelay = (delay || 0) + "ms"; io.observe(el);
+}
+
+/* project list + filters */
+const list = document.getElementById("project-list");
+const chipBox = document.getElementById("chips");
+const cats = ["All", ...new Set(projects.map(p => p.cat))];
+let active = "All";
+
+function avatar(p){
+  const a = document.createElement("a");
+  a.className = "creator"; a.href = "https://github.com/" + p.gh; a.rel = "noopener";
+  const img = document.createElement("img");
+  img.className = "ava"; img.alt = ""; img.loading = "lazy";
+  img.src = "https://github.com/" + p.gh + ".png?size=48";
+  img.onerror = () => { const f = document.createElement("span"); f.className = "ava"; f.textContent = p.name[0]; img.replaceWith(f); };
+  const n = document.createElement("span"); n.textContent = p.name;
+  a.append(img, n); return a;
+}
+
+function render(){
+  list.innerHTML = "";
+  projects.filter(p => active === "All" || p.cat === active).forEach((p, i) => {
+    const li = document.createElement("li"); li.className = "reveal";
+    const c1 = document.createElement("div");
+    const h = document.createElement("h3"); h.textContent = p.name; c1.appendChild(h);
+    if (p.status) { const s = document.createElement("span"); s.className = "status live"; s.textContent = p.status; c1.appendChild(s); }
+    const c2 = document.createElement("div");
+    const w = document.createElement("p"); w.textContent = p.what;
+    const y = document.createElement("p"); y.className = "why"; y.textContent = p.why;
+    const m = document.createElement("div"); m.className = "meta";
+    const t1 = document.createElement("span"); t1.className = "tag"; t1.textContent = p.cat;
+    const t2 = document.createElement("span"); t2.className = "tag"; t2.textContent = "Project Hellhound";
+    m.append(t1, t2, avatar(people[p.creator]));
+    c2.append(w, y, m);
+    const g = document.createElement("a"); g.className = "go"; g.rel = "noopener";
+    g.href = ORG + p.repo; g.textContent = "View on GitHub";
+    li.append(c1, c2, g); list.appendChild(li);
+    fx(h); watch(li, Math.min(i, 6) * 70);
+  });
+}
+cats.forEach(c => {
+  const b = document.createElement("button");
+  b.className = "chip"; b.type = "button"; b.textContent = c;
+  b.setAttribute("aria-pressed", c === active);
+  b.onclick = () => { active = c; chipBox.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", x === b)); render(); };
+  chipBox.appendChild(b);
+});
+render();
+
+/* headings: hover letters + reveal */
+document.querySelectorAll("h1,h2,.kind h3,.trio h3,.brand-text").forEach(fx);
+document.querySelectorAll(".reveal").forEach((el, i) => { if (!el.classList.contains("in") && !el.closest("#project-list")) watch(el, 0); });
+
+/* stats count-up */
+const targets = { "s-projects": projects.length, "s-cats": cats.length - 1, "s-people": new Set(projects.map(p => p.creator)).size };
+Object.entries(targets).forEach(([id, n]) => {
+  const el = document.getElementById(id);
+  if (reduce) { el.textContent = n; return; }
+  const t0 = performance.now() + 400;
+  (function tick(now){
+    const k = Math.min(Math.max((now - t0) / 1200, 0), 1);
+    el.textContent = Math.round(n * (1 - Math.pow(1 - k, 3)));
+    if (k < 1) requestAnimationFrame(tick);
+  })(performance.now());
+});
+
+/* typewriter */
+const phrases = ["offensive security tools.", "habit trackers.", "AI-powered developer tools.", "whatever we think of next."];
+const tEl = document.getElementById("typed");
+if (reduce) { tEl.textContent = phrases[0]; }
+else {
+  let pi = 0, ci = 0, del = false;
+  (function type(){
+    const full = phrases[pi];
+    tEl.textContent = full.slice(0, ci);
+    let d = del ? 35 : 70;
+    if (!del && ci === full.length) { del = true; d = 1600; }
+    else if (del && ci === 0) { del = false; pi = (pi + 1) % phrases.length; d = 350; }
+    else ci += del ? -1 : 1;
+    setTimeout(type, d);
+  })();
+}
+
+/* animated network background + cursor glow */
+const cv = document.getElementById("bg"), cx = cv.getContext("2d");
+let W, H, pts = [], mouse = { x: -999, y: -999 };
+function size(){
+  const dpr = Math.min(devicePixelRatio || 1, 2);
+  W = innerWidth; H = innerHeight;
+  cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const n = Math.min(90, Math.floor(W * H / 16000));
+  pts = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35 }));
+}
+function frame(){
+  cx.clearRect(0, 0, W, H);
+  for (const p of pts) { if (!reduce) { p.x += p.vx; p.y += p.vy; } if (p.x < 0 || p.x > W) p.vx *= -1; if (p.y < 0 || p.y > H) p.vy *= -1; }
+  for (let i = 0; i < pts.length; i++) {
+    const a = pts[i];
+    for (let j = i + 1; j < pts.length; j++) {
+      const b = pts[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+      if (d < 130) { cx.strokeStyle = "rgba(160,160,160," + ((1 - d / 130) * .16) + ")"; cx.beginPath(); cx.moveTo(a.x, a.y); cx.lineTo(b.x, b.y); cx.stroke(); }
+    }
+    const dm = Math.hypot(a.x - mouse.x, a.y - mouse.y);
+    if (dm < 170) { cx.strokeStyle = "rgba(255,75,43," + ((1 - dm / 170) * .55) + ")"; cx.beginPath(); cx.moveTo(a.x, a.y); cx.lineTo(mouse.x, mouse.y); cx.stroke(); }
+    cx.fillStyle = "rgba(237,237,237,.35)"; cx.beginPath(); cx.arc(a.x, a.y, 1.5, 0, 6.283); cx.fill();
+  }
+  if (!reduce) requestAnimationFrame(frame);
+}
+size(); frame();
+addEventListener("resize", () => { size(); if (reduce) frame(); });
+addEventListener("pointermove", e => {
+  mouse.x = e.clientX; mouse.y = e.clientY;
+  document.documentElement.style.setProperty("--mx", e.clientX + "px");
+  document.documentElement.style.setProperty("--my", e.clientY + "px");
+});
+
+document.getElementById("yr").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
