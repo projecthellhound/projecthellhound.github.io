@@ -29,15 +29,15 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 <style>
 :root{
-  --page:#050505; --card:#0A0A0A; --card-hover:#111111; --ink:#EDEDED; --muted:#949494;
-  --ember:#FF4B2B; --line:#1F1F1F; --line-active:#333333; --ember-ink:#000;
-  --head:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
-  --body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
-  --mono:"IBM Plex Mono",monospace;
+  --page:#07080A; --card:#0C0E14; --card-hover:#121620; --ink:#F0F2F5; --muted:#8B92A0;
+  --ember:#FF4B2B; --line:rgba(255,255,255,0.08); --line-active:rgba(255,255,255,0.18); --ember-ink:#000;
+  --head:'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --body:'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono:'Geist Mono', "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
@@ -60,19 +60,43 @@ p{margin:0}
 #glow{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(540px circle at var(--mx,50%) var(--my,30%),rgba(255,75,43,.12),transparent 70%)}
 header.top,main,footer{position:relative;z-index:1}
 
-/* header - corner to corner */
-header.top{padding:1.15rem 0;border-bottom:1px solid var(--line);background:rgba(5,5,5,.82);backdrop-filter:blur(10px);position:sticky;top:0;z-index:30;width:100%}
-.header-bar{display:flex;align-items:center;justify-content:space-between;width:100%;padding:0 2.5rem;box-sizing:border-box}
-.brand{display:flex;align-items:center;gap:.75rem;text-decoration:none;font:700 1.25rem var(--head)}
-.brand img,.brand .mark{width:36px;height:36px;border-radius:6px;display:block;object-fit:cover}
-.brand .mark{background:var(--ember);color:var(--ember-ink);display:grid;place-items:center;font:700 1.1rem var(--head)}
-nav{display:flex;align-items:center}
-nav a{margin-left:1.5rem;text-decoration:none;color:var(--muted);font-weight:500;transition:color .2s;font-size:0.95rem}
-nav a:hover{color:var(--ink);text-decoration:underline;text-decoration-color:var(--ember);text-underline-offset:6px}
+/* header - floating pill layout (XBOW style) */
+header.top{position:sticky;top:0.85rem;z-index:40;width:100%;padding:0 1.25rem;pointer-events:none}
+.header-bar{pointer-events:auto;max-width:74rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1.15rem;background:rgba(11,13,18,0.86);border:1px solid var(--line);border-radius:9999px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 8px 32px rgba(0,0,0,0.55);position:relative}
+.brand{display:flex;align-items:center;gap:.65rem;text-decoration:none;font:600 1.15rem var(--head);letter-spacing:-0.02em}
+.brand img,.brand .mark{width:32px;height:32px;border-radius:6px;display:block;object-fit:cover}
+.brand .mark{background:var(--ember);color:var(--ember-ink);display:grid;place-items:center;font:700 1rem var(--head)}
+nav{display:flex;align-items:center;gap:0.35rem}
+nav a{padding:0.4rem 0.75rem;text-decoration:none;color:var(--muted);font-weight:500;transition:color .2s,background .2s;font-size:0.92rem;border-radius:6px}
+nav a:hover{color:var(--ink);background:rgba(255,255,255,0.04);text-decoration:none}
 
-@media (max-width:860px){
-  .header-bar{padding:0 1.25rem}
-  nav a{margin-left:.85rem;font-size:.85rem}
+/* XBOW Mega Menu Dropdown */
+.nav-dropdown-wrap{position:relative}
+.nav-dropdown-btn{background:transparent;border:none;color:var(--muted);font-weight:500;font-size:0.92rem;font-family:inherit;display:inline-flex;align-items:center;gap:0.3rem;cursor:pointer;padding:0.4rem 0.75rem;border-radius:6px;transition:color .2s,background .2s}
+.nav-dropdown-btn:hover,.nav-dropdown-btn.active{color:var(--ink);background:rgba(255,255,255,0.04)}
+.nav-dropdown-btn .nav-caret{transition:transform .25s}
+.nav-dropdown-btn.active .nav-caret{transform:rotate(180deg)}
+.mega-menu{position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%) translateY(-6px);width:min(94vw,980px);background:rgba(11,13,18,0.97);border:1px solid var(--line);border-radius:14px;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 28px 72px rgba(0,0,0,0.85);padding:1.6rem;display:none;opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease;z-index:100;text-align:left}
+.mega-menu.active{display:grid;grid-template-columns:1.15fr 1fr 1fr 1.35fr;gap:1.5rem;opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.mega-col-title{font-family:var(--mono);font-size:0.7rem;font-weight:700;letter-spacing:0.08em;color:var(--muted);margin-bottom:0.85rem;text-transform:uppercase}
+.mega-list{display:flex;flex-direction:column;gap:0.5rem}
+.mega-item{display:flex;flex-direction:column;gap:0.12rem;text-decoration:none;padding:0.45rem 0.6rem;border-radius:6px;transition:background-color .2s}
+.mega-item:hover{background:rgba(255,255,255,0.05)}
+.mega-item-name{font-family:var(--head);font-weight:600;font-size:0.92rem;color:var(--ink);letter-spacing:-0.01em}
+.mega-item-desc{font-size:0.78rem;color:var(--muted);line-height:1.35}
+.mega-proof-card{background:linear-gradient(145deg,rgba(255,75,43,0.16),rgba(255,120,60,0.05));border:1px solid rgba(255,75,43,0.35);border-radius:10px;padding:1.25rem;display:flex;flex-direction:column;justify-content:space-between;gap:0.85rem}
+.mega-proof-tag{font-family:var(--mono);font-size:0.68rem;font-weight:700;letter-spacing:0.08em;color:var(--ember)}
+.mega-proof-title{font-family:var(--head);font-size:1.02rem;font-weight:700;color:var(--ink);line-height:1.3;letter-spacing:-0.015em}
+.mega-proof-desc{font-size:0.82rem;color:var(--muted);line-height:1.45}
+.mega-proof-btn{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.85rem;font-weight:600;color:var(--ember);text-decoration:none;transition:transform .2s}
+.mega-proof-btn:hover{transform:translateX(3px);color:#fff}
+.nav-cta-btn{display:inline-flex;align-items:center;gap:0.35rem;padding:0.35rem 0.8rem;border-radius:6px;background:rgba(255,255,255,0.06);border:1px solid var(--line);color:var(--ink);font-weight:500;font-size:0.85rem;text-decoration:none;transition:all .2s;margin-left:0.35rem}
+.nav-cta-btn:hover{background:rgba(255,75,43,0.15);border-color:rgba(255,75,43,0.4);color:#fff}
+
+@media (max-width:960px){
+  .header-bar{padding:0.45rem 0.85rem;border-radius:12px}
+  nav a{padding:0.35rem 0.55rem;font-size:0.85rem}
+  .mega-menu.active{grid-template-columns:1fr;max-height:75vh;overflow-y:auto;padding:1.15rem}
 }
 
 /* hero */
@@ -840,20 +864,6 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
   background:rgba(255,75,43,.1);
   color:var(--ember);
 }
-.status .live-dot{
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:var(--ember);
-  box-shadow:0 0 8px var(--ember);
-  animation:status-pulse 2s ease-in-out infinite;
-  display:inline-block;
-  flex-shrink:0;
-}
-@keyframes status-pulse{
-  0%,100%{opacity:1;transform:scale(1)}
-  50%{opacity:.35;transform:scale(.8)}
-}
 
 /* private & in-development section */
 .private-section{padding:4rem 0;border-top:1px solid var(--line)}
@@ -878,15 +888,58 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
 .ch{display:inline-block;transition:transform .7s cubic-bezier(.2,.8,.2,1),color .7s ease,text-shadow .7s ease}
 .ch:hover{transform:translateY(-.14em) scale(1.18) rotate(-4deg);color:var(--ember);text-shadow:0 0 .6em rgba(255,75,43,.55);transition-duration:.08s}
 
-/* triops */
-.trio{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
-.trio .box{padding:1.6rem;background:var(--card);border:1px solid var(--line);border-radius:8px}
-.trio h3{font-size:1.3rem;margin-bottom:.5rem}
-.trio p{color:var(--muted)}
-.trio .soon{border-style:dashed}
-.pulse{display:inline-block;width:.6rem;height:.6rem;border-radius:50%;background:var(--ember);margin-right:.5rem;animation:pulse 1.8s ease-out infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,75,43,.7)}100%{box-shadow:0 0 0 .8rem rgba(255,75,43,0)}}
-@media (max-width:720px){.trio{grid-template-columns:1fr}}
+/* ProjectDiscovery Ecosystem Grid (media_1794994641831.png) */
+.pd-ecosystem-grid{border:1px solid var(--line);background:rgba(12,14,18,0.7);border-radius:12px;overflow:hidden;margin-top:2rem;backdrop-filter:blur(12px)}
+.pd-grid-row{display:grid;grid-template-columns:250px 1fr;border-bottom:1px solid var(--line);min-height:96px}
+.pd-grid-row:last-child{border-bottom:none}
+.pd-row-label{padding:1.4rem 1.5rem;border-right:1px solid var(--line);display:flex;flex-direction:column;justify-content:center;gap:0.3rem;background:rgba(255,255,255,0.015)}
+.pd-label-tag{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.08em;color:var(--ember);font-weight:700}
+.pd-label-title{font-size:0.86rem;font-weight:600;letter-spacing:-0.01em;color:var(--ink);line-height:1.35}
+.pd-row-cells{display:grid;grid-template-columns:repeat(4,1fr)}
+.pd-cell{padding:1.25rem 1.4rem;border-right:1px solid var(--line);display:flex;flex-direction:column;justify-content:center;text-decoration:none;color:inherit;transition:background-color .2s}
+.pd-cell:last-child{border-right:none}
+.pd-cell:hover{background:rgba(255,75,43,0.05)}
+.pd-cell-badge{font-family:var(--mono);font-size:0.68rem;font-weight:700;letter-spacing:0.06em;color:var(--ember);margin-bottom:0.25rem}
+.pd-cell-stat{font-family:var(--head);font-size:1.45rem;font-weight:700;color:var(--ember);line-height:1.1;letter-spacing:-0.02em}
+.pd-cell-name{font-family:var(--head);font-weight:600;font-size:1.02rem;color:var(--ink);letter-spacing:-0.01em}
+.pd-cell-desc{font-size:0.82rem;color:var(--muted);margin-top:0.2rem;line-height:1.4}
+.pd-cell-more,.pd-cell-cta{display:flex;flex-direction:row;align-items:center;justify-content:space-between;font-weight:600;color:var(--ember)}
+.pd-cell-more:hover,.pd-cell-cta:hover{color:#fff;background:rgba(255,75,43,0.08)}
+.pd-cell-arrow{font-size:1.25rem;transition:transform .2s}
+.pd-cell:hover .pd-cell-arrow{transform:translateX(4px)}
+
+@media (max-width:980px){
+  .pd-grid-row{grid-template-columns:1fr}
+  .pd-row-label{border-right:none;border-bottom:1px solid var(--line);padding:1rem 1.25rem}
+  .pd-row-cells{grid-template-columns:repeat(2,1fr)}
+  .pd-cell:nth-child(2){border-right:none}
+  .pd-cell{border-bottom:1px solid var(--line)}
+  .pd-cell:nth-last-child(-n+2){border-bottom:none}
+}
+@media (max-width:580px){
+  .pd-row-cells{grid-template-columns:1fr}
+  .pd-cell{border-right:none;border-bottom:1px solid var(--line)}
+  .pd-cell:last-child{border-bottom:none}
+}
+
+/* Dynamic Collapsible Panels (Accordions) */
+.accordion-group{display:flex;flex-direction:column;gap:0.85rem;margin-top:2rem}
+.accordion-panel{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;transition:border-color .25s,background-color .25s}
+.accordion-panel.expanded{border-color:rgba(255,75,43,0.4);background:rgba(13,16,22,0.9)}
+.accordion-header{width:100%;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;background:transparent;border:none;color:var(--ink);cursor:pointer;text-align:left;font-family:inherit;transition:background-color .2s}
+.accordion-header:hover{background:rgba(255,255,255,0.02)}
+.accordion-title-wrap{display:flex;align-items:center;gap:0.85rem;flex-wrap:wrap}
+.accordion-tag{font-family:var(--mono);font-size:0.7rem;font-weight:700;letter-spacing:0.06em;padding:0.2rem 0.55rem;border-radius:4px;background:rgba(255,75,43,0.1);color:var(--ember);border:1px solid rgba(255,75,43,0.25)}
+.accordion-title{font-family:var(--head);font-size:1.1rem;font-weight:600;letter-spacing:-0.015em}
+.accordion-chevron{display:flex;align-items:center;justify-content:center;color:var(--muted);transition:transform .3s cubic-bezier(0.16,1,0.3,1),color .2s}
+.accordion-panel.expanded .accordion-chevron{transform:rotate(180deg);color:var(--ember)}
+.accordion-body{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(0.16,1,0.3,1)}
+.accordion-panel.expanded .accordion-body{max-height:500px}
+.accordion-inner{padding:0 1.5rem 1.5rem 1.5rem;color:var(--muted);font-size:0.95rem;line-height:1.65;border-top:1px solid rgba(255,255,255,0.04);padding-top:1.15rem}
+.accordion-specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:1rem;margin-top:1.2rem;padding-top:1.1rem;border-top:1px dashed rgba(255,255,255,0.08)}
+.spec-col{display:flex;flex-direction:column;gap:0.25rem}
+.spec-label{font-family:var(--mono);font-size:0.7rem;color:var(--muted);letter-spacing:0.05em}
+.spec-val{font-size:0.9rem;color:var(--ink);font-weight:500}
 
 /* principles */
 .principles dl{margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:2rem}
@@ -929,12 +982,57 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
 .contact-details p{color:var(--muted);font-size:.92rem;margin-bottom:.85rem}
 .contact-link-label{font-size:.88rem;font-weight:600;color:var(--ember)}
 
-/* footer */
-footer{border-top:1px solid var(--line);padding:2.25rem 0;color:var(--muted);font-size:.95rem;background:rgba(5,5,5,.85)}
-footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
-.footer-nav{display:flex;gap:1.25rem;flex-wrap:wrap}
-.footer-nav a{color:var(--muted);text-decoration:none;transition:color .2s}
-.footer-nav a:hover{color:var(--ink);text-decoration:underline;text-decoration-color:var(--ember);text-underline-offset:4px}
+/* ProjectDiscovery-style Modern Footer (media_1794994617811.png) */
+.pd-footer{border-top:1px solid var(--line);background:#060709;position:relative;overflow:hidden;padding:4.5rem 0 2.5rem;color:var(--muted)}
+.pd-footer-cols{display:grid;grid-template-columns:repeat(5,1fr);gap:2rem;margin-bottom:3.5rem}
+.pd-footer-col{display:flex;flex-direction:column;gap:0.9rem}
+.pd-footer-heading{font-family:var(--head);font-size:0.92rem;font-weight:600;color:var(--ink);letter-spacing:-0.01em;margin:0 0 0.35rem 0}
+.pd-footer-links{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.65rem}
+.pd-footer-links li a{color:var(--muted);text-decoration:none;font-size:0.88rem;transition:color .2s;display:inline-block}
+.pd-footer-links li a:hover{color:var(--ink)}
+.pd-footer-bottom{display:flex;align-items:flex-end;justify-content:space-between;padding-top:2.25rem;border-top:1px solid var(--line);position:relative;gap:2rem}
+.pd-bottom-left{display:flex;flex-direction:column;gap:0.85rem;max-width:38rem}
+.pd-copyright{font-size:0.88rem;color:var(--muted)}
+.pd-enterprise-sub{font-size:0.85rem;color:var(--muted)}
+.pd-enterprise-sub a{color:var(--ink);text-decoration:underline;text-decoration-color:rgba(255,75,43,0.4);text-underline-offset:3px}
+.pd-social-row{display:flex;align-items:center;gap:0.75rem;margin-top:0.25rem}
+.pd-social-link{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,0.04);border:1px solid var(--line);display:grid;place-items:center;color:var(--muted);text-decoration:none;transition:all .2s}
+.pd-social-link:hover{color:var(--ink);background:rgba(255,75,43,0.1);border-color:rgba(255,75,43,0.35);transform:translateY(-2px)}
+.social-text-badge{font-family:var(--mono);font-size:0.72rem;font-weight:700}
+.pd-watermark-wrap{position:absolute;right:0;bottom:0;width:290px;height:280px;display:flex;align-items:flex-end;justify-content:flex-end;pointer-events:auto;cursor:pointer;z-index:2}
+.logo-glitch-wrap{position:relative;width:260px;height:260px;opacity:0.25;filter:grayscale(100%) brightness(0.7);transition:opacity .3s ease,filter .3s ease,transform .3s ease}
+.pd-watermark-wrap:hover .logo-glitch-wrap{opacity:0.92;filter:grayscale(0%) brightness(1);transform:scale(1.04)}
+.logo-glitch-base{width:100%;height:100%;object-fit:contain;display:block;user-select:none}
+.logo-glitch-copy{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;opacity:0;user-select:none}
+.pd-watermark-wrap:hover .glitch-red{opacity:0.85;filter:drop-shadow(-3px 0 #ff3300);animation:glitch-shift-1 1.8s infinite linear alternate-reverse}
+.pd-watermark-wrap:hover .glitch-cyan{opacity:0.85;filter:drop-shadow(3px 0 #00f3ff);animation:glitch-shift-2 2.2s infinite linear alternate-reverse}
+@keyframes glitch-shift-1{
+  0%{clip-path:inset(15% 0 65% 0);transform:translate(-3px,1px)}
+  20%{clip-path:inset(60% 0 15% 0);transform:translate(2px,-2px)}
+  40%{clip-path:inset(5% 0 80% 0);transform:translate(-2px,2px)}
+  60%{clip-path:inset(75% 0 5% 0);transform:translate(3px,-1px)}
+  80%{clip-path:inset(35% 0 45% 0);transform:translate(-1px,0)}
+  100%{clip-path:inset(0 0 90% 0);transform:translate(2px,1px)}
+}
+@keyframes glitch-shift-2{
+  0%{clip-path:inset(8% 0 78% 0);transform:translate(2px,-2px)}
+  25%{clip-path:inset(68% 0 12% 0);transform:translate(-3px,1px)}
+  50%{clip-path:inset(25% 0 55% 0);transform:translate(1px,-1px)}
+  75%{clip-path:inset(50% 0 30% 0);transform:translate(-2px,2px)}
+  100%{clip-path:inset(82% 0 3% 0);transform:translate(3px,0)}
+}
+
+@media (max-width:920px){
+  .pd-footer-cols{grid-template-columns:repeat(2,1fr)}
+  .pd-watermark-wrap{width:220px;height:210px}
+  .logo-glitch-wrap{width:200px;height:200px}
+}
+@media (max-width:540px){
+  .pd-footer-cols{grid-template-columns:1fr}
+  .pd-footer-bottom{flex-direction:column;align-items:flex-start}
+  .pd-watermark-wrap{position:relative;width:180px;height:180px;margin-top:1.5rem;align-self:center}
+  .logo-glitch-wrap{width:160px;height:160px}
+}
 
 /* Navbar HUD controls */
 .nav-hud-group{
@@ -1270,9 +1368,19 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
   color:#858585;
 }
 .check-icon{
+  display:inline-flex;
+  align-items:center;
   color:#00e676;
-  margin-right:.4rem;
-  font-weight:bold;
+  margin-right:.45rem;
+  vertical-align:middle;
+}
+.cross-icon{
+  display:inline-flex;
+  align-items:center;
+  color:#ff4b2b;
+  margin-right:.45rem;
+  vertical-align:middle;
+}
 @media (max-width:860px){
   .nav-hud-group{margin-left:.75rem;gap:.4rem}
   .cmd-kbd{display:none}
@@ -1292,26 +1400,122 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
 <canvas id="bg" aria-hidden="true"></canvas>
 <div id="glow" aria-hidden="true"></div>
 
-<!-- Top Header (Corner-to-Corner Layout) -->
+<!-- Floating Pill Header with XBOW-style Mega-Menu (media_1794994575366.png) -->
 <header class="top">
   <div class="header-bar">
     <a class="brand" href="#top">
       <img src="assets/logo.png" alt="Project Hellhound Logo" onerror="this.outerHTML='<span class=&quot;mark&quot;>H</span>'">
       <span class="brand-text">Project Hellhound</span>
     </a>
-    <nav aria-label="Main">
-      <a href="#about">About</a>
+    <nav aria-label="Main Navigation">
+      <div class="nav-dropdown-wrap" id="nav-arsenal-dropdown">
+        <button class="nav-dropdown-btn" type="button" aria-expanded="false" onclick="toggleMegaMenu(event)">
+          <span>Arsenal</span>
+          <svg class="nav-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <!-- Mega Menu Panel -->
+        <div class="mega-menu" id="mega-menu-panel">
+          <!-- Col 1 -->
+          <div>
+            <div class="mega-col-title">Offensive Arsenal</div>
+            <div class="mega-list">
+              <a class="mega-item" href="#dossier-Hellhound-Spider" onclick="openDossier('Hellhound-Spider');closeMegaMenu();">
+                <span class="mega-item-name">Hellhound Spider</span>
+                <span class="mega-item-desc">Dual-engine headless SPA crawler</span>
+              </a>
+              <a class="mega-item" href="#dossier-bounty-hunter" onclick="openDossier('bounty-hunter');closeMegaMenu();">
+                <span class="mega-item-name">Bounty Hunter</span>
+                <span class="mega-item-desc">Autonomous exploit triage agent</span>
+              </a>
+              <a class="mega-item" href="#dossier-cmdmap" onclick="openDossier('cmdmap');closeMegaMenu();">
+                <span class="mega-item-name">CMDMap</span>
+                <span class="mega-item-desc">OS command injection boundary bypass</span>
+              </a>
+              <a class="mega-item" href="#dossier-GateForge" onclick="openDossier('GateForge');closeMegaMenu();">
+                <span class="mega-item-name">GateForge</span>
+                <span class="mega-item-desc">SSRF &amp; AWS IMDSv2 metadata fuzzer</span>
+              </a>
+              <a class="mega-item" href="#dossier-Agent389" onclick="openDossier('Agent389');closeMegaMenu();">
+                <span class="mega-item-name">Agent389</span>
+                <span class="mega-item-desc">Active Directory &amp; LDAP injection</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Col 2 -->
+          <div>
+            <div class="mega-col-title">Attack Lifecycle</div>
+            <div class="mega-list">
+              <a class="mega-item" href="#pipeline" onclick="closeMegaMenu();">
+                <span class="mega-item-name">Phase 1: OSINT &amp; Intel</span>
+                <span class="mega-item-desc">JARVIS &amp; JARVIS-Mobile reconnaissance</span>
+              </a>
+              <a class="mega-item" href="#pipeline" onclick="closeMegaMenu();">
+                <span class="mega-item-name">Phase 2: Surface Crawl</span>
+                <span class="mega-item-desc">DOM rehydration &amp; route discovery</span>
+              </a>
+              <a class="mega-item" href="#pipeline" onclick="closeMegaMenu();">
+                <span class="mega-item-name">Phase 3: Protocol Fuzz</span>
+                <span class="mega-item-desc">SSRF, LDAP &amp; command boundaries</span>
+              </a>
+              <a class="mega-item" href="#pipeline" onclick="closeMegaMenu();">
+                <span class="mega-item-name">Phase 4: Exploit Chain</span>
+                <span class="mega-item-desc">Autonomous multi-stage RCE verification</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Col 3 -->
+          <div>
+            <div class="mega-col-title">Enterprise Ecosystem</div>
+            <div class="mega-list">
+              <a class="mega-item" href="#triops" onclick="closeMegaMenu();">
+                <span class="mega-item-name">TriOps Security</span>
+                <span class="mega-item-desc">Enterprise offensive cyber wing</span>
+              </a>
+              <a class="mega-item" href="#triops" onclick="closeMegaMenu();">
+                <span class="mega-item-name">Ghost ASM</span>
+                <span class="mega-item-desc">Continuous attack surface management</span>
+              </a>
+              <a class="mega-item" href="#private-projects" onclick="closeMegaMenu();">
+                <span class="mega-item-name">HellCorp Labs</span>
+                <span class="mega-item-desc">Realistic vulnerable enterprise range</span>
+              </a>
+              <a class="mega-item" href="#private-projects" onclick="closeMegaMenu();">
+                <span class="mega-item-name">Private R&amp;D</span>
+                <span class="mega-item-desc">Proprietary red team operations</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Col 4: XBOW Style Proof Card -->
+          <div class="mega-proof-card">
+            <div>
+              <div class="mega-proof-tag">OFFENSIVE DOCTRINE</div>
+              <div class="mega-proof-title">Deterministic Exploit Validation</div>
+              <p class="mega-proof-desc">Scanners produce thousands of noisy findings. We execute discovered primitives in isolated headless sandboxes to compile verified proof-of-concept exploits with zero false positives.</p>
+            </div>
+            <a class="mega-proof-btn" href="#doctrine" onclick="closeMegaMenu();">
+              <span>Read Architectural Doctrine</span> &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+
       <a href="#pipeline">Pipeline</a>
       <a href="#doctrine">Doctrine</a>
-      <a href="#projects">Arsenal</a>
-      <a href="#private-projects">Private R&amp;D</a>
-      <a href="#triops">TriOps</a>
+      <a href="#triops">Partners</a>
       <a href="#team">Leadership</a>
-      <a href="#contact">Contact</a>
+
       <div class="nav-hud-group">
-        <button class="nav-hud-btn" id="cmd-k-trigger" type="button" onclick="openCmdPalette()" title="Press Cmd+K to search">
-          <span>Search</span> <span class="cmd-kbd">⌘K</span>
+        <button class="nav-hud-btn" id="cmd-k-trigger" type="button" onclick="openCmdPalette()" title="Press Ctrl+K or / to search">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span>Search</span> <span class="cmd-kbd">Ctrl K</span>
         </button>
+        <a class="nav-cta-btn" href="https://github.com/projecthellhound" target="_blank" rel="noopener">
+          <span>GitHub</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </a>
       </div>
     </nav>
   </div>
@@ -1363,7 +1567,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
       <div class="pipeline-stage">
         <div class="stage-head">
           <div class="stage-num">01</div>
-          <span class="stage-flow-tag">PHASE 1 &middot; OSINT &amp; INTEL</span>
+          <span class="stage-flow-tag">PHASE 1: OSINT &amp; INTEL</span>
         </div>
         <div class="stage-title">Tactical Recon &amp; Target Intelligence</div>
         <div class="stage-tools">
@@ -1377,7 +1581,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
       <div class="pipeline-stage">
         <div class="stage-head">
           <div class="stage-num">02</div>
-          <span class="stage-flow-tag">PHASE 2 &middot; SURFACE CRAWL</span>
+          <span class="stage-flow-tag">PHASE 2: SURFACE CRAWL</span>
         </div>
         <div class="stage-title">Dynamic SPA Crawl &amp; Route Discovery</div>
         <div class="stage-tools">
@@ -1390,7 +1594,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
       <div class="pipeline-stage">
         <div class="stage-head">
           <div class="stage-num">03</div>
-          <span class="stage-flow-tag">PHASE 3 &middot; PROTOCOL FUZZ</span>
+          <span class="stage-flow-tag">PHASE 3: PROTOCOL FUZZ</span>
         </div>
         <div class="stage-title">Targeted Protocol &amp; Boundary Fuzzing</div>
         <div class="stage-tools">
@@ -1405,7 +1609,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
       <div class="pipeline-stage">
         <div class="stage-head">
           <div class="stage-num">04</div>
-          <span class="stage-flow-tag">PHASE 4 &middot; EXPLOIT CHAIN</span>
+          <span class="stage-flow-tag">PHASE 4: EXPLOIT CHAIN</span>
         </div>
         <div class="stage-title">Autonomous Exploitation &amp; Triage</div>
         <div class="stage-tools">
@@ -1421,7 +1625,6 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
 <!-- Architectural Doctrine / Comparison Matrix -->
 <section id="doctrine" class="doctrine-section">
   <div class="wrap">
-    <div class="doctrine-badge">⚡ ARCHITECTURAL DOCTRINE</div>
     <h2 class="reveal">Why Project Hellhound?</h2>
     <p class="reveal" style="color:var(--muted);max-width:44rem;margin-bottom:1.5rem;">
       Offensive security cannot be solved with slow, closed monoliths. Here is how Project Hellhound contrasts with legacy enterprise vulnerability scanners.
@@ -1440,46 +1643,46 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
           <tr>
             <td class="doctrine-dim">Execution Architecture</td>
             <td class="cell-hellhound">
-              <span class="check-icon">✓</span><strong>Composable Unix Philosophy.</strong> Headless, ultra-fast micro-utilities piped via standard I/O (stdin/stdout) into existing reconnaissance workflows (httpx, ffuf, nuclei).
+              <span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><strong>Composable Unix Philosophy.</strong> Headless, ultra-fast micro-utilities piped via standard I/O (stdin/stdout) into existing reconnaissance workflows (httpx, ffuf, nuclei).
             </td>
             <td class="cell-legacy">
-              <span class="cross-icon">✗</span> Rigid monolithic scan engines with heavy resource footprints, closed ecosystems, and poor pipeline scriptability.
+              <span class="cross-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Rigid monolithic scan engines with heavy resource footprints, closed ecosystems, and poor pipeline scriptability.
             </td>
           </tr>
           <tr>
             <td class="doctrine-dim">Modern Web &amp; SPA Crawling</td>
             <td class="cell-hellhound">
-              <span class="check-icon">✓</span><strong>Dual-Engine Recon (Hellhound Spider).</strong> Synchronous headless Chromium DOM rehydration paired with concurrent async HTTP crawling — capturing client-side routing, hidden parameters, and dynamic JS states.
+              <span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><strong>Dual-Engine Recon (Hellhound Spider).</strong> Synchronous headless Chromium DOM rehydration paired with concurrent async HTTP crawling — capturing client-side routing, hidden parameters, and dynamic JS states.
             </td>
             <td class="cell-legacy">
-              <span class="cross-icon">✗</span> Static HTML regex scrapers and shallow link spiders that fail completely against modern React, Vue, Next.js, and Single-Page Applications.
+              <span class="cross-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Static HTML regex scrapers and shallow link spiders that fail completely against modern React, Vue, Next.js, and Single-Page Applications.
             </td>
           </tr>
           <tr>
             <td class="doctrine-dim">Exploit Triage &amp; Verification</td>
             <td class="cell-hellhound">
-              <span class="check-icon">✓</span><strong>Autonomous Agent Validation (Bounty Hunter).</strong> Multi-step autonomous LLM agents that construct, execute, and verify proof-of-concept exploits in sandbox isolation before reporting.
+              <span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><strong>Autonomous Agent Validation (Bounty Hunter).</strong> Multi-step autonomous LLM agents that construct, execute, and verify proof-of-concept exploits in sandbox isolation before reporting.
             </td>
             <td class="cell-legacy">
-              <span class="cross-icon">✗</span> Static heuristic rules producing hundreds of unvalidated alerts, causing severe triage fatigue and unverified noise.
+              <span class="cross-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Static heuristic rules producing hundreds of unvalidated alerts, causing severe triage fatigue and unverified noise.
             </td>
           </tr>
           <tr>
             <td class="doctrine-dim">Specialized Protocol Fuzzers</td>
             <td class="cell-hellhound">
-              <span class="check-icon">✓</span><strong>Targeted Attack Engines.</strong> Dedicated tools purpose-built for high-impact classes: GateForge (Cloud IMDSv1/v2 SSRF), Agent389 (AD LDAP injection), CMDMap (WAF command bypasses).
+              <span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><strong>Targeted Attack Engines.</strong> Dedicated tools purpose-built for high-impact classes: GateForge (Cloud IMDSv1/v2 SSRF), Agent389 (AD LDAP injection), CMDMap (WAF command bypasses).
             </td>
             <td class="cell-legacy">
-              <span class="cross-icon">✗</span> Generic web scanners treating cloud metadata and directory protocols as secondary afterthoughts with shallow signatures.
+              <span class="cross-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Generic web scanners treating cloud metadata and directory protocols as secondary afterthoughts with shallow signatures.
             </td>
           </tr>
           <tr>
             <td class="doctrine-dim">Extensibility &amp; Freedom</td>
             <td class="cell-hellhound">
-              <span class="check-icon">✓</span><strong>100% Free, Open Source &amp; Hacker-First.</strong> Open codebase, customizable rulesets, community audited, zero telemetry lock-in, maintained by Project Hellhound researchers.
+              <span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><strong>100% Free, Open Source &amp; Hacker-First.</strong> Open codebase, customizable rulesets, community audited, zero telemetry lock-in, maintained by Project Hellhound researchers.
             </td>
             <td class="cell-legacy">
-              <span class="cross-icon">✗</span> Prohibitive per-target or per-seat enterprise licensing, closed proprietary source, and slow vendor patch cycles.
+              <span class="cross-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Prohibitive per-target or per-seat enterprise licensing, closed proprietary source, and slow vendor patch cycles.
             </td>
           </tr>
         </tbody>
@@ -1500,7 +1703,6 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
     <div id="flagship-container" class="flagship-container reveal">
       <div class="flagship-section-header">
         <div class="flagship-pill-label">
-          <span>⚡</span>
           <span>FLAGSHIP ARSENAL</span>
         </div>
         <span class="flagship-header-note">Core offensive systems engineered for automated recon and end-to-end exploit chains</span>
@@ -1532,7 +1734,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
         <div class="private-top">
           <div class="private-badge-row">
             <span class="private-badge">Project Hellhound R&amp;D</span>
-            <span class="status live"><span class="live-dot"></span><span>Active Dev</span></span>
+            <span class="status live"><span>Active Dev</span></span>
           </div>
           <h3 class="private-title">Oryn</h3>
           <p class="private-subtitle">Autonomous AI Engineering Assistant — Chat + Code, Grounded in Evidence</p>
@@ -1557,7 +1759,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
         <div class="private-top">
           <div class="private-badge-row">
             <span class="private-badge triops">TriOps Security</span>
-            <span class="status live"><span class="live-dot"></span><span>In Dev</span></span>
+            <span class="status live"><span>In Dev</span></span>
           </div>
           <h3 class="private-title">Ghost</h3>
           <p class="private-subtitle">Attack Surface Mapper &amp; Continuous Exposure Intelligence</p>
@@ -1578,36 +1780,256 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
 </section>
 
 <!-- TriOps Section -->
-<section id="triops">
+<!-- Hellhound & TriOps Ecosystem Section (ProjectDiscovery Reference: media_1794994641831.png) -->
+<section id="triops" class="ecosystem-section">
   <div class="wrap">
-    <h2 class="reveal">Hellhound and TriOps Security</h2>
-    <div class="trio">
-      <div class="box reveal">
-        <h3>Shared Research &amp; Foundations</h3>
-        <p>Project Hellhound was founded independently as an open-source security laboratory. Sree Danush S is also Co-Founder at TriOps Security alongside a core team of four members, bridging community research with enterprise security engineering.</p>
-        <div style="margin-top: 1.25rem;">
-          <a class="btn" style="padding:.45rem .95rem;font-size:.88rem" href="https://www.linkedin.com/company/122134385" target="_blank" rel="noopener">TriOps Security on LinkedIn &rarr;</a>
+    <h2 class="reveal">Project Hellhound &amp; TriOps Security</h2>
+    <p class="reveal" style="color:var(--muted);max-width:44rem;margin-bottom:2rem;">
+      Bridging independent offensive security research with enterprise attack surface engineering through our shared founding leadership.
+    </p>
+
+    <!-- ProjectDiscovery-style Ecosystem Table Grid -->
+    <div class="pd-ecosystem-grid reveal">
+      <!-- Row 1: Built by Researchers at Project Hellhound -->
+      <div class="pd-grid-row">
+        <div class="pd-row-label">
+          <span class="pd-label-tag">RESEARCH ENGINE</span>
+          <span class="pd-label-title">BUILT BY RESEARCHERS AT PROJECT HELLHOUND</span>
+        </div>
+        <div class="pd-row-cells">
+          <a class="pd-cell" href="#dossier-Hellhound-Spider" onclick="openDossier('Hellhound-Spider')">
+            <span class="pd-cell-name">Hellhound Spider</span>
+            <span class="pd-cell-desc">Dual-engine headless SPA crawler &amp; route discovery</span>
+          </a>
+          <a class="pd-cell" href="#dossier-bounty-hunter" onclick="openDossier('bounty-hunter')">
+            <span class="pd-cell-name">Bounty Hunter</span>
+            <span class="pd-cell-desc">Autonomous exploit triage agent with PoC verification</span>
+          </a>
+          <a class="pd-cell" href="#dossier-cmdmap" onclick="openDossier('cmdmap')">
+            <span class="pd-cell-name">CMDMap</span>
+            <span class="pd-cell-desc">OS command injection boundary &amp; tamper bypass</span>
+          </a>
+          <a class="pd-cell pd-cell-more" href="#projects">
+            <span class="pd-cell-name">10+ Offensive Modules</span>
+            <span class="pd-cell-arrow">&rarr;</span>
+          </a>
         </div>
       </div>
-      <div class="box soon reveal">
-        <h3><span class="pulse"></span>Enterprise ASM: Ghost</h3>
-        <p>Ghost is an attack surface management tool engineered by TriOps Security. It is under active private development and featured in our Private &amp; In-Development section above.</p>
-        <div style="margin-top: 1.25rem;">
-          <a class="btn" style="padding:.45rem .95rem;font-size:.88rem" href="#private-projects">Explore Private Projects &rarr;</a>
+
+      <!-- Row 2: Strategic Partner: TriOps Security -->
+      <div class="pd-grid-row">
+        <div class="pd-row-label">
+          <span class="pd-label-tag">STRATEGIC PARTNER</span>
+          <span class="pd-label-title">ENTERPRISE WING AT TRIOPS SECURITY</span>
+        </div>
+        <div class="pd-row-cells">
+          <div class="pd-cell">
+            <span class="pd-cell-badge">CO-FOUNDED</span>
+            <span class="pd-cell-name">TriOps Security</span>
+            <span class="pd-cell-desc">Enterprise offensive cyber &amp; intelligence operations</span>
+          </div>
+          <div class="pd-cell">
+            <span class="pd-cell-badge">ASM PLATFORM</span>
+            <span class="pd-cell-name">Ghost ASM</span>
+            <span class="pd-cell-desc">Continuous perimeter &amp; shadow IT asset mapping</span>
+          </div>
+          <div class="pd-cell">
+            <span class="pd-cell-badge">PROVING GROUND</span>
+            <span class="pd-cell-name">HellCorp Range</span>
+            <span class="pd-cell-desc">Enterprise vulnerable multi-tier simulation lab</span>
+          </div>
+          <a class="pd-cell pd-cell-cta" href="https://www.linkedin.com/company/122134385" target="_blank" rel="noopener">
+            <span class="pd-cell-name">TriOps Portal</span>
+            <span class="pd-cell-arrow">&rarr;</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Row 3: Doctrine & Community Impact -->
+      <div class="pd-grid-row">
+        <div class="pd-row-label">
+          <span class="pd-label-tag">RESEARCH IMPACT</span>
+          <span class="pd-label-title">DOCTRINE &amp; OFFENSIVE STANDARDS</span>
+        </div>
+        <div class="pd-row-cells">
+          <div class="pd-cell">
+            <span class="pd-cell-stat">100%</span>
+            <span class="pd-cell-name">Reproducible PoCs</span>
+            <span class="pd-cell-desc">Ephemeral container sandbox execution</span>
+          </div>
+          <div class="pd-cell">
+            <span class="pd-cell-stat">3,400+</span>
+            <span class="pd-cell-name">Ingested Vectors</span>
+            <span class="pd-cell-desc">Disclosed bug bounty intelligence base</span>
+          </div>
+          <div class="pd-cell">
+            <span class="pd-cell-stat">0</span>
+            <span class="pd-cell-name">False Positives</span>
+            <span class="pd-cell-desc">Deterministic exploit validation pipeline</span>
+          </div>
+          <div class="pd-cell">
+            <span class="pd-cell-stat">OPEN</span>
+            <span class="pd-cell-name">Community Core</span>
+            <span class="pd-cell-desc">Peer-reviewed open source cyber tools</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dynamic Collapsible Deep-Dive Panels (Accordions) -->
+    <div class="accordion-group reveal">
+      <div class="accordion-panel" id="panel-foundations">
+        <button class="accordion-header" type="button" aria-expanded="false" onclick="toggleAccordion('panel-foundations')">
+          <div class="accordion-title-wrap">
+            <span class="accordion-tag">FOUNDATIONS</span>
+            <span class="accordion-title">Shared Research Architecture &amp; Founding Leadership</span>
+          </div>
+          <span class="accordion-chevron">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </button>
+        <div class="accordion-body">
+          <div class="accordion-inner">
+            <p>Project Hellhound was established as an open-source offensive research laboratory. Sree Danush S (known as <strong>l4zz3rj0d</strong>) serves as Founder of Project Hellhound and Co-Founder at TriOps Security alongside a core team of four security researchers. This organizational structure bridges community-driven research with high-assurance enterprise security engineering.</p>
+            <div class="accordion-specs">
+              <div class="spec-col">
+                <span class="spec-label">LEADERSHIP ROLE</span>
+                <span class="spec-val">Sree Danush S (l4zz3rj0d) &amp; TriOps Core Team</span>
+              </div>
+              <div class="spec-col">
+                <span class="spec-label">RESEARCH EMPHASIS</span>
+                <span class="spec-val">Autonomous Agents, Bug Bounty Automation, Exploit Chaining</span>
+              </div>
+              <div class="spec-col">
+                <span class="spec-label">DUAL-TRACK MODEL</span>
+                <span class="spec-val">Public OSS Tools and Private Enterprise ASM</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-panel" id="panel-ghost">
+        <button class="accordion-header" type="button" aria-expanded="false" onclick="toggleAccordion('panel-ghost')">
+          <div class="accordion-title-wrap">
+            <span class="accordion-tag">ENTERPRISE ASM</span>
+            <span class="accordion-title">Ghost: Continuous Attack Surface Management Architecture</span>
+          </div>
+          <span class="accordion-chevron">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </button>
+        <div class="accordion-body">
+          <div class="accordion-inner">
+            <p>Ghost is an attack surface management platform developed by TriOps Security. Engineered for active corporate perimeters, Ghost continuously tracks internet-facing assets, correlates certificate transparency logs, detects forgotten cloud buckets, and identifies exposed RPC APIs before external attackers locate them.</p>
+            <div class="accordion-specs">
+              <div class="spec-col">
+                <span class="spec-label">DISCOVERY SCOPE</span>
+                <span class="spec-val">Subdomains, Dynamic DNS, Cloud Buckets, Shadow IT</span>
+              </div>
+              <div class="spec-col">
+                <span class="spec-label">MONITORING CYCLE</span>
+                <span class="spec-val">Real-time passive telemetry and continuous perimeter checks</span>
+              </div>
+              <div class="spec-col">
+                <span class="spec-label">TIER ACCESS</span>
+                <span class="spec-val">Enterprise private deployment under active testing</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-panel" id="panel-sandbox">
+        <button class="accordion-header" type="button" aria-expanded="false" onclick="toggleAccordion('panel-sandbox')">
+          <div class="accordion-title-wrap">
+            <span class="accordion-tag">VALIDATION MODEL</span>
+            <span class="accordion-title">Headless Sandbox Isolation &amp; Zero False-Positive Proofs</span>
+          </div>
+          <span class="accordion-chevron">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </button>
+        <div class="accordion-body">
+          <div class="accordion-inner">
+            <p>Standard scanners overwhelm developers with theoretical CVE alerts inferred from version strings. Project Hellhound adheres to an explicit validation doctrine: candidate primitives discovered during surface crawl or protocol fuzzing are executed within isolated, ephemeral headless containers to verify actual execution impact before a report is ever compiled.</p>
+            <div class="accordion-specs">
+              <div class="spec-col">
+                <span class="spec-label">CONTAINER BOUNDARY</span>
+                <span class="spec-val">Isolated ephemeral sandbox with strict execution timeouts</span>
+              </div>
+              <div class="spec-col">
+                <span class="spec-label">VERIFIED CLASSES</span>
+                <span class="spec-val">Remote Code Execution, SSRF IMDSv2, Dynamic Command Injection</span>
+              </div>
+              <div class="spec-col">
+                <span class="spec-label">PROOF ARTIFACT</span>
+                <span class="spec-val">Reproducible curl payload, execution log, patch guideline</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- Principles Section (How We Work Collapsible Panels) -->
 <section id="why" class="principles">
   <div class="wrap">
-    <h2 class="reveal">How we work</h2>
-    <dl>
-      <div class="reveal"><dt>Build first, explain later</dt><dd>An idea becomes a working repo quickly. We improve it in public.</dd></div>
-      <div class="reveal"><dt>Test on real targets</dt><dd>Security tools run against vulnerable labs and real programs, then we fix what fails.</dd></div>
-      <div class="reveal"><dt>Open by default</dt><dd>Public code gets reviewed, broken and improved faster than private code.</dd></div>
-    </dl>
+    <h2 class="reveal">How We Work</h2>
+    <div class="accordion-group reveal">
+      <div class="accordion-panel expanded" id="panel-build">
+        <button class="accordion-header" type="button" aria-expanded="true" onclick="toggleAccordion('panel-build')">
+          <div class="accordion-title-wrap">
+            <span class="accordion-tag">DOCTRINE 01</span>
+            <span class="accordion-title">Build First, Prove in Public</span>
+          </div>
+          <span class="accordion-chevron">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </button>
+        <div class="accordion-body">
+          <div class="accordion-inner">
+            <p>An offensive theory only matters when translated into an automated, working tool. We prototype rapidly, validate findings against hardened infrastructures, and iterate openly on GitHub with continuous community peer feedback.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-panel" id="panel-test">
+        <button class="accordion-header" type="button" aria-expanded="false" onclick="toggleAccordion('panel-test')">
+          <div class="accordion-title-wrap">
+            <span class="accordion-tag">DOCTRINE 02</span>
+            <span class="accordion-title">Real-Target Verification &amp; Sandbox Safety</span>
+          </div>
+          <span class="accordion-chevron">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </button>
+        <div class="accordion-body">
+          <div class="accordion-inner">
+            <p>Security tools that work only in sterile unit tests fail in real engagements. Hellhound tools are battle-tested against modern edge proxies, rate-limiting WAFs, and multi-tier enterprise environments (such as our HellCorp range), with strict guardrails preventing scope drift.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-panel" id="panel-open">
+        <button class="accordion-header" type="button" aria-expanded="false" onclick="toggleAccordion('panel-open')">
+          <div class="accordion-title-wrap">
+            <span class="accordion-tag">DOCTRINE 03</span>
+            <span class="accordion-title">Open Core by Default</span>
+          </div>
+          <span class="accordion-chevron">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </button>
+        <div class="accordion-body">
+          <div class="accordion-inner">
+            <p>Proprietary security scanners hide false positives behind black-box marketing. We believe offensive tools must be open-source and transparent: public code gets reviewed, hardened, and improved faster than closed legacy software.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1620,7 +2042,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
     <div class="who reveal">
       <img class="avatar" src="assets/founder.jpg" alt="Sree Danush S (l4zz3rj0d)" onerror="this.outerHTML='<div class=&quot;avatar&quot; aria-hidden=&quot;true&quot;>S</div>'">
       <div>
-        <div class="role-badge">Founder &middot; Project Hellhound &amp; Co-Founder &middot; TriOps Security</div>
+        <div class="role-badge">Founder Project Hellhound, Co-Founder TriOps Security</div>
         <h3 class="member-name">Sree Danush S</h3>
         <p>Known as <strong>l4zz3rj0d</strong>. Security researcher, offensive tool builder, and bug bounty hunter from Tamil Nadu, India. Founder of Project Hellhound and Co-Founder of TriOps Security. Specializing in autonomous offensive security agents, web penetration testing automation, and AI/LLM security research.</p>
         <div class="co-tags">
@@ -1652,7 +2074,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
           <div class="co-header">
             <img class="co-avatar" src="assets/abinav.png" alt="Rithish Abinav AC" onerror="this.outerHTML='<div class=&quot;co-avatar&quot;>R</div>'">
             <div>
-              <div class="role-badge">Co-Founder &middot; Project Hellhound</div>
+              <div class="role-badge">Co-Founder, Project Hellhound</div>
               <h4 class="co-name">Rithish Abinav AC</h4>
               <span class="co-handle">@Abinav3ac</span>
             </div>
@@ -1675,7 +2097,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
           <div class="co-header">
             <img class="co-avatar" src="assets/ghost.png" alt="HARIKRISHNAN S" onerror="this.outerHTML='<div class=&quot;co-avatar&quot;>H</div>'">
             <div>
-              <div class="role-badge">Co-Founder &middot; Project Hellhound</div>
+              <div class="role-badge">Co-Founder, Project Hellhound</div>
               <h4 class="co-name">HARIKRISHNAN S</h4>
               <span class="co-handle">@L33TxGH05T</span>
             </div>
@@ -1736,7 +2158,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
 <div id="cmd-palette-overlay" class="cmd-palette-overlay" role="dialog" aria-modal="true" aria-hidden="true" onclick="handleCmdOverlayClick(event)">
   <div class="cmd-palette-box" onclick="event.stopPropagation()">
     <div class="cmd-palette-search-row">
-      <span class="cmd-search-icon">🔍</span>
+      <span class="cmd-search-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>
       <input type="text" id="cmd-input" class="cmd-palette-input" placeholder="Search tools, pipeline phases, actions (e.g., spider, triage, sfx)..." autocomplete="off" spellcheck="false" oninput="filterCmdPalette()" onkeydown="handleCmdKeyDown(event)">
       <span class="cmd-esc-tag">ESC</span>
     </div>
@@ -1755,14 +2177,103 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
 </div>
 </main>
 
-<footer>
-  <div class="wrap">
-    <span>&copy; <span id="yr"></span> Project Hellhound. Part of TriOps Security.</span>
-    <div class="footer-nav">
-      <a href="https://github.com/projecthellhound" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://discord.gg/DUBDAeJVk" target="_blank" rel="noopener">Discord</a>
-      <a href="mailto:projectxhellhound@gmail.com">Email</a>
-      <a href="https://www.linkedin.com/company/122134385" target="_blank" rel="noopener">TriOps Security</a>
+<!-- ProjectDiscovery-Style Comprehensive 5-Column Footer (media_1794994617811.png) -->
+<footer class="pd-footer">
+  <div class="wrap pd-footer-wrap">
+    <div class="pd-footer-cols">
+      <!-- Col 1 -->
+      <div class="pd-footer-col">
+        <h4 class="pd-footer-heading">Solutions</h4>
+        <ul class="pd-footer-links">
+          <li><a href="#pipeline">Autonomous Exploit Chaining</a></li>
+          <li><a href="#pipeline">Dynamic SPA Reconnaissance</a></li>
+          <li><a href="#pipeline">Cloud Metadata &amp; SSRF Fuzzing</a></li>
+          <li><a href="#pipeline">WAF Tamper Boundary Bypass</a></li>
+          <li><a href="#pipeline">Active Directory &amp; LDAP Injection</a></li>
+          <li><a href="#pipeline">Mobile APK Vulnerability Triage</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 2 -->
+      <div class="pd-footer-col">
+        <h4 class="pd-footer-heading">Open Source Arsenal</h4>
+        <ul class="pd-footer-links">
+          <li><a href="#dossier-Hellhound-Spider" onclick="openDossier('Hellhound-Spider')">Hellhound Spider</a></li>
+          <li><a href="#dossier-bounty-hunter" onclick="openDossier('bounty-hunter')">Bounty Hunter</a></li>
+          <li><a href="#dossier-cmdmap" onclick="openDossier('cmdmap')">CMDMap</a></li>
+          <li><a href="#dossier-GateForge" onclick="openDossier('GateForge')">GateForge</a></li>
+          <li><a href="#dossier-Agent389" onclick="openDossier('Agent389')">Agent389</a></li>
+          <li><a href="#dossier-JARVIS" onclick="openDossier('JARVIS')">JARVIS</a></li>
+          <li><a href="https://github.com/projecthellhound" target="_blank" rel="noopener">All Repositories &rarr;</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3 -->
+      <div class="pd-footer-col">
+        <h4 class="pd-footer-heading">Doctrine &amp; Specs</h4>
+        <ul class="pd-footer-links">
+          <li><a href="#doctrine">Why Project Hellhound</a></li>
+          <li><a href="#pipeline">4-Phase Attack Pipeline</a></li>
+          <li><a href="#triops">Headless Sandbox Isolation</a></li>
+          <li><a href="#why">How We Work Principles</a></li>
+          <li><a href="https://github.com/projecthellhound" target="_blank" rel="noopener">Security Disclosures</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4 -->
+      <div class="pd-footer-col">
+        <h4 class="pd-footer-heading">Enterprise &amp; Labs</h4>
+        <ul class="pd-footer-links">
+          <li><a href="https://www.linkedin.com/company/122134385" target="_blank" rel="noopener">TriOps Security</a></li>
+          <li><a href="#private-projects">Ghost ASM Platform</a></li>
+          <li><a href="#private-projects">HellCorp Enterprise Range</a></li>
+          <li><a href="#private-projects">Private R&amp;D Modules</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 5 -->
+      <div class="pd-footer-col">
+        <h4 class="pd-footer-heading">Organization</h4>
+        <ul class="pd-footer-links">
+          <li><a href="#team">Sree Danush S (l4zz3rj0d)</a></li>
+          <li><a href="#team">Research Team</a></li>
+          <li><a href="https://github.com/projecthellhound" target="_blank" rel="noopener">GitHub Organization</a></li>
+          <li><a href="https://discord.gg/DUBDAeJVk" target="_blank" rel="noopener">Discord Community</a></li>
+          <li><a href="mailto:projectxhellhound@gmail.com">Contact Research Team</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar with Watermark Emblem -->
+    <div class="pd-footer-bottom">
+      <div class="pd-bottom-left">
+        <div class="pd-copyright">
+          &copy; <span id="yr"></span> Project Hellhound. Autonomous offensive security research organization.
+        </div>
+        <div class="pd-enterprise-sub">
+          Enterprise strategic partner: <a href="https://www.linkedin.com/company/122134385" target="_blank" rel="noopener">TriOps Security</a>
+        </div>
+        <div class="pd-social-row">
+          <a class="pd-social-link" href="https://github.com/projecthellhound" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+          <a class="pd-social-link" href="https://discord.gg/DUBDAeJVk" target="_blank" rel="noopener" aria-label="Discord">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.893.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+          </a>
+          <a class="pd-social-link" href="https://www.linkedin.com/company/122134385" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64c-.95 0-1.72.78-1.72 1.73s.77 1.72 1.72 1.72a1.72 1.72 0 0 0 1.72-1.72c0-.95-.77-1.73-1.72-1.73z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Watermark logo emblem with interactive glitch effect -->
+      <div class="pd-watermark-wrap" title="Project Hellhound">
+        <div class="logo-glitch-wrap">
+          <img src="assets/logo.png" alt="Project Hellhound emblem" class="logo-glitch-base" loading="lazy">
+          <img src="assets/logo.png" alt="" class="logo-glitch-copy glitch-red" aria-hidden="true" loading="lazy">
+          <img src="assets/logo.png" alt="" class="logo-glitch-copy glitch-cyan" aria-hidden="true" loading="lazy">
+        </div>
+      </div>
     </div>
   </div>
 </footer>
@@ -2126,7 +2637,7 @@ function copyActiveDossierCmd() {
   navigator.clipboard.writeText(text).then(() => {
     const orig = btn.innerHTML;
     btn.classList.add("copied");
-    btn.textContent = "COPIED ✓";
+    btn.textContent = "COPIED";
     setTimeout(() => {
       btn.innerHTML = orig;
       btn.classList.remove("copied");
@@ -2178,9 +2689,9 @@ function openDossier(repo) {
   ` : "";
 
   dossierModalContent.innerHTML = `
-    <span class="dossier-corner-tag">${p.cat} &middot; DOSSIER</span>
+    <span class="dossier-corner-tag">${p.cat.toUpperCase()} DOSSIER</span>
     <button class="dossier-close" type="button" onclick="closeDossier()" aria-label="Close dossier">
-      <span>[✕]</span> <span>CLOSE</span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> <span>ESC</span>
     </button>
 
     <div class="dossier-header">
@@ -2188,7 +2699,7 @@ function openDossier(repo) {
       <div class="dossier-title-box">
         <div class="dossier-title-row">
           <h3 class="dossier-title">${p.name}</h3>
-          ${p.status ? `<span class="status live"><span class="live-dot"></span><span>Active Dev</span></span>` : ""}
+          ${p.status ? `<span class="status live"><span>Active Dev</span></span>` : ""}
         </div>
         <div class="dossier-repo-path">projecthellhound/${p.repo}</div>
       </div>
@@ -2292,7 +2803,7 @@ function getCmdItems() {
   items.push(
     {
       type: "SECTION",
-      glyph: "⚡",
+      glyph: "DOC",
       title: "Architectural Doctrine",
       desc: "Why Project Hellhound vs Monolithic Enterprise Scanners",
       badge: "Matrix",
@@ -2304,7 +2815,7 @@ function getCmdItems() {
     },
     {
       type: "SECTION",
-      glyph: "⚔️",
+      glyph: "ARS",
       title: "Arsenal & Projects",
       desc: "Flagship crawlers and specialized offensive tooling",
       badge: "Arsenal",
@@ -2316,7 +2827,7 @@ function getCmdItems() {
     },
     {
       type: "SECTION",
-      glyph: "🏢",
+      glyph: "PRV",
       title: "Private R&D (Oryn)",
       desc: "Autonomous AI engineering assistant & attack surface research",
       badge: "Research",
@@ -2328,7 +2839,7 @@ function getCmdItems() {
     },
     {
       type: "SECTION",
-      glyph: "👥",
+      glyph: "TEAM",
       title: "Leadership & Research Team",
       desc: "l4zz3rj0d, Abinav3ac, L33TxGH05T, H3xiee",
       badge: "Team",
@@ -2344,7 +2855,7 @@ function getCmdItems() {
   items.push(
     {
       type: "ACTION",
-      glyph: "⚡",
+      glyph: "SPD",
       title: "Inspect Flagship: Hellhound Spider",
       desc: "Dual-engine async HTTP & Chromium DOM reconnaissance crawler",
       badge: "Flagship",
@@ -2355,7 +2866,7 @@ function getCmdItems() {
     },
     {
       type: "ACTION",
-      glyph: "⚡",
+      glyph: "BTY",
       title: "Inspect Flagship: Bounty Hunter",
       desc: "Autonomous offensive AI agent for vulnerability triage & exploit verification",
       badge: "Flagship",
@@ -2366,7 +2877,7 @@ function getCmdItems() {
     },
     {
       type: "ACTION",
-      glyph: "📋",
+      glyph: "URL",
       title: "Copy GitHub Org URL",
       desc: "https://github.com/projecthellhound",
       badge: "Copy",
@@ -2556,13 +3067,13 @@ function renderFlagships() {
 
     const tag = document.createElement("span");
     tag.className = "flagship-tag";
-    tag.innerHTML = `<span>⚡</span> <span>${idx === 0 ? "FLAGSHIP RECON CRAWLER" : "FLAGSHIP AI AGENT"}</span>`;
+    tag.innerHTML = `<span>${idx === 0 ? "FLAGSHIP RECON CRAWLER" : "FLAGSHIP AI AGENT"}</span>`;
 
     metaTop.appendChild(tag);
 
     const s = document.createElement("span");
     s.className = "status live";
-    s.innerHTML = `<span class="live-dot"></span><span>${p.status ? "Active Dev" : "Production Ready"}</span>`;
+    s.innerHTML = `<span>${p.status ? "Active Dev" : "Production Ready"}</span>`;
     metaTop.appendChild(s);
 
     // Identity row: Glyph + Title + Category
@@ -2694,7 +3205,7 @@ function render(){
       if (p.status) {
         const s = document.createElement("span");
         s.className = "status live";
-        s.innerHTML = `<span class="live-dot"></span><span>Active Dev</span>`;
+        s.innerHTML = `<span>Active Dev</span>`;
         top.appendChild(s);
       }
       
@@ -2788,57 +3299,127 @@ else {
   })();
 }
 
-/* animated network background + cursor glow */
+/* Sleek ambient reactive cyber aura (No node particles / No connecting webs) */
 const cv = document.getElementById("bg"), cx = cv.getContext("2d");
-let W, H, pts = [], mouse = { x: -999, y: -999 };
+let W, H, mouse = { x: -999, y: -999, targetX: -999, targetY: -999 };
+let t = 0;
+
 function size(){
   const dpr = Math.min(devicePixelRatio || 1, 2);
   W = innerWidth; H = innerHeight;
-  cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  const n = Math.min(100, Math.floor(W * H / 15000));
-  pts = Array.from({ length: n }, () => ({
-    x: Math.random() * W,
-    y: Math.random() * H,
-    vx: (Math.random() - .5) * .35,
-    vy: (Math.random() - .5) * .35,
-    size: Math.random() * 1.5 + 1
-  }));
+  cv.width = W * dpr; cv.height = H * dpr;
+  cx.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
+
 function frame(){
+  t += 0.005;
   cx.clearRect(0, 0, W, H);
-  for (const p of pts) {
-    if (!reduce) { p.x += p.vx; p.y += p.vy; }
-    if (p.x < 0 || p.x > W) p.vx *= -1;
-    if (p.y < 0 || p.y > H) p.vy *= -1;
-  }
-  for (let i = 0; i < pts.length; i++) {
-    const a = pts[i];
-    for (let j = i + 1; j < pts.length; j++) {
-      const b = pts[j], d = Math.hypot(a.x - b.x, a.y - b.y);
-      if (d < 135) {
-        cx.strokeStyle = "rgba(160,160,160," + ((1 - d / 135) * .17) + ")";
-        cx.beginPath(); cx.moveTo(a.x, a.y); cx.lineTo(b.x, b.y); cx.stroke();
-      }
+
+  // Smooth cursor follow
+  if (mouse.targetX !== -999) {
+    if (mouse.x === -999) {
+      mouse.x = mouse.targetX;
+      mouse.y = mouse.targetY;
+    } else {
+      mouse.x += (mouse.targetX - mouse.x) * 0.08;
+      mouse.y += (mouse.targetY - mouse.y) * 0.08;
     }
-    const dm = Math.hypot(a.x - mouse.x, a.y - mouse.y);
-    if (dm < 180) {
-      cx.strokeStyle = "rgba(255,75,43," + ((1 - dm / 180) * .65) + ")";
-      cx.lineWidth = 1.2;
-      cx.beginPath(); cx.moveTo(a.x, a.y); cx.lineTo(mouse.x, mouse.y); cx.stroke();
-      cx.lineWidth = 1;
-    }
-    cx.fillStyle = dm < 180 ? "rgba(255,75,43,.85)" : "rgba(237,237,237,.35)";
-    cx.beginPath(); cx.arc(a.x, a.y, a.size, 0, 6.283); cx.fill();
   }
+
+  // 1. Slow harmonic ambient aura (Ember & deep violet)
+  const o1X = W * 0.5 + Math.sin(t * 0.7) * (W * 0.22);
+  const o1Y = H * 0.35 + Math.cos(t * 0.5) * (H * 0.15);
+  const grad1 = cx.createRadialGradient(o1X, o1Y, 0, o1X, o1Y, Math.max(W, H) * 0.45);
+  grad1.addColorStop(0, "rgba(255, 75, 43, 0.045)");
+  grad1.addColorStop(0.5, "rgba(255, 51, 0, 0.015)");
+  grad1.addColorStop(1, "rgba(0, 0, 0, 0)");
+  cx.fillStyle = grad1;
+  cx.fillRect(0, 0, W, H);
+
+  const o2X = W * 0.75 + Math.cos(t * 0.4) * (W * 0.2);
+  const o2Y = H * 0.65 + Math.sin(t * 0.6) * (H * 0.18);
+  const grad2 = cx.createRadialGradient(o2X, o2Y, 0, o2X, o2Y, Math.max(W, H) * 0.4);
+  grad2.addColorStop(0, "rgba(79, 70, 229, 0.035)");
+  grad2.addColorStop(0.6, "rgba(59, 130, 246, 0.01)");
+  grad2.addColorStop(1, "rgba(0, 0, 0, 0)");
+  cx.fillStyle = grad2;
+  cx.fillRect(0, 0, W, H);
+
+  // 2. Interactive cursor spotlight illumination
+  if (mouse.x !== -999) {
+    const spot = cx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 300);
+    spot.addColorStop(0, "rgba(255, 75, 43, 0.07)");
+    spot.addColorStop(0.4, "rgba(255, 75, 43, 0.02)");
+    spot.addColorStop(1, "rgba(0, 0, 0, 0)");
+    cx.fillStyle = spot;
+    cx.fillRect(0, 0, W, H);
+  }
+
   if (!reduce) requestAnimationFrame(frame);
 }
 size(); frame();
 addEventListener("resize", () => { size(); if (reduce) frame(); });
 addEventListener("pointermove", e => {
-  mouse.x = e.clientX; mouse.y = e.clientY;
+  mouse.targetX = e.clientX;
+  mouse.targetY = e.clientY;
   document.documentElement.style.setProperty("--mx", e.clientX + "px");
   document.documentElement.style.setProperty("--my", e.clientY + "px");
 });
+
+/* XBOW Mega Menu Controller */
+function toggleMegaMenu(e) {
+  if (e) {
+    e.stopPropagation();
+    e.preventDefault();
+  }
+  AudioHUD.click();
+  const menu = document.getElementById("mega-menu-panel");
+  const btn = document.querySelector(".nav-dropdown-btn");
+  if (!menu) return;
+  const isOpen = menu.classList.contains("active");
+  if (isOpen) {
+    closeMegaMenu();
+  } else {
+    menu.classList.add("active");
+    if (btn) {
+      btn.classList.add("active");
+      btn.setAttribute("aria-expanded", "true");
+    }
+  }
+}
+
+function closeMegaMenu() {
+  const menu = document.getElementById("mega-menu-panel");
+  const btn = document.querySelector(".nav-dropdown-btn");
+  if (menu) menu.classList.remove("active");
+  if (btn) {
+    btn.classList.remove("active");
+    btn.setAttribute("aria-expanded", "false");
+  }
+}
+
+document.addEventListener("click", e => {
+  const menu = document.getElementById("mega-menu-panel");
+  const dropdown = document.getElementById("nav-arsenal-dropdown");
+  if (menu && menu.classList.contains("active")) {
+    if (dropdown && !dropdown.contains(e.target)) {
+      closeMegaMenu();
+    }
+  }
+});
+
+/* Collapsible Accordion Controller */
+function toggleAccordion(id) {
+  AudioHUD.click();
+  const panel = document.getElementById(id);
+  if (!panel) return;
+  const isExpanded = panel.classList.contains("expanded");
+  panel.classList.toggle("expanded", !isExpanded);
+  const btn = panel.querySelector(".accordion-header");
+  if (btn) {
+    btn.setAttribute("aria-expanded", String(!isExpanded));
+  }
+}
 
 document.getElementById("yr").textContent = new Date().getFullYear();
 AudioHUD.init();
