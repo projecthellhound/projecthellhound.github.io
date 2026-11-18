@@ -936,6 +936,348 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
 .footer-nav a{color:var(--muted);text-decoration:none;transition:color .2s}
 .footer-nav a:hover{color:var(--ink);text-decoration:underline;text-decoration-color:var(--ember);text-underline-offset:4px}
 
+/* Navbar HUD controls */
+.nav-hud-group{
+  display:inline-flex;
+  align-items:center;
+  gap:.65rem;
+  margin-left:1.25rem;
+}
+.nav-hud-btn{
+  background:#101010;
+  border:1px solid #282828;
+  color:var(--muted);
+  border-radius:6px;
+  padding:.35rem .65rem;
+  font-family:var(--mono);
+  font-size:.78rem;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  transition:all .18s ease;
+}
+.nav-hud-btn:hover{
+  border-color:var(--ember);
+  color:var(--ink);
+  background:rgba(255,75,43,.08);
+}
+.nav-hud-btn.active{
+  border-color:var(--ember);
+  color:var(--ember);
+  background:rgba(255,75,43,.14);
+}
+.cmd-kbd{
+  background:#181818;
+  border:1px solid #333;
+  padding:.1rem .35rem;
+  border-radius:4px;
+  font-size:.68rem;
+  color:var(--ink);
+  font-weight:600;
+}
+
+/* Dossier Multi-Tab Install Switcher */
+.dossier-install-section{
+  display:flex;
+  flex-direction:column;
+  gap:.5rem;
+}
+.dossier-tabs-bar{
+  display:flex;
+  align-items:center;
+  gap:.4rem;
+  overflow-x:auto;
+  padding-bottom:.15rem;
+}
+.dossier-tab-btn{
+  background:#101010;
+  border:1px solid #222;
+  color:var(--muted);
+  padding:.32rem .75rem;
+  border-radius:5px;
+  font-family:var(--mono);
+  font-size:.74rem;
+  cursor:pointer;
+  transition:all .15s ease;
+  white-space:nowrap;
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+}
+.dossier-tab-btn:hover{
+  color:var(--ink);
+  background:#181818;
+  border-color:#333;
+}
+.dossier-tab-btn.active{
+  color:var(--ember);
+  background:rgba(255,75,43,.12);
+  border-color:rgba(255,75,43,.38);
+  font-weight:600;
+}
+
+/* Command Palette (Cmd+K) */
+.cmd-palette-overlay{
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  background:rgba(5,5,5,.86);
+  backdrop-filter:blur(12px);
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding:12vh 1.5rem 2rem;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .2s ease, visibility .2s ease;
+}
+.cmd-palette-overlay.active{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+.cmd-palette-box{
+  width:100%;
+  max-width:38rem;
+  background:#0C0C0C;
+  border:1px solid rgba(255,75,43,.35);
+  box-shadow:0 0 50px rgba(255,75,43,.15), 0 20px 40px rgba(0,0,0,.9);
+  border-radius:10px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  transform:translateY(-8px) scale(.98);
+  transition:transform .2s cubic-bezier(.2,.8,.2,1);
+}
+.cmd-palette-overlay.active .cmd-palette-box{
+  transform:translateY(0) scale(1);
+}
+.cmd-palette-search-row{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+  padding:1rem 1.25rem;
+  border-bottom:1px solid var(--line);
+  background:#0E0E0E;
+}
+.cmd-search-icon{
+  font-size:1.05rem;
+  color:var(--ember);
+}
+.cmd-palette-input{
+  flex-grow:1;
+  background:transparent;
+  border:none;
+  outline:none;
+  font-family:var(--body);
+  font-size:1.05rem;
+  color:var(--ink);
+}
+.cmd-palette-input::placeholder{
+  color:#666;
+  font-size:.92rem;
+}
+.cmd-esc-tag{
+  font-family:var(--mono);
+  font-size:.68rem;
+  background:#181818;
+  border:1px solid #333;
+  color:var(--muted);
+  padding:.15rem .45rem;
+  border-radius:4px;
+}
+.cmd-palette-results{
+  max-height:22rem;
+  overflow-y:auto;
+  padding:.5rem 0;
+}
+.cmd-group-label{
+  font-family:var(--mono);
+  font-size:.68rem;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  padding:.65rem 1.25rem .3rem;
+  display:block;
+}
+.cmd-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:.65rem 1.25rem;
+  cursor:pointer;
+  transition:background .12s ease;
+  color:var(--ink);
+  text-decoration:none;
+}
+.cmd-item:hover, .cmd-item.selected{
+  background:rgba(255,75,43,.12);
+  color:var(--ink);
+}
+.cmd-item-left{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+  min-width:0;
+}
+.cmd-item-glyph{
+  font-family:var(--mono);
+  font-size:.85rem;
+  color:var(--ember);
+  width:1.75rem;
+  height:1.75rem;
+  background:#141414;
+  border:1px solid #2a2a2a;
+  border-radius:4px;
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+}
+.cmd-item-text{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+.cmd-item-title{
+  font-weight:600;
+  font-size:.92rem;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.cmd-item-desc{
+  font-size:.76rem;
+  color:var(--muted);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.cmd-item-badge{
+  font-family:var(--mono);
+  font-size:.7rem;
+  color:var(--muted);
+  border:1px solid #222;
+  padding:.15rem .45rem;
+  border-radius:4px;
+  background:#111;
+  flex-shrink:0;
+}
+.cmd-palette-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:.6rem 1.25rem;
+  background:#080808;
+  border-top:1px solid var(--line);
+  font-family:var(--mono);
+  font-size:.72rem;
+  color:var(--muted);
+}
+.cmd-footer-hints{
+  display:flex;
+  gap:1rem;
+}
+.cmd-footer-hint span{
+  color:var(--ink);
+  background:#161616;
+  padding:.1rem .35rem;
+  border-radius:3px;
+  border:1px solid #282828;
+}
+
+/* Architectural Doctrine / Comparison Matrix */
+.doctrine-section{
+  padding:4.5rem 0;
+  border-top:1px solid var(--line);
+}
+.doctrine-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  font-family:var(--mono);
+  font-size:.75rem;
+  font-weight:700;
+  color:var(--ember);
+  background:rgba(255,75,43,.12);
+  border:1px solid rgba(255,75,43,.28);
+  padding:.2rem .65rem;
+  border-radius:4px;
+  margin-bottom:1rem;
+}
+.doctrine-table-wrap{
+  overflow-x:auto;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:10px;
+  margin-top:2rem;
+}
+.doctrine-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:.92rem;
+  min-width:44rem;
+}
+.doctrine-table th{
+  font-family:var(--head);
+  font-weight:700;
+  text-align:left;
+  padding:1.1rem 1.25rem;
+  border-bottom:1px solid var(--line);
+  background:rgba(255,255,255,.02);
+}
+.doctrine-table th:first-child{
+  color:var(--muted);
+  font-size:.82rem;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  font-family:var(--mono);
+  width:24%;
+}
+.doctrine-table th.col-hellhound{
+  color:var(--ember);
+  font-size:1.05rem;
+  width:38%;
+}
+.doctrine-table th.col-legacy{
+  color:var(--muted);
+  font-size:.95rem;
+  width:38%;
+}
+.doctrine-table td{
+  padding:1rem 1.25rem;
+  border-bottom:1px solid #161616;
+  vertical-align:top;
+  line-height:1.55;
+}
+.doctrine-table tr:last-child td{
+  border-bottom:none;
+}
+.doctrine-dim{
+  font-family:var(--mono);
+  font-weight:600;
+  font-size:.82rem;
+  color:var(--ink);
+}
+.doctrine-table td.cell-hellhound{
+  color:#f0f0f0;
+  background:rgba(255,75,43,.025);
+  border-left:1px solid rgba(255,75,43,.15);
+  border-right:1px solid rgba(255,75,43,.15);
+}
+.doctrine-table td.cell-legacy{
+  color:#858585;
+}
+.check-icon{
+  color:#00e676;
+  margin-right:.4rem;
+  font-weight:bold;
+@media (max-width:860px){
+  .nav-hud-group{margin-left:.75rem;gap:.4rem}
+  .cmd-kbd{display:none}
+}
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .reveal{opacity:1;transform:none;transition:none}
@@ -960,11 +1302,17 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
     <nav aria-label="Main">
       <a href="#about">About</a>
       <a href="#pipeline">Pipeline</a>
-      <a href="#projects">Projects</a>
+      <a href="#doctrine">Doctrine</a>
+      <a href="#projects">Arsenal</a>
       <a href="#private-projects">Private R&amp;D</a>
       <a href="#triops">TriOps</a>
       <a href="#team">Leadership</a>
       <a href="#contact">Contact</a>
+      <div class="nav-hud-group">
+        <button class="nav-hud-btn" id="cmd-k-trigger" type="button" onclick="openCmdPalette()" title="Press Cmd+K to search">
+          <span>Search</span> <span class="cmd-kbd">⌘K</span>
+        </button>
+      </div>
     </nav>
   </div>
 </header>
@@ -1006,63 +1354,136 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
 <section id="pipeline" class="pipeline-section">
   <div class="wrap">
     <h2 class="reveal">Offensive Pipeline</h2>
-    <p class="reveal" style="color:var(--muted);max-width:40rem;margin-bottom:2rem;">
-      How Hellhound tools chain across a complete offensive lifecycle — from zero-knowledge perimeter crawl to proof-of-concept validation.
+    <p class="reveal" style="color:var(--muted);max-width:44rem;margin-bottom:2.5rem;">
+      How Project Hellhound tools chain across a complete offensive lifecycle — from multi-vector intelligence gathering to autonomous proof-of-concept exploit validation.
     </p>
-    <div class="pipeline-grid reveal">
+
+    <div class="pipeline-grid reveal" id="pipeline-stages-grid">
+      <!-- Phase 1 -->
       <div class="pipeline-stage">
         <div class="stage-head">
           <div class="stage-num">01</div>
-          <span class="stage-flow-tag">PHASE 1 &middot; SURFACE CRAWL</span>
+          <span class="stage-flow-tag">PHASE 1 &middot; OSINT &amp; INTEL</span>
         </div>
-        <div class="stage-title">Perimeter Recon &amp; Mapping</div>
+        <div class="stage-title">Tactical Recon &amp; Target Intelligence</div>
         <div class="stage-tools">
-          <span class="stage-pill">Hellhound Spider</span>
           <span class="stage-pill">JARVIS</span>
           <span class="stage-pill">JARVIS-Mobile</span>
         </div>
-        <p class="stage-desc">Dual-engine crawler maps dynamic SPA routes, endpoints, hidden parameters, and gathers cross-vector tactical OSINT.</p>
+        <p class="stage-desc">Multi-vector intelligence framework maps organizational perimeter, correlates external asset telemetry, and provides real-time target intelligence.</p>
       </div>
 
+      <!-- Phase 2 -->
       <div class="pipeline-stage">
         <div class="stage-head">
           <div class="stage-num">02</div>
-          <span class="stage-flow-tag">PHASE 2 &middot; PROTOCOL FUZZ</span>
+          <span class="stage-flow-tag">PHASE 2 &middot; SURFACE CRAWL</span>
         </div>
-        <div class="stage-title">Injection Fuzzing &amp; Testing</div>
+        <div class="stage-title">Dynamic SPA Crawl &amp; Route Discovery</div>
+        <div class="stage-tools">
+          <span class="stage-pill">Hellhound Spider</span>
+        </div>
+        <p class="stage-desc">Dual-engine crawler couples high-throughput async HTTP with headless Chromium DOM rehydration to map single-page app routes, hidden parameters, and forms with zero blind spots.</p>
+      </div>
+
+      <!-- Phase 3 -->
+      <div class="pipeline-stage">
+        <div class="stage-head">
+          <div class="stage-num">03</div>
+          <span class="stage-flow-tag">PHASE 3 &middot; PROTOCOL FUZZ</span>
+        </div>
+        <div class="stage-title">Targeted Protocol &amp; Boundary Fuzzing</div>
         <div class="stage-tools">
           <span class="stage-pill">CMDMap</span>
           <span class="stage-pill">GateForge</span>
           <span class="stage-pill">Agent389</span>
         </div>
-        <p class="stage-desc">Specialized analyzers fuzz for command injection, cloud metadata SSRF, and Active Directory LDAP injection.</p>
+        <p class="stage-desc">Specialized analyzers probe critical vectors: cloud metadata SSRF (AWS IMDSv1/v2), Active Directory LDAP injection, and WAF-bypassing OS command injection.</p>
       </div>
 
+      <!-- Phase 4 -->
       <div class="pipeline-stage">
         <div class="stage-head">
-          <div class="stage-num">03</div>
-          <span class="stage-flow-tag">PHASE 3 &middot; EXPLOIT CHAIN</span>
+          <div class="stage-num">04</div>
+          <span class="stage-flow-tag">PHASE 4 &middot; EXPLOIT CHAIN</span>
         </div>
-        <div class="stage-title">Autonomous Exploitation</div>
+        <div class="stage-title">Autonomous Exploitation &amp; Triage</div>
         <div class="stage-tools">
           <span class="stage-pill">Bounty Hunter</span>
           <span class="stage-pill">X5Sentry</span>
         </div>
-        <p class="stage-desc">Autonomous agents chain multi-step vulnerabilities and prove exploitability in headless browser environments.</p>
+        <p class="stage-desc">Autonomous AI execution agents chain discovered primitives into verified proof-of-concept exploits, validating impact in isolated headless sandboxes with zero false positives.</p>
       </div>
+    </div>
+  </div>
+</section>
 
-      <div class="pipeline-stage">
-        <div class="stage-head">
-          <div class="stage-num">04</div>
-          <span class="stage-flow-tag">PHASE 4 &middot; C2 &amp; RANGE</span>
-        </div>
-        <div class="stage-title">Telemetry &amp; Training Labs</div>
-        <div class="stage-tools">
-          <span class="stage-pill">Spectre</span>
-          <span class="stage-pill">HellCorp</span>
-        </div>
-        <p class="stage-desc">Detects covert DNS tunneling/exfiltration and provides realistic enterprise targets for safe security practice.</p>
-      </div>
+<!-- Architectural Doctrine / Comparison Matrix -->
+<section id="doctrine" class="doctrine-section">
+  <div class="wrap">
+    <div class="doctrine-badge">⚡ ARCHITECTURAL DOCTRINE</div>
+    <h2 class="reveal">Why Project Hellhound?</h2>
+    <p class="reveal" style="color:var(--muted);max-width:44rem;margin-bottom:1.5rem;">
+      Offensive security cannot be solved with slow, closed monoliths. Here is how Project Hellhound contrasts with legacy enterprise vulnerability scanners.
+    </p>
+
+    <div class="doctrine-table-wrap reveal">
+      <table class="doctrine-table">
+        <thead>
+          <tr>
+            <th>Architecture Dimension</th>
+            <th class="col-hellhound">Project Hellhound Offensive Stack</th>
+            <th class="col-legacy">Legacy Monolithic Scanners</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="doctrine-dim">Execution Architecture</td>
+            <td class="cell-hellhound">
+              <span class="check-icon">✓</span><strong>Composable Unix Philosophy.</strong> Headless, ultra-fast micro-utilities piped via standard I/O (stdin/stdout) into existing reconnaissance workflows (httpx, ffuf, nuclei).
+            </td>
+            <td class="cell-legacy">
+              <span class="cross-icon">✗</span> Rigid monolithic scan engines with heavy resource footprints, closed ecosystems, and poor pipeline scriptability.
+            </td>
+          </tr>
+          <tr>
+            <td class="doctrine-dim">Modern Web &amp; SPA Crawling</td>
+            <td class="cell-hellhound">
+              <span class="check-icon">✓</span><strong>Dual-Engine Recon (Hellhound Spider).</strong> Synchronous headless Chromium DOM rehydration paired with concurrent async HTTP crawling — capturing client-side routing, hidden parameters, and dynamic JS states.
+            </td>
+            <td class="cell-legacy">
+              <span class="cross-icon">✗</span> Static HTML regex scrapers and shallow link spiders that fail completely against modern React, Vue, Next.js, and Single-Page Applications.
+            </td>
+          </tr>
+          <tr>
+            <td class="doctrine-dim">Exploit Triage &amp; Verification</td>
+            <td class="cell-hellhound">
+              <span class="check-icon">✓</span><strong>Autonomous Agent Validation (Bounty Hunter).</strong> Multi-step autonomous LLM agents that construct, execute, and verify proof-of-concept exploits in sandbox isolation before reporting.
+            </td>
+            <td class="cell-legacy">
+              <span class="cross-icon">✗</span> Static heuristic rules producing hundreds of unvalidated alerts, causing severe triage fatigue and unverified noise.
+            </td>
+          </tr>
+          <tr>
+            <td class="doctrine-dim">Specialized Protocol Fuzzers</td>
+            <td class="cell-hellhound">
+              <span class="check-icon">✓</span><strong>Targeted Attack Engines.</strong> Dedicated tools purpose-built for high-impact classes: GateForge (Cloud IMDSv1/v2 SSRF), Agent389 (AD LDAP injection), CMDMap (WAF command bypasses).
+            </td>
+            <td class="cell-legacy">
+              <span class="cross-icon">✗</span> Generic web scanners treating cloud metadata and directory protocols as secondary afterthoughts with shallow signatures.
+            </td>
+          </tr>
+          <tr>
+            <td class="doctrine-dim">Extensibility &amp; Freedom</td>
+            <td class="cell-hellhound">
+              <span class="check-icon">✓</span><strong>100% Free, Open Source &amp; Hacker-First.</strong> Open codebase, customizable rulesets, community audited, zero telemetry lock-in, maintained by Project Hellhound researchers.
+            </td>
+            <td class="cell-legacy">
+              <span class="cross-icon">✗</span> Prohibitive per-target or per-seat enterprise licensing, closed proprietary source, and slow vendor patch cycles.
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
@@ -1308,6 +1729,28 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
 <div id="dossier-overlay" class="dossier-overlay" role="dialog" aria-modal="true" aria-hidden="true">
   <div class="dossier-modal" id="dossier-modal-content">
     <!-- Populated by JavaScript -->
+  </div>
+</div>
+
+<!-- Interactive Command Palette (Cmd+K) Modal -->
+<div id="cmd-palette-overlay" class="cmd-palette-overlay" role="dialog" aria-modal="true" aria-hidden="true" onclick="handleCmdOverlayClick(event)">
+  <div class="cmd-palette-box" onclick="event.stopPropagation()">
+    <div class="cmd-palette-search-row">
+      <span class="cmd-search-icon">🔍</span>
+      <input type="text" id="cmd-input" class="cmd-palette-input" placeholder="Search tools, pipeline phases, actions (e.g., spider, triage, sfx)..." autocomplete="off" spellcheck="false" oninput="filterCmdPalette()" onkeydown="handleCmdKeyDown(event)">
+      <span class="cmd-esc-tag">ESC</span>
+    </div>
+    <div class="cmd-palette-results" id="cmd-results">
+      <!-- Populated dynamically -->
+    </div>
+    <div class="cmd-palette-footer">
+      <div class="cmd-footer-hints">
+        <div class="cmd-footer-hint"><span>↑</span> <span>↓</span> Navigate</div>
+        <div class="cmd-footer-hint"><span>↵</span> Select</div>
+        <div class="cmd-footer-hint"><span>ESC</span> Close</div>
+      </div>
+      <div>Project Hellhound Command HUD</div>
+    </div>
   </div>
 </div>
 </main>
@@ -1584,19 +2027,102 @@ function watch(el, delay){
   el.style.transitionDelay = (delay || 0) + "ms"; io.observe(el);
 }
 
-/* Dossier Modal Management */
+/* Tactical Audio HUD (Web Audio API Synthesizer) */
+const AudioHUD = (() => {
+  let ctx = null;
+  // Enabled by default; user can mute tab audio in browser
+  let enabled = localStorage.getItem("hellhound_sfx") !== "0";
+
+  function getCtx() {
+    if (!ctx && (window.AudioContext || window.webkitAudioContext)) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      ctx = new AC();
+    }
+    if (ctx && ctx.state === "suspended") {
+      ctx.resume();
+    }
+    return ctx;
+  }
+
+  function playTone(freqStart, freqEnd, type, duration, gainVal = 0.025) {
+    if (!enabled) return;
+    try {
+      const c = getCtx();
+      if (!c) return;
+      const osc = c.createOscillator();
+      const gain = c.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freqStart, c.currentTime);
+      if (freqEnd && freqEnd !== freqStart) {
+        osc.frequency.exponentialRampToValueAtTime(Math.max(freqEnd, 20), c.currentTime + duration);
+      }
+      gain.gain.setValueAtTime(gainVal, c.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + duration);
+      osc.connect(gain);
+      gain.connect(c.destination);
+      osc.start();
+      osc.stop(c.currentTime + duration);
+    } catch(e) {}
+  }
+
+  return {
+    click: () => playTone(950, 480, "sine", 0.035, 0.022),
+    tab: () => playTone(580, 1050, "sine", 0.04, 0.022),
+    copy: () => {
+      playTone(720, 1150, "triangle", 0.045, 0.03);
+      setTimeout(() => playTone(1350, 1750, "triangle", 0.045, 0.025), 50);
+    },
+    modalOpen: () => playTone(360, 720, "sine", 0.06, 0.025),
+    modalClose: () => playTone(720, 320, "sine", 0.05, 0.02),
+    init: () => {}
+  };
+})();
+
+/* Dossier Modal Management & Multi-Tab Install Switcher */
 const dossierOverlay = document.getElementById("dossier-overlay");
 const dossierModalContent = document.getElementById("dossier-modal-content");
+let currentDossierRepo = null;
+let currentDossierTab = "git";
 
-function closeDossier() {
-  if (!dossierOverlay) return;
-  dossierOverlay.classList.remove("active");
-  dossierOverlay.setAttribute("aria-hidden", "true");
-  document.body.style.overflow = "";
+function getInstallCommands(p) {
+  const repoLower = p.repo.toLowerCase();
+  const cmds = {
+    git: `git clone https://github.com/projecthellhound/${p.repo}.git`,
+    curl: `curl -sSL https://raw.githubusercontent.com/projecthellhound/${p.repo}/main/install.sh | bash`,
+    docker: `docker run --rm -it ghcr.io/projecthellhound/${repoLower}:latest`
+  };
+  if (p.pypiCmd) {
+    cmds.pip = p.pypiCmd;
+  } else {
+    cmds.pip = `pip install git+https://github.com/projecthellhound/${p.repo}.git`;
+  }
+  return cmds;
 }
 
-function copyDossierCommand(text, btn) {
-  if (!navigator.clipboard) return;
+function switchDossierTab(tabKey) {
+  AudioHUD.tab();
+  currentDossierTab = tabKey;
+  const p = projects.find(item => item.repo === currentDossierRepo);
+  if (!p) return;
+  const cmds = getInstallCommands(p);
+  const codeEl = document.getElementById("dossier-cmd-code");
+  if (codeEl) {
+    codeEl.textContent = "$ " + cmds[tabKey];
+  }
+  const tabs = document.querySelectorAll(".dossier-tab-btn");
+  tabs.forEach(t => t.classList.remove("active"));
+  const activeBtn = document.getElementById(`tab-btn-${tabKey}`);
+  if (activeBtn) activeBtn.classList.add("active");
+}
+
+function copyActiveDossierCmd() {
+  const p = projects.find(item => item.repo === currentDossierRepo);
+  if (!p) return;
+  const cmds = getInstallCommands(p);
+  const text = cmds[currentDossierTab] || cmds.git;
+  const btn = document.getElementById("dossier-copy-btn");
+  if (!btn || !navigator.clipboard) return;
+  AudioHUD.copy();
   navigator.clipboard.writeText(text).then(() => {
     const orig = btn.innerHTML;
     btn.classList.add("copied");
@@ -1608,10 +2134,21 @@ function copyDossierCommand(text, btn) {
   }).catch(() => {});
 }
 
+function closeDossier() {
+  if (!dossierOverlay) return;
+  dossierOverlay.classList.remove("active");
+  dossierOverlay.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+  AudioHUD.modalClose();
+}
+
 function openDossier(repo) {
   const p = projects.find(item => item.repo === repo);
   if (!p || !dossierModalContent) return;
+  currentDossierRepo = repo;
+  currentDossierTab = "git";
 
+  const cmds = getInstallCommands(p);
   const creatorObj = p.creator && people[p.creator] ? people[p.creator] : null;
   const creatorHtml = creatorObj ? `
     <a class="creator" href="https://github.com/${creatorObj.gh}" target="_blank" rel="noopener">
@@ -1640,16 +2177,6 @@ function openDossier(repo) {
     </div>
   ` : "";
 
-  const pypiTerminalHtml = p.pypiCmd ? `
-    <div class="dossier-terminal-wrap" style="margin-top: .4rem;">
-      <span class="dossier-terminal-label">PyPI Distribution</span>
-      <div class="dossier-terminal">
-        <code>$ ${p.pypiCmd}</code>
-        <button class="dossier-copy-btn" type="button" onclick="copyDossierCommand('${p.pypiCmd}', this)">Copy</button>
-      </div>
-    </div>
-  ` : "";
-
   dossierModalContent.innerHTML = `
     <span class="dossier-corner-tag">${p.cat} &middot; DOSSIER</span>
     <button class="dossier-close" type="button" onclick="closeDossier()" aria-label="Close dossier">
@@ -1674,15 +2201,20 @@ function openDossier(repo) {
 
     ${statsHtml}
 
-    <div class="dossier-terminal-wrap">
-      <span class="dossier-terminal-label">Quickstart / Repository Clone</span>
+    <!-- Multi-Tab Install Switcher -->
+    <div class="dossier-install-section">
+      <span class="dossier-terminal-label">Deployment &amp; Quickstart</span>
+      <div class="dossier-tabs-bar" role="tablist">
+        <button class="dossier-tab-btn active" id="tab-btn-git" type="button" onclick="switchDossierTab('git')"><span>git clone</span></button>
+        <button class="dossier-tab-btn" id="tab-btn-pip" type="button" onclick="switchDossierTab('pip')"><span>pip / uv</span></button>
+        <button class="dossier-tab-btn" id="tab-btn-docker" type="button" onclick="switchDossierTab('docker')"><span>Docker</span></button>
+        <button class="dossier-tab-btn" id="tab-btn-curl" type="button" onclick="switchDossierTab('curl')"><span>cURL One-Liner</span></button>
+      </div>
       <div class="dossier-terminal">
-        <code>$ ${p.quickCmd}</code>
-        <button class="dossier-copy-btn" type="button" onclick="copyDossierCommand('${p.quickCmd}', this)">Copy</button>
+        <code id="dossier-cmd-code">$ ${cmds.git}</code>
+        <button class="dossier-copy-btn" id="dossier-copy-btn" type="button" onclick="copyActiveDossierCmd()">Copy</button>
       </div>
     </div>
-
-    ${pypiTerminalHtml}
 
     ${capsHtml}
 
@@ -1703,6 +2235,7 @@ function openDossier(repo) {
   dossierOverlay.classList.add("active");
   dossierOverlay.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
+  AudioHUD.modalOpen();
 }
 
 if (dossierOverlay) {
@@ -1711,8 +2244,285 @@ if (dossierOverlay) {
   });
 }
 
+/* Command Palette (Cmd+K) Engine */
+let cmdOverlay = null;
+let cmdInput = null;
+let cmdResults = null;
+let cmdSelectedIndex = 0;
+let cmdFilteredList = [];
+
+function getCmdItems() {
+  const items = [];
+
+  // Arsenal tools
+  projects.forEach(p => {
+    items.push({
+      type: "TOOL",
+      glyph: p.glyph || "PH",
+      title: p.name,
+      desc: p.tagline || p.what,
+      badge: p.cat,
+      action: () => { closeCmdPalette(); openDossier(p.repo); }
+    });
+  });
+
+  // Pipeline phases
+  const phases = [
+    { num: 1, title: "Phase 1: Tactical Recon & Target Intelligence", desc: "JARVIS & JARVIS-Mobile OSINT framework" },
+    { num: 2, title: "Phase 2: Dynamic SPA Crawl & Route Discovery", desc: "Hellhound Spider dual-engine crawler" },
+    { num: 3, title: "Phase 3: Targeted Protocol & Boundary Fuzzing", desc: "CMDMap, GateForge (SSRF), Agent389 (LDAP)" },
+    { num: 4, title: "Phase 4: Autonomous Exploitation & Triage", desc: "Bounty Hunter & X5Sentry autonomous AI agents" }
+  ];
+  phases.forEach(ph => {
+    items.push({
+      type: "PIPELINE",
+      glyph: `0${ph.num}`,
+      title: ph.title,
+      desc: ph.desc,
+      badge: "Pipeline",
+      action: () => {
+        closeCmdPalette();
+        const el = document.getElementById("pipeline");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }
+    });
+  });
+
+  // Navigation sections
+  items.push(
+    {
+      type: "SECTION",
+      glyph: "⚡",
+      title: "Architectural Doctrine",
+      desc: "Why Project Hellhound vs Monolithic Enterprise Scanners",
+      badge: "Matrix",
+      action: () => {
+        closeCmdPalette();
+        const el = document.getElementById("doctrine");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }
+    },
+    {
+      type: "SECTION",
+      glyph: "⚔️",
+      title: "Arsenal & Projects",
+      desc: "Flagship crawlers and specialized offensive tooling",
+      badge: "Arsenal",
+      action: () => {
+        closeCmdPalette();
+        const el = document.getElementById("projects");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }
+    },
+    {
+      type: "SECTION",
+      glyph: "🏢",
+      title: "Private R&D (Oryn)",
+      desc: "Autonomous AI engineering assistant & attack surface research",
+      badge: "Research",
+      action: () => {
+        closeCmdPalette();
+        const el = document.getElementById("private-projects");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }
+    },
+    {
+      type: "SECTION",
+      glyph: "👥",
+      title: "Leadership & Research Team",
+      desc: "l4zz3rj0d, Abinav3ac, L33TxGH05T, H3xiee",
+      badge: "Team",
+      action: () => {
+        closeCmdPalette();
+        const el = document.getElementById("team");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  );
+
+  // Quick actions
+  items.push(
+    {
+      type: "ACTION",
+      glyph: "⚡",
+      title: "Inspect Flagship: Hellhound Spider",
+      desc: "Dual-engine async HTTP & Chromium DOM reconnaissance crawler",
+      badge: "Flagship",
+      action: () => {
+        closeCmdPalette();
+        openDossier("Hellhound-Spider");
+      }
+    },
+    {
+      type: "ACTION",
+      glyph: "⚡",
+      title: "Inspect Flagship: Bounty Hunter",
+      desc: "Autonomous offensive AI agent for vulnerability triage & exploit verification",
+      badge: "Flagship",
+      action: () => {
+        closeCmdPalette();
+        openDossier("bounty-hunter");
+      }
+    },
+    {
+      type: "ACTION",
+      glyph: "📋",
+      title: "Copy GitHub Org URL",
+      desc: "https://github.com/projecthellhound",
+      badge: "Copy",
+      action: () => {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText("https://github.com/projecthellhound");
+          AudioHUD.copy();
+        }
+        closeCmdPalette();
+      }
+    }
+  );
+
+  return items;
+}
+
+function openCmdPalette() {
+  cmdOverlay = document.getElementById("cmd-palette-overlay");
+  cmdInput = document.getElementById("cmd-input");
+  cmdResults = document.getElementById("cmd-results");
+  if (!cmdOverlay || !cmdInput || !cmdResults) return;
+
+  cmdOverlay.classList.add("active");
+  cmdOverlay.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  cmdInput.value = "";
+  cmdSelectedIndex = 0;
+  filterCmdPalette();
+  setTimeout(() => cmdInput.focus(), 60);
+  AudioHUD.modalOpen();
+}
+
+function closeCmdPalette() {
+  if (!cmdOverlay) cmdOverlay = document.getElementById("cmd-palette-overlay");
+  if (!cmdOverlay) return;
+  cmdOverlay.classList.remove("active");
+  cmdOverlay.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+  AudioHUD.modalClose();
+}
+
+function handleCmdOverlayClick(e) {
+  if (e.target === cmdOverlay) closeCmdPalette();
+}
+
+function filterCmdPalette() {
+  if (!cmdResults || !cmdInput) return;
+  const q = cmdInput.value.trim().toLowerCase();
+  const allItems = getCmdItems();
+
+  cmdFilteredList = allItems.filter(item => {
+    if (!q) return true;
+    return item.title.toLowerCase().includes(q) ||
+           item.desc.toLowerCase().includes(q) ||
+           item.type.toLowerCase().includes(q) ||
+           (item.badge && item.badge.toLowerCase().includes(q));
+  });
+
+  if (cmdSelectedIndex >= cmdFilteredList.length) {
+    cmdSelectedIndex = 0;
+  }
+
+  if (cmdFilteredList.length === 0) {
+    cmdResults.innerHTML = `
+      <div style="padding:2.5rem 1rem;text-align:center;color:var(--muted);font-family:var(--mono);font-size:.85rem;">
+        No tools or actions matching "${cmdInput.value.replace(/</g, "&lt;")}"
+      </div>
+    `;
+    return;
+  }
+
+  let html = "";
+  let lastType = "";
+  cmdFilteredList.forEach((item, idx) => {
+    if (item.type !== lastType) {
+      lastType = item.type;
+      html += `<span class="cmd-group-label">${lastType}</span>`;
+    }
+    const isSel = idx === cmdSelectedIndex;
+    html += `
+      <div class="cmd-item ${isSel ? "selected" : ""}" data-idx="${idx}" onclick="execCmdIndex(${idx})">
+        <div class="cmd-item-left">
+          <div class="cmd-item-glyph">${item.glyph}</div>
+          <div class="cmd-item-text">
+            <span class="cmd-item-title">${item.title}</span>
+            <span class="cmd-item-desc">${item.desc}</span>
+          </div>
+        </div>
+        <span class="cmd-item-badge">${item.badge}</span>
+      </div>
+    `;
+  });
+  cmdResults.innerHTML = html;
+}
+
+function execCmdIndex(idx) {
+  if (cmdFilteredList[idx] && cmdFilteredList[idx].action) {
+    AudioHUD.click();
+    cmdFilteredList[idx].action();
+  }
+}
+
+function handleCmdKeyDown(e) {
+  if (e.key === "ArrowDown") {
+    e.preventDefault();
+    if (cmdFilteredList.length > 0) {
+      cmdSelectedIndex = (cmdSelectedIndex + 1) % cmdFilteredList.length;
+      filterCmdPalette();
+      scrollSelectedCmdIntoView();
+      AudioHUD.click();
+    }
+  } else if (e.key === "ArrowUp") {
+    e.preventDefault();
+    if (cmdFilteredList.length > 0) {
+      cmdSelectedIndex = (cmdSelectedIndex - 1 + cmdFilteredList.length) % cmdFilteredList.length;
+      filterCmdPalette();
+      scrollSelectedCmdIntoView();
+      AudioHUD.click();
+    }
+  } else if (e.key === "Enter") {
+    e.preventDefault();
+    if (cmdFilteredList[cmdSelectedIndex]) {
+      execCmdIndex(cmdSelectedIndex);
+    }
+  } else if (e.key === "Escape") {
+    e.preventDefault();
+    closeCmdPalette();
+  }
+}
+
+function scrollSelectedCmdIntoView() {
+  const sel = cmdResults.querySelector(".cmd-item.selected");
+  if (sel) sel.scrollIntoView({ block: "nearest" });
+}
+
+/* Global Keydown Navigation */
 window.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeDossier();
+  if (e.key === "Escape") {
+    closeDossier();
+    closeCmdPalette();
+  }
+  // Cmd+K or Ctrl+K
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+    e.preventDefault();
+    const overlay = document.getElementById("cmd-palette-overlay");
+    if (overlay && overlay.classList.contains("active")) {
+      closeCmdPalette();
+    } else {
+      openCmdPalette();
+    }
+  }
+  // Slash shortcut to open palette
+  if (e.key === "/" && !["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) {
+    e.preventDefault();
+    openCmdPalette();
+  }
 });
 
 /* Flagship & Specialized Arsenal renderer */
@@ -2031,6 +2841,7 @@ addEventListener("pointermove", e => {
 });
 
 document.getElementById("yr").textContent = new Date().getFullYear();
+AudioHUD.init();
 </script>
 </body>
 </html>
