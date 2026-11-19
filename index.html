@@ -114,7 +114,7 @@ nav a:hover{color:var(--ink);background:rgba(255,255,255,0.04);text-decoration:n
 #mega-menu-pipeline.active{width:min(92vw,860px);grid-template-columns:1.3fr 1.15fr 1.25fr;gap:1.4rem}
 #mega-menu-doctrine.active{width:min(92vw,860px);grid-template-columns:1.3fr 1.15fr 1.25fr;gap:1.4rem}
 #mega-menu-partners.active{width:min(92vw,860px);grid-template-columns:1.3fr 1.15fr 1.25fr;gap:1.4rem}
-#mega-menu-leadership.active{width:min(92vw,860px);grid-template-columns:1.25fr 1.15fr 1.25fr;gap:1.4rem}
+#mega-menu-community.active{width:min(92vw,860px);grid-template-columns:1.25fr 1.15fr 1.25fr;gap:1.4rem}
 
 .mega-col-title{font-family:var(--mono);font-size:0.7rem;font-weight:700;letter-spacing:0.08em;color:var(--muted);margin-bottom:0.85rem;text-transform:uppercase}
 .mega-list{display:flex;flex-direction:column;gap:0.5rem}
@@ -1452,83 +1452,67 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
         </a>
         <div class="mega-menu" id="mega-menu-arsenal">
           <div>
-            <div class="mega-col-title">Offensive Arsenal</div>
+            <div class="mega-col-title">Recon &amp; Asset Discovery</div>
             <div class="mega-list">
               <a class="mega-item" href="#dossier-Hellhound-Spider" onclick="openDossier('Hellhound-Spider');closeAllNavMenus();">
                 <span class="mega-item-name">Hellhound Spider</span>
-                <span class="mega-item-desc">Dual-engine headless SPA crawler</span>
+                <span class="mega-item-desc">Headless Chromium SPA DOM rehydration &amp; concurrent crawler</span>
               </a>
-              <a class="mega-item" href="#dossier-bounty-hunter" onclick="openDossier('bounty-hunter');closeAllNavMenus();">
-                <span class="mega-item-name">Bounty Hunter</span>
-                <span class="mega-item-desc">Autonomous exploit triage agent</span>
+              <a class="mega-item" href="#dossier-JARVIS" onclick="openDossier('JARVIS');closeAllNavMenus();">
+                <span class="mega-item-name">JARVIS</span>
+                <span class="mega-item-desc">Autonomous OSINT infrastructure &amp; DNS reconnaissance engine</span>
               </a>
-              <a class="mega-item" href="#dossier-cmdmap" onclick="openDossier('cmdmap');closeAllNavMenus();">
-                <span class="mega-item-name">CMDMap</span>
-                <span class="mega-item-desc">OS command injection boundary bypass</span>
+              <a class="mega-item" href="#dossier-JARVIS-Mobile" onclick="openDossier('JARVIS-Mobile');closeAllNavMenus();">
+                <span class="mega-item-name">JARVIS-Mobile</span>
+                <span class="mega-item-desc">Static &amp; dynamic Android APK bytecode security analysis</span>
               </a>
+            </div>
+          </div>
+
+          <div>
+            <div class="mega-col-title">Targeted Protocol Fuzzers</div>
+            <div class="mega-list">
               <a class="mega-item" href="#dossier-GateForge" onclick="openDossier('GateForge');closeAllNavMenus();">
                 <span class="mega-item-name">GateForge</span>
-                <span class="mega-item-desc">SSRF &amp; AWS IMDSv2 metadata fuzzer</span>
+                <span class="mega-item-desc">Deep cloud IMDSv1/v2 SSRF token extraction &amp; metadata fuzzer</span>
               </a>
               <a class="mega-item" href="#dossier-Agent389" onclick="openDossier('Agent389');closeAllNavMenus();">
                 <span class="mega-item-name">Agent389</span>
-                <span class="mega-item-desc">Active Directory &amp; LDAP injection</span>
+                <span class="mega-item-desc">Active Directory LDAP search injection &amp; object filter tampering</span>
+              </a>
+              <a class="mega-item" href="#dossier-cmdmap" onclick="openDossier('cmdmap');closeAllNavMenus();">
+                <span class="mega-item-name">CMDMap</span>
+                <span class="mega-item-desc">OS command injection boundary evasion &amp; payload synthesizer</span>
               </a>
             </div>
           </div>
 
           <div>
-            <div class="mega-col-title">Attack Lifecycle</div>
+            <div class="mega-col-title">Exploitation &amp; Utility</div>
             <div class="mega-list">
-              <a class="mega-item" href="#pipeline" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Phase 1: OSINT &amp; Intel</span>
-                <span class="mega-item-desc">JARVIS &amp; JARVIS-Mobile reconnaissance</span>
+              <a class="mega-item" href="#dossier-bounty-hunter" onclick="openDossier('bounty-hunter');closeAllNavMenus();">
+                <span class="mega-item-name">Bounty Hunter</span>
+                <span class="mega-item-desc">Autonomous multi-turn LLM agent for verified exploit triage</span>
               </a>
-              <a class="mega-item" href="#pipeline" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Phase 2: Surface Crawl</span>
-                <span class="mega-item-desc">DOM rehydration &amp; route discovery</span>
+              <a class="mega-item" href="#dossier-Spectre" onclick="openDossier('Spectre');closeAllNavMenus();">
+                <span class="mega-item-name">Spectre</span>
+                <span class="mega-item-desc">Covert DNS tunneling detection &amp; threat channel analyzer</span>
               </a>
-              <a class="mega-item" href="#pipeline" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Phase 3: Protocol Fuzz</span>
-                <span class="mega-item-desc">SSRF, LDAP &amp; command boundaries</span>
-              </a>
-              <a class="mega-item" href="#pipeline" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Phase 4: Exploit Chain</span>
-                <span class="mega-item-desc">Autonomous multi-stage RCE verification</span>
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <div class="mega-col-title">Enterprise Ecosystem</div>
-            <div class="mega-list">
-              <a class="mega-item" href="#triops" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">TriOps Security</span>
-                <span class="mega-item-desc">Enterprise offensive cyber wing</span>
-              </a>
-              <a class="mega-item" href="#triops" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Ghost ASM</span>
-                <span class="mega-item-desc">Continuous attack surface management</span>
-              </a>
-              <a class="mega-item" href="#private-projects" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">HellCorp Labs</span>
-                <span class="mega-item-desc">Realistic vulnerable enterprise range</span>
-              </a>
-              <a class="mega-item" href="#private-projects" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Private R&amp;D</span>
-                <span class="mega-item-desc">Proprietary red team operations</span>
+              <a class="mega-item" href="#dossier-Constant" onclick="openDossier('Constant');closeAllNavMenus();">
+                <span class="mega-item-name">Constant</span>
+                <span class="mega-item-desc">Persistent developer execution tracker &amp; workflow habit manager</span>
               </a>
             </div>
           </div>
 
           <div class="mega-proof-card">
             <div>
-              <div class="mega-proof-tag">OFFENSIVE DOCTRINE</div>
-              <div class="mega-proof-title">Deterministic Exploit Validation</div>
-              <p class="mega-proof-desc">Scanners produce thousands of noisy findings. We execute discovered primitives in isolated headless sandboxes to compile verified proof-of-concept exploits with zero false positives.</p>
+              <div class="mega-proof-tag">CLI WORKFLOW</div>
+              <div class="mega-proof-title">Composable Unix Stacks</div>
+              <p class="mega-proof-desc">Run standalone zero-dependency utilities or stream raw JSONL events directly into existing bug bounty pipelines without vendor lock-in.</p>
             </div>
-            <a class="mega-proof-btn" href="#doctrine" onclick="closeAllNavMenus();">
-              <span>Read Architectural Doctrine</span> &rarr;
+            <a class="mega-proof-btn" href="#projects" onclick="closeAllNavMenus();">
+              <span>Explore Tool Ecosystem</span> &rarr;
             </a>
           </div>
         </div>
@@ -1542,53 +1526,53 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
         </a>
         <div class="nav-sub-panel" id="mega-menu-pipeline">
           <div>
-            <div class="mega-col-title">Attack Chain Phases</div>
+            <div class="mega-col-title">Attack Chain Automation</div>
             <div class="mega-list">
               <a class="mega-item" href="#pipeline" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Phase 1: OSINT &amp; Passive Recon</span>
-                <span class="mega-item-desc">Threat intel &amp; mobile surface mapping via JARVIS</span>
+                <span class="mega-item-name">Target Ingestion &amp; Mapping</span>
+                <span class="mega-item-desc">Transitioning from passive intelligence to deep cloud perimeter discovery</span>
               </a>
               <a class="mega-item" href="#pipeline" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Phase 2: Dynamic Surface Crawling</span>
-                <span class="mega-item-desc">Chromium DOM rehydration via Hellhound Spider</span>
+                <span class="mega-item-name">Dynamic Client-Side Parsing</span>
+                <span class="mega-item-desc">Capturing route state, WebSockets &amp; hidden GraphQL parameters on SPAs</span>
               </a>
               <a class="mega-item" href="#pipeline" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Phase 3: Protocol Boundary Fuzz</span>
-                <span class="mega-item-desc">GateForge IMDSv2 SSRF, Agent389 LDAP, and CMDMap</span>
+                <span class="mega-item-name">Protocol Boundary Testing</span>
+                <span class="mega-item-desc">Automated SSRF credential harvesting &amp; Active Directory filter probing</span>
               </a>
               <a class="mega-item" href="#pipeline" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Phase 4: Exploit Chaining &amp; PoC</span>
-                <span class="mega-item-desc">Autonomous multi-step verification via Bounty Hunter</span>
+                <span class="mega-item-name">Deterministic Sandbox PoC</span>
+                <span class="mega-item-desc">Synthesizing runnable proof-of-concept scripts in isolated environments</span>
               </a>
             </div>
           </div>
 
           <div>
-            <div class="mega-col-title">Execution Standards</div>
+            <div class="mega-col-title">Pipeline Orchestration</div>
             <div class="mega-list">
               <a class="mega-item" href="#doctrine" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Composable Unix Philosophy</span>
-                <span class="mega-item-desc">Standard I/O streaming into httpx, ffuf &amp; nuclei</span>
+                <span class="mega-item-name">Standard I/O Stdin/Stdout</span>
+                <span class="mega-item-desc">Direct native streaming into httpx, nuclei, ffuf, and custom scripts</span>
               </a>
               <a class="mega-item" href="#why" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Headless DOM Interception</span>
-                <span class="mega-item-desc">Zero-noise AST extraction on modern React and SPAs</span>
+                <span class="mega-item-name">Headless Browser Pools</span>
+                <span class="mega-item-desc">Scalable Playwright worker pools with proxy rotation and rate pacing</span>
               </a>
               <a class="mega-item" href="#why" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Isolated Sandbox PoC</span>
-                <span class="mega-item-desc">Deterministic exploit execution with zero false alerts</span>
+                <span class="mega-item-name">Zero Triage Burnout</span>
+                <span class="mega-item-desc">Eliminating speculative noise so every alert includes verified execution</span>
               </a>
             </div>
           </div>
 
           <div class="mega-proof-card">
             <div>
-              <div class="mega-proof-tag">OFFENSIVE PIPELINE</div>
-              <div class="mega-proof-title">Continuous Recon &amp; Exploit Synthesis</div>
-              <p class="mega-proof-desc">An automated sequence replacing shallow regex scrapers with synchronous headless DOM crawling and deterministic PoC execution.</p>
+              <div class="mega-proof-tag">RECON AUTOMATION</div>
+              <div class="mega-proof-title">End-to-End Attack Flows</div>
+              <p class="mega-proof-desc">A continuous offensive sequence eliminating shallow regex scrapers and replacing them with autonomous exploit triage.</p>
             </div>
             <a class="mega-proof-btn" href="#pipeline" onclick="closeAllNavMenus();">
-              <span>Explore Interactive Pipeline</span> &rarr;
+              <span>View Interactive Pipeline</span> &rarr;
             </a>
           </div>
         </div>
@@ -1602,49 +1586,53 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
         </a>
         <div class="nav-sub-panel" id="mega-menu-doctrine">
           <div>
-            <div class="mega-col-title">Core Principles</div>
+            <div class="mega-col-title">Offensive Principles</div>
             <div class="mega-list">
               <a class="mega-item" href="#why" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Doctrine 01: Build First, Prove in Public</span>
-                <span class="mega-item-desc">Rapid prototyping with open-source community feedback</span>
+                <span class="mega-item-name">Code Over Theory</span>
+                <span class="mega-item-desc">Vulnerability research is validated solely through production-grade tools</span>
               </a>
               <a class="mega-item" href="#why" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Doctrine 02: Real-Target Verification</span>
-                <span class="mega-item-desc">Deterministic proofs of concept executed on live sandboxes</span>
+                <span class="mega-item-name">Deterministic Proof of Impact</span>
+                <span class="mega-item-desc">No speculative warnings; findings must execute safely in sandbox targets</span>
               </a>
               <a class="mega-item" href="#why" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Doctrine 03: Open Core by Default</span>
-                <span class="mega-item-desc">100% free, community audited, zero telemetry lock-in</span>
+                <span class="mega-item-name">Zero External Telemetry</span>
+                <span class="mega-item-desc">Tools function 100% offline without telemetry or cloud phone-home locks</span>
+              </a>
+              <a class="mega-item" href="#why" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Permissive Open Source Core</span>
+                <span class="mega-item-desc">Fully auditable codebases released for security community peer trust</span>
               </a>
             </div>
           </div>
 
           <div>
-            <div class="mega-col-title">Architectural Contrast</div>
+            <div class="mega-col-title">Architectural Advantages</div>
             <div class="mega-list">
               <a class="mega-item" href="#doctrine" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Composable vs Monoliths</span>
-                <span class="mega-item-desc">Fast micro-utilities vs rigid resource-heavy scanners</span>
+                <span class="mega-item-name">Decoupled Micro-Utilities</span>
+                <span class="mega-item-desc">Fast, single-purpose Unix tools that outpace monolithic scan suites</span>
               </a>
               <a class="mega-item" href="#doctrine" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Targeted Attack Engines</span>
-                <span class="mega-item-desc">Dedicated cloud IMDSv2 SSRF and AD LDAP injection</span>
+                <span class="mega-item-name">Modern Application Focus</span>
+                <span class="mega-item-desc">Engineered for client-rendered frameworks and dynamic cloud assets</span>
               </a>
               <a class="mega-item" href="#doctrine" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Zero-Noise Exploit Proofs</span>
-                <span class="mega-item-desc">Autonomous LLM agent validation before reporting</span>
+                <span class="mega-item-name">Automated PoC Synthesis</span>
+                <span class="mega-item-desc">Autonomous LLM agent verification confirms exploitability upfront</span>
               </a>
             </div>
           </div>
 
           <div class="mega-proof-card">
             <div>
-              <div class="mega-proof-tag">ARCHITECTURAL DOCTRINE</div>
-              <div class="mega-proof-title">Why Project Hellhound?</div>
-              <p class="mega-proof-desc">Offensive security cannot be solved with slow, closed enterprise monoliths. Explore our side-by-side comparison matrix.</p>
+              <div class="mega-proof-tag">HACKER MANIFESTO</div>
+              <div class="mega-proof-title">Why We Build Differently</div>
+              <p class="mega-proof-desc">Legacy scanners drown teams in noise and proprietary lock-in. Project Hellhound provides transparent, composable tools engineered for real practitioners.</p>
             </div>
             <a class="mega-proof-btn" href="#doctrine" onclick="closeAllNavMenus();">
-              <span>View Comparison Matrix</span> &rarr;
+              <span>Read Architecture Matrix</span> &rarr;
             </a>
           </div>
         </div>
@@ -1658,97 +1646,109 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
         </a>
         <div class="nav-sub-panel" id="mega-menu-partners">
           <div>
-            <div class="mega-col-title">Strategic Alliances</div>
+            <div class="mega-col-title">Enterprise Practice</div>
             <div class="mega-list">
               <a class="mega-item" href="https://www.linkedin.com/company/122134385" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">TriOps Security</span>
-                <span class="mega-item-desc">Enterprise offensive cyber partner &amp; red team wing</span>
+                <span class="mega-item-name">TriOps Red Teaming</span>
+                <span class="mega-item-desc">Commercial adversary simulation, penetration testing &amp; code auditing</span>
               </a>
               <a class="mega-item" href="#triops" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Ghost ASM Platform</span>
-                <span class="mega-item-desc">Continuous attack surface discovery &amp; asset management</span>
+                <span class="mega-item-name">External Perimeter Defense</span>
+                <span class="mega-item-desc">Continuous automated asset inventory via the Ghost ASM platform</span>
               </a>
               <a class="mega-item" href="#private-projects" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">HellCorp Range</span>
-                <span class="mega-item-desc">Intentionally vulnerable enterprise test environment</span>
+                <span class="mega-item-name">Custom Offensive Tooling</span>
+                <span class="mega-item-desc">Tailored exploit harnesses and specialized fuzzers for corporate clients</span>
               </a>
             </div>
           </div>
 
           <div>
-            <div class="mega-col-title">Community &amp; Labs</div>
+            <div class="mega-col-title">Training &amp; Advisories</div>
             <div class="mega-list">
-              <a class="mega-item" href="https://discord.gg/DUBDAeJVk" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Discord Community</span>
-                <span class="mega-item-desc">Join offensive researchers, share techniques &amp; tools</span>
+              <a class="mega-item" href="#private-projects" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">HellCorp Vulnerable Range</span>
+                <span class="mega-item-desc">Enterprise lab environment built for practical attack and defense drills</span>
               </a>
               <a class="mega-item" href="https://github.com/projecthellhound" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">GitHub Organization</span>
-                <span class="mega-item-desc">Open codebase, issue tracker &amp; release channels</span>
+                <span class="mega-item-name">Coordinated Remediation</span>
+                <span class="mega-item-desc">Technical mitigation guidance and patch validation testing with vendors</span>
               </a>
               <a class="mega-item" href="https://github.com/projecthellhound" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Vulnerability Coordination</span>
-                <span class="mega-item-desc">Security disclosure policies and research guidelines</span>
+                <span class="mega-item-name">Threat Advisory Coordination</span>
+                <span class="mega-item-desc">Responsible vulnerability coordination adhering to strict safety standards</span>
               </a>
             </div>
           </div>
 
           <div class="mega-proof-card">
             <div>
-              <div class="mega-proof-tag">ENTERPRISE PARTNER</div>
+              <div class="mega-proof-tag">STRATEGIC ALLIANCE</div>
               <div class="mega-proof-title">TriOps Security Alliance</div>
-              <p class="mega-proof-desc">Project Hellhound serves as the open-source research engine operating in tandem with TriOps Security's strategic enterprise practice.</p>
+              <p class="mega-proof-desc">Project Hellhound serves as the public open-source research engine operating alongside TriOps Security's specialized commercial defense practice.</p>
             </div>
             <a class="mega-proof-btn" href="#triops" onclick="closeAllNavMenus();">
-              <span>Explore Partnership</span> &rarr;
+              <span>Connect with TriOps</span> &rarr;
             </a>
           </div>
         </div>
       </div>
 
-      <!-- 5. Leadership Dropdown -->
-      <div class="nav-dropdown-wrap" data-menu="mega-menu-leadership">
+      <!-- 5. Community Dropdown (Replacing Corporate Leadership) -->
+      <div class="nav-dropdown-wrap" data-menu="mega-menu-community">
         <a class="nav-dropdown-btn" href="#team" role="button" aria-expanded="false">
-          <span>Leadership</span>
+          <span>Community</span>
           <svg class="nav-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
         </a>
-        <div class="nav-sub-panel" id="mega-menu-leadership">
+        <div class="nav-sub-panel" id="mega-menu-community">
           <div>
-            <div class="mega-col-title">Research Leadership</div>
+            <div class="mega-col-title">Contributor &amp; Hacker Hub</div>
             <div class="mega-list">
-              <a class="mega-item" href="https://github.com/l4zz3rj0d" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Sree Danush S (l4zz3rj0d)</span>
-                <span class="mega-item-desc">Founder &amp; Offensive Lead &middot; Spider &amp; Bounty Hunter</span>
+              <a class="mega-item" href="https://discord.gg/DUBDAeJVk" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Discord Research Guild</span>
+                <span class="mega-item-desc">Live technical discussions, tool troubleshooting &amp; exploit tradecraft</span>
               </a>
-              <a class="mega-item" href="https://github.com/Abinav3ac" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">Abinav (Abinav3ac)</span>
-                <span class="mega-item-desc">Core Systems Engineer &middot; GateForge &amp; Spectre DNS</span>
+              <a class="mega-item" href="https://github.com/projecthellhound" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">GitHub Discussions &amp; RFCs</span>
+                <span class="mega-item-desc">Submit feature proposals, report edge cases &amp; review pull requests</span>
+              </a>
+              <a class="mega-item" href="#team" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Bug Bounty Methodology</span>
+                <span class="mega-item-desc">Recon strategies &amp; pipeline chaining techniques shared by practitioners</span>
+              </a>
+              <a class="mega-item" href="https://github.com/projecthellhound" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Tooling Wishlist</span>
+                <span class="mega-item-desc">Propose new protocol fuzzers, crawlers, or autonomous agent workflows</span>
               </a>
             </div>
           </div>
 
           <div>
-            <div class="mega-col-title">Specialist Fellows</div>
+            <div class="mega-col-title">Ethics &amp; Disclosure</div>
             <div class="mega-list">
-              <a class="mega-item" href="https://github.com/L33TxGH05T" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">L33TxGH05T (ghost)</span>
-                <span class="mega-item-desc">Threat Intel &amp; Kernel Exploitation &middot; Ghost ASM Lead</span>
+              <a class="mega-item" href="https://github.com/projecthellhound" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Disclosure Policy</span>
+                <span class="mega-item-desc">Safe harbor guidelines for ethical researchers reporting findings</span>
               </a>
-              <a class="mega-item" href="https://github.com/H3xiee" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
-                <span class="mega-item-name">H3xiee (H3xiee)</span>
-                <span class="mega-item-desc">AI Security &amp; Reconnaissance &middot; Oryn Private Engine</span>
+              <a class="mega-item" href="https://github.com/projecthellhound" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Security Advisories</span>
+                <span class="mega-item-desc">PGP-signed vulnerability reports and CVE assignment tracking</span>
+              </a>
+              <a class="mega-item" href="https://discord.gg/DUBDAeJVk" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Independent Research Grants</span>
+                <span class="mega-item-desc">Compute resources and mentorship for open-source exploit builders</span>
               </a>
             </div>
           </div>
 
           <div class="mega-proof-card">
             <div>
-              <div class="mega-proof-tag">RESEARCH CULTURE</div>
-              <div class="mega-proof-title">Hacker-First Principles</div>
-              <p class="mega-proof-desc">Maintained by active practitioners who build from real engagement experience and share findings openly with the global security community.</p>
+              <div class="mega-proof-tag">GLOBAL COLLECTIVE</div>
+              <div class="mega-proof-title">Join the Research Network</div>
+              <p class="mega-proof-desc">Project Hellhound thrives on open hacker collaboration. Connect with exploit developers, tool builders, and offensive practitioners across the globe.</p>
             </div>
-            <a class="mega-proof-btn" href="#team" onclick="closeAllNavMenus();">
-              <span>Meet Core Leadership</span> &rarr;
+            <a class="mega-proof-btn" href="https://discord.gg/DUBDAeJVk" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
+              <span>Join Discord Server</span> &rarr;
             </a>
           </div>
         </div>
