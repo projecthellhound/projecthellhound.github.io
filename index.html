@@ -70,14 +70,52 @@ nav{display:flex;align-items:center;gap:0.35rem}
 nav a{padding:0.4rem 0.75rem;text-decoration:none;color:var(--muted);font-weight:500;transition:color .2s,background .2s;font-size:0.92rem;border-radius:6px}
 nav a:hover{color:var(--ink);background:rgba(255,255,255,0.04);text-decoration:none}
 
-/* XBOW Mega Menu Dropdown */
-.nav-dropdown-wrap{position:relative}
-.nav-dropdown-btn{background:transparent;border:none;color:var(--muted);font-weight:500;font-size:0.92rem;font-family:inherit;display:inline-flex;align-items:center;gap:0.3rem;cursor:pointer;padding:0.4rem 0.75rem;border-radius:6px;transition:color .2s,background .2s}
-.nav-dropdown-btn:hover,.nav-dropdown-btn.active{color:var(--ink);background:rgba(255,255,255,0.04)}
-.nav-dropdown-btn .nav-caret{transition:transform .25s}
-.nav-dropdown-btn.active .nav-caret{transform:rotate(180deg)}
-.mega-menu{position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%) translateY(-6px);width:min(94vw,980px);background:rgba(11,13,18,0.97);border:1px solid var(--line);border-radius:14px;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:0 28px 72px rgba(0,0,0,0.85);padding:1.6rem;display:none;opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease;z-index:100;text-align:left}
-.mega-menu.active{display:grid;grid-template-columns:1.15fr 1fr 1fr 1.35fr;gap:1.5rem;opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+/* XBOW Mega Menu & Dynamic Nav Sub-Panels */
+.nav-dropdown-wrap{display:inline-flex;align-items:center}
+.nav-dropdown-btn{background:transparent;border:none;color:var(--muted);font-weight:500;font-size:0.92rem;font-family:inherit;display:inline-flex;align-items:center;gap:0.3rem;cursor:pointer;padding:0.4rem 0.75rem;border-radius:6px;transition:color .2s,background .2s;text-decoration:none}
+.nav-dropdown-btn:hover,.nav-dropdown-btn.active{color:var(--ink);background:rgba(255,255,255,0.04);text-decoration:none}
+.nav-dropdown-btn .nav-caret{transition:transform .25s ease;opacity:0.6}
+.nav-dropdown-btn.active .nav-caret,.nav-dropdown-wrap:hover .nav-dropdown-btn .nav-caret{transform:rotate(180deg);opacity:1;color:var(--ember)}
+
+.mega-menu,.nav-sub-panel{
+  position:absolute;
+  top:calc(100% + 10px);
+  left:50%;
+  transform:translateX(-50%) translateY(-6px);
+  background:rgba(11,13,18,0.97);
+  border:1px solid var(--line);
+  border-radius:14px;
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  box-shadow:0 28px 72px rgba(0,0,0,0.85);
+  padding:1.5rem;
+  display:none;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s ease,transform .2s ease;
+  z-index:100;
+  text-align:left;
+}
+.mega-menu::before,.nav-sub-panel::before{
+  content:"";
+  position:absolute;
+  top:-14px;
+  left:0;
+  right:0;
+  height:14px;
+}
+.mega-menu.active,.nav-sub-panel.active{
+  display:grid;
+  opacity:1;
+  pointer-events:auto;
+  transform:translateX(-50%) translateY(0);
+}
+#mega-menu-arsenal.active{width:min(94vw,980px);grid-template-columns:1.15fr 1fr 1fr 1.35fr;gap:1.5rem}
+#mega-menu-pipeline.active{width:min(92vw,860px);grid-template-columns:1.3fr 1.15fr 1.25fr;gap:1.4rem}
+#mega-menu-doctrine.active{width:min(92vw,860px);grid-template-columns:1.3fr 1.15fr 1.25fr;gap:1.4rem}
+#mega-menu-partners.active{width:min(92vw,860px);grid-template-columns:1.3fr 1.15fr 1.25fr;gap:1.4rem}
+#mega-menu-leadership.active{width:min(92vw,860px);grid-template-columns:1.25fr 1.15fr 1.25fr;gap:1.4rem}
+
 .mega-col-title{font-family:var(--mono);font-size:0.7rem;font-weight:700;letter-spacing:0.08em;color:var(--muted);margin-bottom:0.85rem;text-transform:uppercase}
 .mega-list{display:flex;flex-direction:column;gap:0.5rem}
 .mega-item{display:flex;flex-direction:column;gap:0.12rem;text-decoration:none;padding:0.45rem 0.6rem;border-radius:6px;transition:background-color .2s}
@@ -95,8 +133,8 @@ nav a:hover{color:var(--ink);background:rgba(255,255,255,0.04);text-decoration:n
 
 @media (max-width:960px){
   .header-bar{padding:0.45rem 0.85rem;border-radius:12px}
-  nav a{padding:0.35rem 0.55rem;font-size:0.85rem}
-  .mega-menu.active{grid-template-columns:1fr;max-height:75vh;overflow-y:auto;padding:1.15rem}
+  nav a,.nav-dropdown-btn{padding:0.35rem 0.55rem;font-size:0.85rem}
+  .mega-menu.active,.nav-sub-panel.active{grid-template-columns:1fr;max-height:75vh;overflow-y:auto;padding:1.15rem;width:95vw}
 }
 
 /* hero */
@@ -989,9 +1027,7 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
 .pd-footer-heading{font-family:var(--head);font-size:0.92rem;font-weight:600;color:var(--ink);letter-spacing:-0.01em;margin:0 0 0.35rem 0}
 .pd-footer-links{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.65rem}
 .pd-footer-links li a{color:var(--muted);text-decoration:none;font-size:0.88rem;transition:color .2s;display:inline-block}
-.pd-footer-links li a:hover{color:var(--ink)}
-.pd-footer-bottom{display:flex;align-items:flex-end;justify-content:space-between;padding-top:2.25rem;border-top:1px solid var(--line);position:relative;gap:2rem}
-.pd-bottom-left{display:flex;flex-direction:column;gap:0.85rem;max-width:38rem}
+.pd-footer-bottom{display:flex;align-items:flex-end;justify-content:space-between;padding-top:2.25rem;position:relative;gap:2rem}
 .pd-copyright{font-size:0.88rem;color:var(--muted)}
 .pd-enterprise-sub{font-size:0.85rem;color:var(--muted)}
 .pd-enterprise-sub a{color:var(--ink);text-decoration:underline;text-decoration-color:rgba(255,75,43,0.4);text-underline-offset:3px}
@@ -1408,104 +1444,315 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
       <span class="brand-text">Project Hellhound</span>
     </a>
     <nav aria-label="Main Navigation">
-      <div class="nav-dropdown-wrap" id="nav-arsenal-dropdown">
-        <button class="nav-dropdown-btn" type="button" aria-expanded="false" onclick="toggleMegaMenu(event)">
+      <!-- 1. Arsenal Dropdown -->
+      <div class="nav-dropdown-wrap" data-menu="mega-menu-arsenal">
+        <a class="nav-dropdown-btn" href="#projects" role="button" aria-expanded="false">
           <span>Arsenal</span>
           <svg class="nav-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <!-- Mega Menu Panel -->
-        <div class="mega-menu" id="mega-menu-panel">
-          <!-- Col 1 -->
+        </a>
+        <div class="mega-menu" id="mega-menu-arsenal">
           <div>
             <div class="mega-col-title">Offensive Arsenal</div>
             <div class="mega-list">
-              <a class="mega-item" href="#dossier-Hellhound-Spider" onclick="openDossier('Hellhound-Spider');closeMegaMenu();">
+              <a class="mega-item" href="#dossier-Hellhound-Spider" onclick="openDossier('Hellhound-Spider');closeAllNavMenus();">
                 <span class="mega-item-name">Hellhound Spider</span>
                 <span class="mega-item-desc">Dual-engine headless SPA crawler</span>
               </a>
-              <a class="mega-item" href="#dossier-bounty-hunter" onclick="openDossier('bounty-hunter');closeMegaMenu();">
+              <a class="mega-item" href="#dossier-bounty-hunter" onclick="openDossier('bounty-hunter');closeAllNavMenus();">
                 <span class="mega-item-name">Bounty Hunter</span>
                 <span class="mega-item-desc">Autonomous exploit triage agent</span>
               </a>
-              <a class="mega-item" href="#dossier-cmdmap" onclick="openDossier('cmdmap');closeMegaMenu();">
+              <a class="mega-item" href="#dossier-cmdmap" onclick="openDossier('cmdmap');closeAllNavMenus();">
                 <span class="mega-item-name">CMDMap</span>
                 <span class="mega-item-desc">OS command injection boundary bypass</span>
               </a>
-              <a class="mega-item" href="#dossier-GateForge" onclick="openDossier('GateForge');closeMegaMenu();">
+              <a class="mega-item" href="#dossier-GateForge" onclick="openDossier('GateForge');closeAllNavMenus();">
                 <span class="mega-item-name">GateForge</span>
                 <span class="mega-item-desc">SSRF &amp; AWS IMDSv2 metadata fuzzer</span>
               </a>
-              <a class="mega-item" href="#dossier-Agent389" onclick="openDossier('Agent389');closeMegaMenu();">
+              <a class="mega-item" href="#dossier-Agent389" onclick="openDossier('Agent389');closeAllNavMenus();">
                 <span class="mega-item-name">Agent389</span>
                 <span class="mega-item-desc">Active Directory &amp; LDAP injection</span>
               </a>
             </div>
           </div>
 
-          <!-- Col 2 -->
           <div>
             <div class="mega-col-title">Attack Lifecycle</div>
             <div class="mega-list">
-              <a class="mega-item" href="#pipeline" onclick="closeMegaMenu();">
+              <a class="mega-item" href="#pipeline" onclick="closeAllNavMenus();">
                 <span class="mega-item-name">Phase 1: OSINT &amp; Intel</span>
                 <span class="mega-item-desc">JARVIS &amp; JARVIS-Mobile reconnaissance</span>
               </a>
-              <a class="mega-item" href="#pipeline" onclick="closeMegaMenu();">
+              <a class="mega-item" href="#pipeline" onclick="closeAllNavMenus();">
                 <span class="mega-item-name">Phase 2: Surface Crawl</span>
                 <span class="mega-item-desc">DOM rehydration &amp; route discovery</span>
               </a>
-              <a class="mega-item" href="#pipeline" onclick="closeMegaMenu();">
+              <a class="mega-item" href="#pipeline" onclick="closeAllNavMenus();">
                 <span class="mega-item-name">Phase 3: Protocol Fuzz</span>
                 <span class="mega-item-desc">SSRF, LDAP &amp; command boundaries</span>
               </a>
-              <a class="mega-item" href="#pipeline" onclick="closeMegaMenu();">
+              <a class="mega-item" href="#pipeline" onclick="closeAllNavMenus();">
                 <span class="mega-item-name">Phase 4: Exploit Chain</span>
                 <span class="mega-item-desc">Autonomous multi-stage RCE verification</span>
               </a>
             </div>
           </div>
 
-          <!-- Col 3 -->
           <div>
             <div class="mega-col-title">Enterprise Ecosystem</div>
             <div class="mega-list">
-              <a class="mega-item" href="#triops" onclick="closeMegaMenu();">
+              <a class="mega-item" href="#triops" onclick="closeAllNavMenus();">
                 <span class="mega-item-name">TriOps Security</span>
                 <span class="mega-item-desc">Enterprise offensive cyber wing</span>
               </a>
-              <a class="mega-item" href="#triops" onclick="closeMegaMenu();">
+              <a class="mega-item" href="#triops" onclick="closeAllNavMenus();">
                 <span class="mega-item-name">Ghost ASM</span>
                 <span class="mega-item-desc">Continuous attack surface management</span>
               </a>
-              <a class="mega-item" href="#private-projects" onclick="closeMegaMenu();">
+              <a class="mega-item" href="#private-projects" onclick="closeAllNavMenus();">
                 <span class="mega-item-name">HellCorp Labs</span>
                 <span class="mega-item-desc">Realistic vulnerable enterprise range</span>
               </a>
-              <a class="mega-item" href="#private-projects" onclick="closeMegaMenu();">
+              <a class="mega-item" href="#private-projects" onclick="closeAllNavMenus();">
                 <span class="mega-item-name">Private R&amp;D</span>
                 <span class="mega-item-desc">Proprietary red team operations</span>
               </a>
             </div>
           </div>
 
-          <!-- Col 4: XBOW Style Proof Card -->
           <div class="mega-proof-card">
             <div>
               <div class="mega-proof-tag">OFFENSIVE DOCTRINE</div>
               <div class="mega-proof-title">Deterministic Exploit Validation</div>
               <p class="mega-proof-desc">Scanners produce thousands of noisy findings. We execute discovered primitives in isolated headless sandboxes to compile verified proof-of-concept exploits with zero false positives.</p>
             </div>
-            <a class="mega-proof-btn" href="#doctrine" onclick="closeMegaMenu();">
+            <a class="mega-proof-btn" href="#doctrine" onclick="closeAllNavMenus();">
               <span>Read Architectural Doctrine</span> &rarr;
             </a>
           </div>
         </div>
       </div>
 
-      <a href="#pipeline">Pipeline</a>
-      <a href="#doctrine">Doctrine</a>
-      <a href="#triops">Partners</a>
-      <a href="#team">Leadership</a>
+      <!-- 2. Pipeline Dropdown -->
+      <div class="nav-dropdown-wrap" data-menu="mega-menu-pipeline">
+        <a class="nav-dropdown-btn" href="#pipeline" role="button" aria-expanded="false">
+          <span>Pipeline</span>
+          <svg class="nav-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="nav-sub-panel" id="mega-menu-pipeline">
+          <div>
+            <div class="mega-col-title">Attack Chain Phases</div>
+            <div class="mega-list">
+              <a class="mega-item" href="#pipeline" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Phase 1: OSINT &amp; Passive Recon</span>
+                <span class="mega-item-desc">Threat intel &amp; mobile surface mapping via JARVIS</span>
+              </a>
+              <a class="mega-item" href="#pipeline" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Phase 2: Dynamic Surface Crawling</span>
+                <span class="mega-item-desc">Chromium DOM rehydration via Hellhound Spider</span>
+              </a>
+              <a class="mega-item" href="#pipeline" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Phase 3: Protocol Boundary Fuzz</span>
+                <span class="mega-item-desc">GateForge IMDSv2 SSRF, Agent389 LDAP, and CMDMap</span>
+              </a>
+              <a class="mega-item" href="#pipeline" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Phase 4: Exploit Chaining &amp; PoC</span>
+                <span class="mega-item-desc">Autonomous multi-step verification via Bounty Hunter</span>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <div class="mega-col-title">Execution Standards</div>
+            <div class="mega-list">
+              <a class="mega-item" href="#doctrine" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Composable Unix Philosophy</span>
+                <span class="mega-item-desc">Standard I/O streaming into httpx, ffuf &amp; nuclei</span>
+              </a>
+              <a class="mega-item" href="#why" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Headless DOM Interception</span>
+                <span class="mega-item-desc">Zero-noise AST extraction on modern React and SPAs</span>
+              </a>
+              <a class="mega-item" href="#why" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Isolated Sandbox PoC</span>
+                <span class="mega-item-desc">Deterministic exploit execution with zero false alerts</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="mega-proof-card">
+            <div>
+              <div class="mega-proof-tag">OFFENSIVE PIPELINE</div>
+              <div class="mega-proof-title">Continuous Recon &amp; Exploit Synthesis</div>
+              <p class="mega-proof-desc">An automated sequence replacing shallow regex scrapers with synchronous headless DOM crawling and deterministic PoC execution.</p>
+            </div>
+            <a class="mega-proof-btn" href="#pipeline" onclick="closeAllNavMenus();">
+              <span>Explore Interactive Pipeline</span> &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Doctrine Dropdown -->
+      <div class="nav-dropdown-wrap" data-menu="mega-menu-doctrine">
+        <a class="nav-dropdown-btn" href="#doctrine" role="button" aria-expanded="false">
+          <span>Doctrine</span>
+          <svg class="nav-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="nav-sub-panel" id="mega-menu-doctrine">
+          <div>
+            <div class="mega-col-title">Core Principles</div>
+            <div class="mega-list">
+              <a class="mega-item" href="#why" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Doctrine 01: Build First, Prove in Public</span>
+                <span class="mega-item-desc">Rapid prototyping with open-source community feedback</span>
+              </a>
+              <a class="mega-item" href="#why" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Doctrine 02: Real-Target Verification</span>
+                <span class="mega-item-desc">Deterministic proofs of concept executed on live sandboxes</span>
+              </a>
+              <a class="mega-item" href="#why" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Doctrine 03: Open Core by Default</span>
+                <span class="mega-item-desc">100% free, community audited, zero telemetry lock-in</span>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <div class="mega-col-title">Architectural Contrast</div>
+            <div class="mega-list">
+              <a class="mega-item" href="#doctrine" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Composable vs Monoliths</span>
+                <span class="mega-item-desc">Fast micro-utilities vs rigid resource-heavy scanners</span>
+              </a>
+              <a class="mega-item" href="#doctrine" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Targeted Attack Engines</span>
+                <span class="mega-item-desc">Dedicated cloud IMDSv2 SSRF and AD LDAP injection</span>
+              </a>
+              <a class="mega-item" href="#doctrine" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Zero-Noise Exploit Proofs</span>
+                <span class="mega-item-desc">Autonomous LLM agent validation before reporting</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="mega-proof-card">
+            <div>
+              <div class="mega-proof-tag">ARCHITECTURAL DOCTRINE</div>
+              <div class="mega-proof-title">Why Project Hellhound?</div>
+              <p class="mega-proof-desc">Offensive security cannot be solved with slow, closed enterprise monoliths. Explore our side-by-side comparison matrix.</p>
+            </div>
+            <a class="mega-proof-btn" href="#doctrine" onclick="closeAllNavMenus();">
+              <span>View Comparison Matrix</span> &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Partners Dropdown -->
+      <div class="nav-dropdown-wrap" data-menu="mega-menu-partners">
+        <a class="nav-dropdown-btn" href="#triops" role="button" aria-expanded="false">
+          <span>Partners</span>
+          <svg class="nav-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="nav-sub-panel" id="mega-menu-partners">
+          <div>
+            <div class="mega-col-title">Strategic Alliances</div>
+            <div class="mega-list">
+              <a class="mega-item" href="https://www.linkedin.com/company/122134385" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">TriOps Security</span>
+                <span class="mega-item-desc">Enterprise offensive cyber partner &amp; red team wing</span>
+              </a>
+              <a class="mega-item" href="#triops" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Ghost ASM Platform</span>
+                <span class="mega-item-desc">Continuous attack surface discovery &amp; asset management</span>
+              </a>
+              <a class="mega-item" href="#private-projects" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">HellCorp Range</span>
+                <span class="mega-item-desc">Intentionally vulnerable enterprise test environment</span>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <div class="mega-col-title">Community &amp; Labs</div>
+            <div class="mega-list">
+              <a class="mega-item" href="https://discord.gg/DUBDAeJVk" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Discord Community</span>
+                <span class="mega-item-desc">Join offensive researchers, share techniques &amp; tools</span>
+              </a>
+              <a class="mega-item" href="https://github.com/projecthellhound" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">GitHub Organization</span>
+                <span class="mega-item-desc">Open codebase, issue tracker &amp; release channels</span>
+              </a>
+              <a class="mega-item" href="https://github.com/projecthellhound" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Vulnerability Coordination</span>
+                <span class="mega-item-desc">Security disclosure policies and research guidelines</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="mega-proof-card">
+            <div>
+              <div class="mega-proof-tag">ENTERPRISE PARTNER</div>
+              <div class="mega-proof-title">TriOps Security Alliance</div>
+              <p class="mega-proof-desc">Project Hellhound serves as the open-source research engine operating in tandem with TriOps Security's strategic enterprise practice.</p>
+            </div>
+            <a class="mega-proof-btn" href="#triops" onclick="closeAllNavMenus();">
+              <span>Explore Partnership</span> &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Leadership Dropdown -->
+      <div class="nav-dropdown-wrap" data-menu="mega-menu-leadership">
+        <a class="nav-dropdown-btn" href="#team" role="button" aria-expanded="false">
+          <span>Leadership</span>
+          <svg class="nav-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </a>
+        <div class="nav-sub-panel" id="mega-menu-leadership">
+          <div>
+            <div class="mega-col-title">Research Leadership</div>
+            <div class="mega-list">
+              <a class="mega-item" href="https://github.com/l4zz3rj0d" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Sree Danush S (l4zz3rj0d)</span>
+                <span class="mega-item-desc">Founder &amp; Offensive Lead &middot; Spider &amp; Bounty Hunter</span>
+              </a>
+              <a class="mega-item" href="https://github.com/Abinav3ac" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">Abinav (Abinav3ac)</span>
+                <span class="mega-item-desc">Core Systems Engineer &middot; GateForge &amp; Spectre DNS</span>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <div class="mega-col-title">Specialist Fellows</div>
+            <div class="mega-list">
+              <a class="mega-item" href="https://github.com/L33TxGH05T" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">L33TxGH05T (ghost)</span>
+                <span class="mega-item-desc">Threat Intel &amp; Kernel Exploitation &middot; Ghost ASM Lead</span>
+              </a>
+              <a class="mega-item" href="https://github.com/H3xiee" target="_blank" rel="noopener" onclick="closeAllNavMenus();">
+                <span class="mega-item-name">H3xiee (H3xiee)</span>
+                <span class="mega-item-desc">AI Security &amp; Reconnaissance &middot; Oryn Private Engine</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="mega-proof-card">
+            <div>
+              <div class="mega-proof-tag">RESEARCH CULTURE</div>
+              <div class="mega-proof-title">Hacker-First Principles</div>
+              <p class="mega-proof-desc">Maintained by active practitioners who build from real engagement experience and share findings openly with the global security community.</p>
+            </div>
+            <a class="mega-proof-btn" href="#team" onclick="closeAllNavMenus();">
+              <span>Meet Core Leadership</span> &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
 
       <div class="nav-hud-group">
         <button class="nav-hud-btn" id="cmd-k-trigger" type="button" onclick="openCmdPalette()" title="Press Ctrl+K or / to search">
@@ -1979,8 +2226,8 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
   <div class="wrap">
     <h2 class="reveal">How We Work</h2>
     <div class="accordion-group reveal">
-      <div class="accordion-panel expanded" id="panel-build">
-        <button class="accordion-header" type="button" aria-expanded="true" onclick="toggleAccordion('panel-build')">
+      <div class="accordion-panel" id="panel-build">
+        <button class="accordion-header" type="button" aria-expanded="false" onclick="toggleAccordion('panel-build')">
           <div class="accordion-title-wrap">
             <span class="accordion-tag">DOCTRINE 01</span>
             <span class="accordion-title">Build First, Prove in Public</span>
@@ -3366,47 +3613,111 @@ addEventListener("pointermove", e => {
   document.documentElement.style.setProperty("--my", e.clientY + "px");
 });
 
-/* XBOW Mega Menu Controller */
-function toggleMegaMenu(e) {
-  if (e) {
-    e.stopPropagation();
-    e.preventDefault();
-  }
-  AudioHUD.click();
-  const menu = document.getElementById("mega-menu-panel");
-  const btn = document.querySelector(".nav-dropdown-btn");
-  if (!menu) return;
-  const isOpen = menu.classList.contains("active");
-  if (isOpen) {
-    closeMegaMenu();
-  } else {
-    menu.classList.add("active");
-    if (btn) {
-      btn.classList.add("active");
-      btn.setAttribute("aria-expanded", "true");
-    }
-  }
-}
+/* Top Navigation Dropdown Controller (Hover & Click support for all sections) */
+let activeNavDropdown = null;
+let navDropdownTimer = null;
 
-function closeMegaMenu() {
-  const menu = document.getElementById("mega-menu-panel");
-  const btn = document.querySelector(".nav-dropdown-btn");
-  if (menu) menu.classList.remove("active");
+function openNavMenu(id) {
+  clearTimeout(navDropdownTimer);
+  const panel = document.getElementById(id);
+  const wrap = document.querySelector(`.nav-dropdown-wrap[data-menu="${id}"]`);
+  const btn = wrap ? wrap.querySelector(".nav-dropdown-btn") : null;
+  if (!panel) return;
+
+  if (activeNavDropdown === id && panel.classList.contains("active")) {
+    return;
+  }
+
+  document.querySelectorAll(".mega-menu, .nav-sub-panel").forEach(p => {
+    if (p.id !== id) p.classList.remove("active");
+  });
+  document.querySelectorAll(".nav-dropdown-btn").forEach(b => {
+    if (b !== btn) {
+      b.classList.remove("active");
+      b.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  panel.classList.add("active");
   if (btn) {
-    btn.classList.remove("active");
-    btn.setAttribute("aria-expanded", "false");
+    btn.classList.add("active");
+    btn.setAttribute("aria-expanded", "true");
   }
+  activeNavDropdown = id;
 }
 
-document.addEventListener("click", e => {
-  const menu = document.getElementById("mega-menu-panel");
-  const dropdown = document.getElementById("nav-arsenal-dropdown");
-  if (menu && menu.classList.contains("active")) {
-    if (dropdown && !dropdown.contains(e.target)) {
-      closeMegaMenu();
+function scheduleCloseNavMenus() {
+  clearTimeout(navDropdownTimer);
+  navDropdownTimer = setTimeout(() => {
+    closeAllNavMenus();
+  }, 180);
+}
+
+function closeAllNavMenus() {
+  clearTimeout(navDropdownTimer);
+  document.querySelectorAll(".mega-menu, .nav-sub-panel").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".nav-dropdown-btn").forEach(b => {
+    b.classList.remove("active");
+    b.setAttribute("aria-expanded", "false");
+  });
+  activeNavDropdown = null;
+}
+
+function setupNavDropdowns() {
+  const wraps = document.querySelectorAll(".nav-dropdown-wrap");
+
+  wraps.forEach(wrap => {
+    const id = wrap.dataset.menu;
+    const panel = document.getElementById(id);
+    const btn = wrap.querySelector(".nav-dropdown-btn");
+
+    if (!panel) return;
+
+    wrap.addEventListener("mouseenter", () => {
+      openNavMenu(id);
+    });
+
+    wrap.addEventListener("mouseleave", () => {
+      scheduleCloseNavMenus();
+    });
+
+    panel.addEventListener("mouseenter", () => {
+      clearTimeout(navDropdownTimer);
+    });
+    panel.addEventListener("mouseleave", () => {
+      scheduleCloseNavMenus();
+    });
+
+    if (btn) {
+      btn.addEventListener("click", e => {
+        if (window.innerWidth <= 960) {
+          e.preventDefault();
+          if (activeNavDropdown === id) {
+            closeAllNavMenus();
+          } else {
+            openNavMenu(id);
+          }
+        } else {
+          closeAllNavMenus();
+        }
+      });
     }
-  }
-});
+  });
+
+  document.addEventListener("click", e => {
+    const bar = document.querySelector(".header-bar");
+    if (bar && !bar.contains(e.target)) {
+      closeAllNavMenus();
+    }
+  });
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") {
+      closeAllNavMenus();
+    }
+  });
+}
+setupNavDropdowns();
 
 /* Collapsible Accordion Controller */
 function toggleAccordion(id) {
