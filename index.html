@@ -583,6 +583,8 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
   align-items:center;
   gap:.35rem;
   font-weight:600;
+  white-space:nowrap;
+  flex-shrink:0;
   transition:gap .2s ease;
 }
 .tool-card:hover .tool-inspect-link{
@@ -875,11 +877,46 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
   text-decoration:underline;
 }
 
-/* creator badge */
+/* creator badge & dynamic contributor stack */
 .creator{display:inline-flex;align-items:center;gap:.45rem;font-size:.85rem;color:var(--ink);text-decoration:none;padding:.15rem .55rem;border-radius:99px;background:#141414;border:1px solid var(--line);transition:border-color .2s,color .2s}
 .creator:hover{border-color:var(--ember);color:var(--ember)}
 .creator:hover span{text-decoration:underline;text-decoration-color:var(--ember)}
 .ava{width:22px;height:22px;border-radius:50%;background:#222;object-fit:cover;display:inline-grid;place-items:center;font-size:.7rem;color:var(--ember);flex-shrink:0}
+
+/* Real-Time Contributor Stack & Dynamic Telemetry */
+.contributor-cluster{display:inline-flex;align-items:center;gap:.45rem;flex-wrap:nowrap;max-width:72%;overflow:hidden}
+.contributor-avatars{display:inline-flex;align-items:center;flex-shrink:0}
+.contributor-ava-link{position:relative;display:inline-block;margin-left:-8px;transition:transform .15s ease,z-index .15s ease;z-index:1;text-decoration:none}
+.contributor-ava-link:first-child{margin-left:0;z-index:2}
+.contributor-ava-link:hover{transform:translateY(-2px) scale(1.18);z-index:10}
+.contributor-ava-img{width:22px;height:22px;border-radius:50%;border:2px solid #141414;background:#202020;object-fit:cover;display:block}
+.contributor-names-label{font-family:var(--mono);font-size:.74rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2}
+.contributor-names-label a{color:var(--ink);text-decoration:none;transition:color .2s ease}
+.contributor-names-label a:hover{color:var(--ember);text-decoration:underline}
+.contributor-more-tag{font-family:var(--mono);font-size:.66rem;color:var(--muted);background:#181818;border:1px solid #282828;padding:.08rem .32rem;border-radius:99px;margin-left:.15rem;flex-shrink:0}
+
+/* Card Live Telemetry & Star Badges */
+.card-live-meta-right{display:inline-flex;align-items:center;gap:.5rem}
+.card-live-star{display:inline-flex;align-items:center;gap:.25rem;color:#f1c40f;background:rgba(241,196,15,.08);border:1px solid rgba(241,196,15,.22);padding:.18rem .45rem;border-radius:4px;text-decoration:none;font-family:var(--mono);font-size:.7rem;font-weight:600;transition:all .15s ease;line-height:1}
+.card-live-star:hover{background:rgba(241,196,15,.16);border-color:rgba(241,196,15,.45);color:#ffd700;transform:translateY(-1px)}
+.card-live-dot{width:6px;height:6px;border-radius:50%;background:#2ecc71;display:inline-block;box-shadow:0 0 6px rgba(46,204,113,.7)}
+
+/* Dossier Contributors & Maintainers Section */
+.dossier-contributors-box{background:#0e0e0e;border:1px solid var(--line);border-radius:8px;padding:1.1rem 1.25rem;display:flex;flex-direction:column;gap:.85rem;margin-top:.25rem}
+.dossier-contrib-header{display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap}
+.dossier-contrib-title{font-family:var(--mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:flex;align-items:center;gap:.5rem}
+.dossier-contrib-meta{display:flex;align-items:center;gap:.65rem;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.dossier-contrib-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:.65rem}
+.dossier-contrib-card{display:flex;align-items:center;gap:.7rem;background:#141414;border:1px solid #222;border-radius:6px;padding:.55rem .8rem;text-decoration:none;transition:all .2s ease}
+.dossier-contrib-card:hover{border-color:var(--ember);background:#1a1a1a;transform:translateY(-1px)}
+.dossier-contrib-ava{width:32px;height:32px;border-radius:50%;border:1.5px solid #2c2c2c;object-fit:cover;flex-shrink:0}
+.dossier-contrib-info{display:flex;flex-direction:column;gap:.1rem;overflow:hidden}
+.dossier-contrib-name{font-family:var(--body);font-weight:600;font-size:.86rem;color:var(--ink);display:flex;align-items:center;gap:.35rem}
+.dossier-contrib-role{font-family:var(--mono);font-size:.64rem;color:var(--ember);text-transform:uppercase;letter-spacing:.04em}
+.dossier-contrib-commits{font-family:var(--mono);font-size:.68rem;color:var(--muted)}
+.dossier-graph-link{color:var(--ember);text-decoration:none;transition:underline .2s}
+.dossier-graph-link:hover{text-decoration:underline}
+
 .status{
   display:inline-flex;
   align-items:center;
@@ -1417,6 +1454,7 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
   margin-right:.45rem;
   vertical-align:middle;
 }
+
 @media (max-width:860px){
   .nav-hud-group{margin-left:.75rem;gap:.4rem}
   .cmd-kbd{display:none}
@@ -1778,6 +1816,7 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
     <a class="btn" href="https://github.com/projecthellhound" target="_blank" rel="noopener">GitHub organization</a>
     <a class="btn" href="#contact">Get in touch</a>
   </div>
+
   <div class="stats">
     <div class="stat"><b data-count="0" id="s-projects">0</b><span>public tools</span></div>
     <div class="stat"><b data-count="0" id="s-cats">0</b><span>domains & categories</span></div>
@@ -2545,8 +2584,12 @@ const projects = [
     cat: "Offensive security",
     creator: "l4zz3rj0d",
     tagline: "High-speed dual-engine crawler mapping SPA endpoints, hidden parameters, and forms with zero blind spots.",
-    quickCmd: "git clone https://github.com/projecthellhound/Hellhound-Spider.git",
-    pypiCmd: "pip install hellhound-spider",
+    quickCmd: "pip install hellhound-spider",
+    installMethods: [
+      { key: "pip", label: "pip / uv", cmd: "pip install hellhound-spider" },
+      { key: "curl", label: "cURL One-Liner", cmd: "curl -fsSL https://raw.githubusercontent.com/projecthellhound/Hellhound-Spider/main/install.sh | bash" },
+      { key: "git", label: "git clone", cmd: "git clone https://github.com/projecthellhound/Hellhound-Spider.git && cd Hellhound-Spider && ./install.sh" }
+    ],
     stats: [
       { label: "Engines", val: "Async HTTP + Chromium" },
       { label: "Coverage", val: "Traditional + SPA DOM" },
@@ -2564,7 +2607,11 @@ const projects = [
     creator: "l4zz3rj0d",
     status: "Active development",
     tagline: "Autonomous AI bug bounty agent chaining multi-step reconnaissance, exploit generation, and reporting.",
-    quickCmd: "git clone https://github.com/projecthellhound/bounty-hunter.git",
+    quickCmd: "curl -fsSL https://raw.githubusercontent.com/projecthellhound/bounty-hunter/main/install.sh | bash",
+    installMethods: [
+      { key: "curl", label: "cURL One-Liner", cmd: "curl -fsSL https://raw.githubusercontent.com/projecthellhound/bounty-hunter/main/install.sh | bash" },
+      { key: "git", label: "git clone", cmd: "git clone https://github.com/projecthellhound/bounty-hunter.git && cd bounty-hunter && ./install.sh" }
+    ],
     stats: [
       { label: "Agent Codename", val: "Beast" },
       { label: "Training Base", val: "15k+ Disclosed H1 Reports" },
@@ -2582,7 +2629,11 @@ const projects = [
     creator: "l4zz3rj0d",
     status: "Active development",
     tagline: "Autonomous tactical OSINT specialist and personal intelligence framework with multi-source pivoting.",
-    quickCmd: "git clone https://github.com/projecthellhound/JARVIS.git",
+    quickCmd: "curl -fsSL https://raw.githubusercontent.com/projecthellhound/JARVIS/main/install.sh | bash",
+    installMethods: [
+      { key: "curl", label: "cURL One-Liner", cmd: "curl -fsSL https://raw.githubusercontent.com/projecthellhound/JARVIS/main/install.sh | bash" },
+      { key: "git", label: "git clone", cmd: "git clone https://github.com/projecthellhound/JARVIS.git && cd JARVIS && cp config.yaml.example config.yaml && ./install.sh" }
+    ],
     stats: [
       { label: "Registry Scans", val: "300+ Platforms" },
       { label: "Telemetry", val: "ADS-B Flight & Geointel" },
@@ -2599,7 +2650,11 @@ const projects = [
     cat: "Offensive security",
     creator: "l4zz3rj0d",
     tagline: "Command injection detection engine for modern web architectures with multi-tier AST verification.",
-    quickCmd: "git clone https://github.com/projecthellhound/cmdmap.git",
+    quickCmd: "curl -fsSL https://raw.githubusercontent.com/projecthellhound/cmdmap/main/install.sh | bash",
+    installMethods: [
+      { key: "curl", label: "cURL One-Liner", cmd: "curl -fsSL https://raw.githubusercontent.com/projecthellhound/cmdmap/main/install.sh | bash" },
+      { key: "git", label: "git clone", cmd: "git clone https://github.com/projecthellhound/cmdmap.git && cd cmdmap && ./install.sh" }
+    ],
     stats: [
       { label: "Specialization", val: "Command Injection" },
       { label: "Verification", val: "Multi-Tier AST" },
@@ -2616,7 +2671,11 @@ const projects = [
     cat: "Offensive security",
     creator: "ghost",
     tagline: "AI-driven autonomous XSS hunter with filter classification and headless browser execution proof.",
-    quickCmd: "git clone https://github.com/projecthellhound/X5Sentry.git",
+    quickCmd: "curl -fsSL https://raw.githubusercontent.com/projecthellhound/X5Sentry/main/install.sh | bash",
+    installMethods: [
+      { key: "curl", label: "cURL One-Liner", cmd: "curl -fsSL https://raw.githubusercontent.com/projecthellhound/X5Sentry/main/install.sh | bash" },
+      { key: "git", label: "git clone", cmd: "git clone https://github.com/projecthellhound/X5Sentry.git && cd X5Sentry && ./install.sh" }
+    ],
     stats: [
       { label: "Engine", val: "Adaptive State Machine" },
       { label: "Validation", val: "Playwright Headless" },
@@ -2635,6 +2694,9 @@ const projects = [
     status: "Active development",
     tagline: "Tactical Flutter/Dart companion extending JARVIS intelligence operations to mobile devices.",
     quickCmd: "git clone https://github.com/projecthellhound/JARVIS-Mobile.git",
+    installMethods: [
+      { key: "git", label: "git clone", cmd: "git clone https://github.com/projecthellhound/JARVIS-Mobile.git && cd JARVIS-Mobile && flutter pub get && flutter run" }
+    ],
     stats: [
       { label: "Framework", val: "Flutter / Dart" },
       { label: "Platform", val: "Android & iOS" },
@@ -2651,7 +2713,11 @@ const projects = [
     cat: "Offensive security",
     creator: "abinav",
     tagline: "Semi-autonomous SSRF testing agent targeting cloud metadata endpoints and protocol smuggling.",
-    quickCmd: "git clone https://github.com/projecthellhound/GateForge.git",
+    quickCmd: "curl -fsSL https://raw.githubusercontent.com/projecthellhound/GateForge/main/install.sh | bash",
+    installMethods: [
+      { key: "curl", label: "cURL One-Liner", cmd: "curl -fsSL https://raw.githubusercontent.com/projecthellhound/GateForge/main/install.sh | bash" },
+      { key: "git", label: "git clone", cmd: "git clone https://github.com/projecthellhound/GateForge.git && cd GateForge && ./install.sh" }
+    ],
     stats: [
       { label: "Target Vectors", val: "Cloud IMDSv1/v2 & Intranet" },
       { label: "Bypasses", val: "DNS Rebind & Smuggling" },
@@ -2669,6 +2735,9 @@ const projects = [
     creator: "abinav",
     tagline: "Autonomous LDAP and Active Directory security toolkit for directory enumeration and injection.",
     quickCmd: "git clone https://github.com/projecthellhound/Agent389.git",
+    installMethods: [
+      { key: "git", label: "git clone", cmd: "git clone https://github.com/projecthellhound/Agent389.git && cd Agent389 && pip install -r requirements.txt" }
+    ],
     stats: [
       { label: "Protocol", val: "LDAP / LDAPS (Port 389/636)" },
       { label: "Domain", val: "Active Directory" },
@@ -2685,7 +2754,11 @@ const projects = [
     cat: "Everyday apps",
     creator: "abinav",
     tagline: "Minimalist habit and focus consistency tracker engineered with AI behavioral analytics.",
-    quickCmd: "git clone https://github.com/projecthellhound/Constant.git",
+    quickCmd: "curl -fsSL https://raw.githubusercontent.com/projecthellhound/Constant/main/install.sh | bash",
+    installMethods: [
+      { key: "curl", label: "cURL One-Liner", cmd: "curl -fsSL https://raw.githubusercontent.com/projecthellhound/Constant/main/install.sh | bash" },
+      { key: "git", label: "git clone", cmd: "git clone https://github.com/projecthellhound/Constant.git && cd Constant && ./install.sh" }
+    ],
     stats: [
       { label: "Category", val: "Productivity / Focus" },
       { label: "Telemetry", val: "Consistency Analytics" },
@@ -2702,7 +2775,11 @@ const projects = [
     cat: "Training labs",
     creator: "abinav",
     tagline: "HellCorp Global Enterprise (HGE) — an intentionally vulnerable enterprise training range.",
-    quickCmd: "git clone https://github.com/projecthellhound/HellCorp.git",
+    quickCmd: "docker compose up -d",
+    installMethods: [
+      { key: "docker", label: "Docker Compose", cmd: "docker compose up -d" },
+      { key: "git", label: "git clone", cmd: "git clone https://github.com/projecthellhound/HellCorp.git && cd HellCorp && npm install && npm start" }
+    ],
     stats: [
       { label: "Architecture", val: "Enterprise Multi-Tier" },
       { label: "Target Lab", val: "Corporate Active Directory" },
@@ -2720,6 +2797,9 @@ const projects = [
     creator: "abinav",
     tagline: "Intelligent DNS threat telemetry for detecting data exfiltration, covert tunneling, and C2 channels.",
     quickCmd: "git clone https://github.com/projecthellhound/Spectre.git",
+    installMethods: [
+      { key: "git", label: "git clone", cmd: "git clone https://github.com/projecthellhound/Spectre.git && cd Spectre && pip install -r requirements.txt" }
+    ],
     stats: [
       { label: "Protocol", val: "DNS / DoH / DoT" },
       { label: "Detection", val: "Entropy & Query Timing" },
@@ -2733,7 +2813,7 @@ const projects = [
 
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* creator avatar builder */
+/* creator avatar builder (legacy / fallback) */
 function avatar(p){
   if (!p) return document.createDocumentFragment();
   const a = document.createElement("a");
@@ -2758,6 +2838,270 @@ function avatar(p){
   const n = document.createElement("span");
   n.textContent = p.name;
   a.append(img, n);
+  return a;
+}
+
+/* Real-Time GitHub Synchronization Engine (Local Cache + Live Background Fetch) */
+const GitHubSync = (() => {
+  const CACHE_KEY = "hellhound_gh_cache_v2";
+  const CACHE_TTL_MS = 25 * 60 * 1000; // 25 minutes
+  let repoData = {};
+  let updateListeners = [];
+
+  function onUpdate(fn) {
+    updateListeners.push(fn);
+  }
+
+  function notify() {
+    updateListeners.forEach(fn => {
+      try { fn(repoData); } catch(e) {}
+    });
+  }
+
+  function formatRelativeTime(dateString) {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return "";
+    const now = new Date();
+    const diffSec = Math.floor((now - date) / 1000);
+    if (diffSec < 60) return "just now";
+    const diffMin = Math.floor(diffSec / 60);
+    if (diffMin < 60) return `${diffMin}m ago`;
+    const diffHour = Math.floor(diffMin / 60);
+    if (diffHour < 24) return `${diffHour}h ago`;
+    const diffDay = Math.floor(diffHour / 24);
+    if (diffDay === 1) return "yesterday";
+    if (diffDay < 30) return `${diffDay}d ago`;
+    const diffMonth = Math.floor(diffDay / 30);
+    return `${diffMonth}mo ago`;
+  }
+
+  function getRepo(repoName) {
+    return repoData[repoName] || null;
+  }
+
+  async function init() {
+    let hasLoaded = false;
+    // 1. Check local storage cache
+    try {
+      const stored = localStorage.getItem(CACHE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (parsed && parsed.repos && Object.keys(parsed.repos).length > 0) {
+          repoData = parsed.repos;
+          hasLoaded = true;
+          notify();
+          if (Date.now() - (parsed.timestamp || 0) < CACHE_TTL_MS) {
+            return;
+          }
+        }
+      }
+    } catch(e) {}
+
+    // 2. Fallback to static seed data/contributors.json (instant zero-delay, zero rate-limit cost)
+    if (!hasLoaded) {
+      try {
+        const resp = await fetch("data/contributors.json");
+        if (resp.ok) {
+          const json = await resp.json();
+          if (json && json.repos) {
+            repoData = json.repos;
+            notify();
+          }
+        }
+      } catch(e) {}
+    }
+
+    // 3. Live GitHub sync in background
+    fetchLiveFromGitHub();
+  }
+
+  async function fetchLiveFromGitHub() {
+    try {
+      const orgResp = await fetch("https://api.github.com/orgs/projecthellhound/repos?per_page=100", {
+        headers: { Accept: "application/vnd.github.v3+json" }
+      });
+      if (!orgResp.ok) return; // Silent fallback on rate-limit (403) or offline
+      const ghRepos = await orgResp.json();
+      if (!Array.isArray(ghRepos)) return;
+
+      const updated = { ...repoData };
+      const trackedRepoNames = projects.map(p => p.repo);
+
+      for (const r of ghRepos) {
+        const name = r.name;
+        if (!trackedRepoNames.includes(name)) continue;
+
+        if (!updated[name]) {
+          updated[name] = {
+            name: name,
+            stars: r.stargazers_count || 0,
+            forks: r.forks_count || 0,
+            pushed_at: r.pushed_at || "",
+            description: r.description || "",
+            html_url: r.html_url || `https://github.com/projecthellhound/${name}`,
+            contributors: []
+          };
+        } else {
+          updated[name].stars = r.stargazers_count !== undefined ? r.stargazers_count : updated[name].stars;
+          updated[name].forks = r.forks_count !== undefined ? r.forks_count : updated[name].forks;
+          updated[name].pushed_at = r.pushed_at || updated[name].pushed_at;
+        }
+
+        try {
+          const cResp = await fetch(`https://api.github.com/repos/projecthellhound/${name}/contributors`, {
+            headers: { Accept: "application/vnd.github.v3+json" }
+          });
+          if (cResp.ok) {
+            const cList = await cResp.json();
+            if (Array.isArray(cList)) {
+              updated[name].contributors = cList
+                .filter(c => c && c.login && c.login !== "project-hellhound")
+                .map(c => ({
+                  login: c.login,
+                  avatar_url: c.avatar_url || `https://github.com/${c.login}.png?size=48`,
+                  html_url: c.html_url || `https://github.com/${c.login}`,
+                  contributions: c.contributions || 1
+                }));
+            }
+          }
+        } catch(e) {}
+      }
+
+      repoData = updated;
+      try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify({
+          timestamp: Date.now(),
+          repos: repoData
+        }));
+      } catch(e) {}
+      notify();
+    } catch(e) {
+      // Quiet failover to existing data
+    }
+  }
+
+  return {
+    init,
+    getRepo,
+    onUpdate,
+    formatRelativeTime,
+    getAll: () => repoData
+  };
+})();
+
+/* Contributor stack builder: real-time avatar cluster with direct mention links */
+function renderContributorStack(repo, defaultCreatorKey) {
+  const container = document.createElement("div");
+  container.className = "contributor-cluster";
+
+  const repoInfo = GitHubSync.getRepo(repo);
+  let conts = (repoInfo && Array.isArray(repoInfo.contributors) && repoInfo.contributors.length > 0)
+    ? repoInfo.contributors
+    : null;
+
+  // Fallback to static creator mapping if no GitHub contributors loaded yet
+  if (!conts && defaultCreatorKey && people[defaultCreatorKey]) {
+    const p = people[defaultCreatorKey];
+    conts = [{
+      login: p.name,
+      avatar_url: `https://github.com/${p.gh}.png?size=48`,
+      html_url: `https://github.com/${p.gh}`,
+      contributions: 1
+    }];
+  }
+
+  if (!conts || conts.length === 0) {
+    return container;
+  }
+
+  // 1. Avatar cluster
+  const avasWrap = document.createElement("div");
+  avasWrap.className = "contributor-avatars";
+
+  const displayLimit = 3;
+  const visible = conts.slice(0, displayLimit);
+
+  visible.forEach(c => {
+    const link = document.createElement("a");
+    link.className = "contributor-ava-link";
+    link.href = c.html_url;
+    link.target = "_blank";
+    link.rel = "noopener";
+    link.title = `@${c.login} (${c.contributions} ${c.contributions === 1 ? 'commit' : 'commits'})`;
+    link.onclick = (e) => e.stopPropagation();
+
+    const img = document.createElement("img");
+    img.className = "contributor-ava-img";
+    img.src = c.avatar_url;
+    img.alt = c.login;
+    img.loading = "lazy";
+    img.onerror = () => {
+      const f = document.createElement("span");
+      f.className = "ava";
+      f.textContent = c.login[0].toUpperCase();
+      img.replaceWith(f);
+    };
+
+    link.appendChild(img);
+    avasWrap.appendChild(link);
+  });
+
+  if (conts.length > displayLimit) {
+    const more = document.createElement("span");
+    more.className = "contributor-more-tag";
+    more.textContent = `+${conts.length - displayLimit}`;
+    avasWrap.appendChild(more);
+  }
+
+  container.appendChild(avasWrap);
+
+  // 2. Mention names
+  const namesWrap = document.createElement("span");
+  namesWrap.className = "contributor-names-label";
+  
+  if (conts.length <= 2) {
+    conts.forEach((c, idx) => {
+      const a = document.createElement("a");
+      a.href = c.html_url;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.textContent = `@${c.login}`;
+      a.onclick = (e) => e.stopPropagation();
+      namesWrap.appendChild(a);
+      if (idx < conts.length - 1) {
+        namesWrap.appendChild(document.createTextNode(", "));
+      }
+    });
+  } else {
+    const firstA = document.createElement("a");
+    firstA.href = conts[0].html_url;
+    firstA.target = "_blank";
+    firstA.rel = "noopener";
+    firstA.textContent = `@${conts[0].login}`;
+    firstA.onclick = (e) => e.stopPropagation();
+    namesWrap.appendChild(firstA);
+    const others = document.createElement("span");
+    others.textContent = ` +${conts.length - 1} more`;
+    namesWrap.appendChild(others);
+  }
+
+  container.appendChild(namesWrap);
+  return container;
+}
+
+/* Live star badge builder */
+function renderLiveStars(repo) {
+  const r = GitHubSync.getRepo(repo);
+  const stars = r && r.stars !== undefined ? r.stars : 0;
+  const a = document.createElement("a");
+  a.className = "card-live-star";
+  a.href = `https://github.com/projecthellhound/${repo}`;
+  a.target = "_blank";
+  a.rel = "noopener";
+  a.title = `${stars} Stars on GitHub`;
+  a.onclick = (e) => e.stopPropagation();
+  a.innerHTML = `&#9733; <span>${stars}</span>`;
   return a;
 }
 
@@ -2842,19 +3186,13 @@ const dossierModalContent = document.getElementById("dossier-modal-content");
 let currentDossierRepo = null;
 let currentDossierTab = "git";
 
-function getInstallCommands(p) {
-  const repoLower = p.repo.toLowerCase();
-  const cmds = {
-    git: `git clone https://github.com/projecthellhound/${p.repo}.git`,
-    curl: `curl -sSL https://raw.githubusercontent.com/projecthellhound/${p.repo}/main/install.sh | bash`,
-    docker: `docker run --rm -it ghcr.io/projecthellhound/${repoLower}:latest`
-  };
-  if (p.pypiCmd) {
-    cmds.pip = p.pypiCmd;
-  } else {
-    cmds.pip = `pip install git+https://github.com/projecthellhound/${p.repo}.git`;
+function getInstallMethods(p) {
+  if (p.installMethods && p.installMethods.length > 0) {
+    return p.installMethods;
   }
-  return cmds;
+  return [
+    { key: "git", label: "git clone", cmd: `git clone https://github.com/projecthellhound/${p.repo}.git` }
+  ];
 }
 
 function switchDossierTab(tabKey) {
@@ -2862,10 +3200,11 @@ function switchDossierTab(tabKey) {
   currentDossierTab = tabKey;
   const p = projects.find(item => item.repo === currentDossierRepo);
   if (!p) return;
-  const cmds = getInstallCommands(p);
+  const methods = getInstallMethods(p);
+  const found = methods.find(m => m.key === tabKey) || methods[0];
   const codeEl = document.getElementById("dossier-cmd-code");
-  if (codeEl) {
-    codeEl.textContent = "$ " + cmds[tabKey];
+  if (codeEl && found) {
+    codeEl.textContent = "$ " + found.cmd;
   }
   const tabs = document.querySelectorAll(".dossier-tab-btn");
   tabs.forEach(t => t.classList.remove("active"));
@@ -2876,8 +3215,9 @@ function switchDossierTab(tabKey) {
 function copyActiveDossierCmd() {
   const p = projects.find(item => item.repo === currentDossierRepo);
   if (!p) return;
-  const cmds = getInstallCommands(p);
-  const text = cmds[currentDossierTab] || cmds.git;
+  const methods = getInstallMethods(p);
+  const found = methods.find(m => m.key === currentDossierTab) || methods[0];
+  const text = found ? found.cmd : "";
   const btn = document.getElementById("dossier-copy-btn");
   if (!btn || !navigator.clipboard) return;
   AudioHUD.copy();
@@ -2904,15 +3244,58 @@ function openDossier(repo) {
   const p = projects.find(item => item.repo === repo);
   if (!p || !dossierModalContent) return;
   currentDossierRepo = repo;
-  currentDossierTab = "git";
 
-  const cmds = getInstallCommands(p);
-  const creatorObj = p.creator && people[p.creator] ? people[p.creator] : null;
-  const creatorHtml = creatorObj ? `
-    <a class="creator" href="https://github.com/${creatorObj.gh}" target="_blank" rel="noopener">
-      <img class="ava" src="https://github.com/${creatorObj.gh}.png?size=48" alt="${creatorObj.name}" onerror="this.outerHTML='<span class=\\'ava\\'>${creatorObj.name[0]}</span>'">
-      <span>${creatorObj.name}</span>
-    </a>
+  const methods = getInstallMethods(p);
+  currentDossierTab = methods[0].key;
+  const initialCmd = methods[0].cmd;
+
+  const repoLive = GitHubSync.getRepo(p.repo);
+  const liveStars = repoLive && repoLive.stars !== undefined ? repoLive.stars : 0;
+  const relTime = repoLive && repoLive.pushed_at ? GitHubSync.formatRelativeTime(repoLive.pushed_at) : "";
+
+  // Dynamic contributors list from live sync / seed data
+  let conts = (repoLive && Array.isArray(repoLive.contributors) && repoLive.contributors.length > 0)
+    ? repoLive.contributors
+    : [];
+
+  if (conts.length === 0 && p.creator && people[p.creator]) {
+    const creatorObj = people[p.creator];
+    conts = [{
+      login: creatorObj.name,
+      avatar_url: `https://github.com/${creatorObj.gh}.png?size=48`,
+      html_url: `https://github.com/${creatorObj.gh}`,
+      contributions: 1
+    }];
+  }
+
+  const contributorsHtml = conts.length > 0 ? `
+    <div class="dossier-contributors-box">
+      <div class="dossier-contrib-header">
+        <span class="dossier-contrib-title">
+          <span class="card-live-dot"></span> Active Contributors &amp; Maintainers
+        </span>
+        <div class="dossier-contrib-meta">
+          <span class="card-live-star" title="${liveStars} Stars on GitHub">&#9733; ${liveStars}</span>
+          ${relTime ? `<span>Updated ${relTime}</span>` : ""}
+          <a class="dossier-graph-link" href="https://github.com/projecthellhound/${p.repo}/graphs/contributors" target="_blank" rel="noopener">GitHub Graph &rarr;</a>
+        </div>
+      </div>
+      <div class="dossier-contrib-grid">
+        ${conts.map((c, cIdx) => `
+          <a class="dossier-contrib-card" href="${c.html_url}" target="_blank" rel="noopener">
+            <img class="dossier-contrib-ava" src="${c.avatar_url}" alt="${c.login}" onerror="this.outerHTML='<span class=\\'ava\\'>${c.login[0].toUpperCase()}</span>'">
+            <div class="dossier-contrib-info">
+              <span class="dossier-contrib-name">
+                @${c.login}
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </span>
+              <span class="dossier-contrib-role">${cIdx === 0 ? "Lead Author" : "Contributor"}</span>
+              <span class="dossier-contrib-commits">${c.contributions} ${c.contributions === 1 ? 'commit' : 'commits'}</span>
+            </div>
+          </a>
+        `).join("")}
+      </div>
+    </div>
   ` : "";
 
   const statsHtml = p.stats ? `
@@ -2963,23 +3346,27 @@ function openDossier(repo) {
     <div class="dossier-install-section">
       <span class="dossier-terminal-label">Deployment &amp; Quickstart</span>
       <div class="dossier-tabs-bar" role="tablist">
-        <button class="dossier-tab-btn active" id="tab-btn-git" type="button" onclick="switchDossierTab('git')"><span>git clone</span></button>
-        <button class="dossier-tab-btn" id="tab-btn-pip" type="button" onclick="switchDossierTab('pip')"><span>pip / uv</span></button>
-        <button class="dossier-tab-btn" id="tab-btn-docker" type="button" onclick="switchDossierTab('docker')"><span>Docker</span></button>
-        <button class="dossier-tab-btn" id="tab-btn-curl" type="button" onclick="switchDossierTab('curl')"><span>cURL One-Liner</span></button>
+        ${methods.map((m, idx) => `
+          <button class="dossier-tab-btn ${idx === 0 ? 'active' : ''}" id="tab-btn-${m.key}" type="button" onclick="switchDossierTab('${m.key}')">
+            <span>${m.label}</span>
+          </button>
+        `).join("")}
       </div>
       <div class="dossier-terminal">
-        <code id="dossier-cmd-code">$ ${cmds.git}</code>
+        <code id="dossier-cmd-code">$ ${initialCmd}</code>
         <button class="dossier-copy-btn" id="dossier-copy-btn" type="button" onclick="copyActiveDossierCmd()">Copy</button>
       </div>
     </div>
 
     ${capsHtml}
 
+    <!-- Live Real-Time Contributors & Maintainers -->
+    ${contributorsHtml}
+
     <div class="dossier-actions">
       <div style="display:flex;align-items:center;gap:.75rem;">
-        <span style="font-family:var(--mono);font-size:.78rem;color:var(--muted)">AUTHOR:</span>
-        ${creatorHtml}
+        <span style="font-family:var(--mono);font-size:.78rem;color:var(--muted)">REPOSITORY:</span>
+        <span style="font-family:var(--mono);font-size:.82rem;color:var(--ink)">projecthellhound/${p.repo}</span>
       </div>
       <div style="display:flex;align-items:center;gap:.75rem;">
         <a class="dossier-gh-btn" href="${ORG + p.repo}" target="_blank" rel="noopener">
@@ -3308,7 +3695,7 @@ function renderFlagships() {
       }
     };
 
-    // Meta top: Flagship badge + Status
+    // Meta top: Flagship badge + Status & Live Stars
     const metaTop = document.createElement("div");
     metaTop.className = "flagship-meta-top";
 
@@ -3318,10 +3705,16 @@ function renderFlagships() {
 
     metaTop.appendChild(tag);
 
+    const rightMeta = document.createElement("div");
+    rightMeta.className = "card-live-meta-right";
+    rightMeta.appendChild(renderLiveStars(p.repo));
+
     const s = document.createElement("span");
     s.className = "status live";
     s.innerHTML = `<span>${p.status ? "Active Dev" : "Production Ready"}</span>`;
-    metaTop.appendChild(s);
+    rightMeta.appendChild(s);
+
+    metaTop.appendChild(rightMeta);
 
     // Identity row: Glyph + Title + Category
     const idRow = document.createElement("div");
@@ -3377,9 +3770,7 @@ function renderFlagships() {
     // Footer
     const footer = document.createElement("div");
     footer.className = "flagship-footer";
-    if (p.creator && people[p.creator]) {
-      footer.appendChild(avatar(people[p.creator]));
-    }
+    footer.appendChild(renderContributorStack(p.repo, p.creator));
     const inspectBtn = document.createElement("span");
     inspectBtn.className = "flagship-inspect-btn";
     inspectBtn.innerHTML = `<span>Inspect Full Dossier</span> <span>&rarr;</span>`;
@@ -3426,7 +3817,7 @@ function render(){
         }
       };
       
-      // Top row: Glyph + Name + Cat + Status
+      // Top row: Glyph + Name + Cat + Status & Live Stars
       const top = document.createElement("div");
       top.className = "tool-top";
       
@@ -3449,12 +3840,17 @@ function render(){
       idWrap.append(glyph, titleBox);
       top.appendChild(idWrap);
       
+      const rightMeta = document.createElement("div");
+      rightMeta.className = "card-live-meta-right";
+      rightMeta.appendChild(renderLiveStars(p.repo));
+      
       if (p.status) {
         const s = document.createElement("span");
         s.className = "status live";
         s.innerHTML = `<span>Active Dev</span>`;
-        top.appendChild(s);
+        rightMeta.appendChild(s);
       }
+      top.appendChild(rightMeta);
       
       // Body: Tagline (Clean, minimalist)
       const body = document.createElement("div");
@@ -3476,15 +3872,13 @@ function render(){
         });
       }
       
-      // Footer row: Creator avatar + Inspect Dossier prompt
+      // Footer row: Contributor stack + Inspect Dossier prompt
       const footer = document.createElement("div");
       footer.className = "tool-footer";
-      if (p.creator && people[p.creator]) {
-        footer.appendChild(avatar(people[p.creator]));
-      }
+      footer.appendChild(renderContributorStack(p.repo, p.creator));
       const inspectPrompt = document.createElement("span");
       inspectPrompt.className = "tool-inspect-link";
-      inspectPrompt.innerHTML = `<span>Inspect Dossier</span> <span>&rarr;</span>`;
+      inspectPrompt.innerHTML = `<span>Inspect</span> <span>&rarr;</span>`;
       footer.appendChild(inspectPrompt);
       
       card.append(top, body, capTags, footer);
@@ -3507,6 +3901,18 @@ cats.forEach(c => {
 });
 renderFlagships();
 render();
+
+// Reactive GitHub update listener: re-render cards & refreshes open dossier
+GitHubSync.onUpdate(() => {
+  renderFlagships();
+  render();
+  if (currentDossierRepo && dossierOverlay && dossierOverlay.classList.contains("active")) {
+    openDossier(currentDossierRepo);
+  }
+});
+
+// Initialize GitHub data sync
+GitHubSync.init();
 
 /* headings: hover letters + reveal */
 document.querySelectorAll("h1,h2,.kind h3,.trio h3,.brand-text,.contact-details h3,.private-title,.stage-title").forEach(fx);

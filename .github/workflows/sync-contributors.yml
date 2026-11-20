@@ -1,0 +1,90 @@
+name: Sync GitHub Contributors & Telemetry
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # Runs every 6 hours
+  workflow_dispatch: # Allows manual trigger from GitHub Actions UI
+
+permissions:
+  contents: write
+
+jobs:
+  sync-contributors:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Fetch Live Contributors & Repositories
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 - << 'PYEOF'
+          import urllib.request, json, os, datetime
+
+          token = os.environ.get('GH_TOKEN')
+          headers = {'User-Agent': 'ProjectHellhoundSyncAction'}
+          if token:
+              headers['Authorization'] = f'Bearer {token}'
+
+          os.makedirs('data', exist_ok=True)
+          req = urllib.request.Request('https://api.github.com/orgs/projecthellhound/repos?per_page=100', headers=headers)
+          with urllib.request.urlopen(req) as resp:
+              repos_raw = json.loads(resp.read().decode())
+
+          result = {
+              'updated_at': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+              'repos': {}
+          }
+
+          for r in repos_raw:
+              name = r['name']
+              c_req = urllib.request.Request(f'https://api.github.com/repos/projecthellhound/{name}/contributors', headers=headers)
+              conts = []
+              try:
+                  with urllib.request.urlopen(c_req) as c_resp:
+                      c_raw = json.loads(c_resp.read().decode())
+                      for c in c_raw:
+                          if c.get('login') == 'project-hellhound':
+                              continue
+                          conts.append({
+                              'login': c.get('login'),
+                              'avatar_url': c.get('avatar_url', f"https://github.com/{c.get('login')}.png?size=48"),
+                              'html_url': c.get('html_url', f"https://github.com/{c.get('login')}"),
+                              'contributions': c.get('contributions', 1)
+                          })
+              except Exception as e:
+                  print(f"Error fetching {name} contributors: {e}")
+              
+              result['repos'][name] = {
+                  'name': name,
+                  'stars': r.get('stargazers_count', 0),
+                  'forks': r.get('forks_count', 0),
+                  'pushed_at': r.get('pushed_at', ''),
+                  'description': r.get('description', ''),
+                  'html_url': r.get('html_url', f'https://github.com/projecthellhound/{name}'),
+                  'contributors': conts
+              }
+
+          with open('data/contributors.json', 'w') as f:
+              json.dump(result, f, indent=2)
+
+          print(f"Successfully updated data/contributors.json with {len(result['repos'])} repos.")
+          PYEOF
+
+      - name: Commit & Push Changes
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/contributors.json
+          if git diff --staged --quiet; then
+            echo "No changes in contributors data. Skipping commit."
+          else
+            git commit -m "chore(sync): update contributors & telemetry [skip ci]"
+            git push
+          fi

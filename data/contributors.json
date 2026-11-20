@@ -1,0 +1,237 @@
+{
+  "updated_at": "2026-11-19T17:04:00Z",
+  "repos": {
+    "JARVIS": {
+      "name": "JARVIS",
+      "stars": 7,
+      "forks": 2,
+      "pushed_at": "2026-11-19T16:43:15Z",
+      "description": "AUTONOMOUS TACTICAL OSINT SPECIALIST & INTELLIGENCE SYSTEM",
+      "html_url": "https://github.com/projecthellhound/JARVIS",
+      "contributors": [
+        {
+          "login": "l4zz3rj0d",
+          "avatar_url": "https://avatars.githubusercontent.com/u/174024476?v=4",
+          "html_url": "https://github.com/l4zz3rj0d",
+          "contributions": 216
+        },
+        {
+          "login": "H3xiee",
+          "avatar_url": "https://avatars.githubusercontent.com/u/242639922?v=4",
+          "html_url": "https://github.com/H3xiee",
+          "contributions": 2
+        }
+      ]
+    },
+    "bounty-hunter": {
+      "name": "bounty-hunter",
+      "stars": 12,
+      "forks": 3,
+      "pushed_at": "2026-11-18T08:31:27Z",
+      "description": "Autonomous AI bug-bounty & pentest agent \u2014 recon to exploit to report.",
+      "html_url": "https://github.com/projecthellhound/bounty-hunter",
+      "contributors": [
+        {
+          "login": "l4zz3rj0d",
+          "avatar_url": "https://avatars.githubusercontent.com/u/174024476?v=4",
+          "html_url": "https://github.com/l4zz3rj0d",
+          "contributions": 405
+        }
+      ]
+    },
+    "Hellhound-Spider": {
+      "name": "Hellhound-Spider",
+      "stars": 14,
+      "forks": 2,
+      "pushed_at": "2026-11-18T08:31:09Z",
+      "description": "Fully autonomous web crawler for security testing \u2014 maps endpoints, parameters, and security issues across traditional and SPA web applications. Drop a URL. Walk away. ",
+      "html_url": "https://github.com/projecthellhound/Hellhound-Spider",
+      "contributors": [
+        {
+          "login": "l4zz3rj0d",
+          "avatar_url": "https://avatars.githubusercontent.com/u/174024476?v=4",
+          "html_url": "https://github.com/l4zz3rj0d",
+          "contributions": 89
+        }
+      ]
+    },
+    ".github": {
+      "name": ".github",
+      "stars": 0,
+      "forks": 0,
+      "pushed_at": "2026-11-16T08:14:43Z",
+      "description": null,
+      "html_url": "https://github.com/projecthellhound/.github",
+      "contributors": [
+        {
+          "login": "l4zz3rj0d",
+          "avatar_url": "https://avatars.githubusercontent.com/u/174024476?v=4",
+          "html_url": "https://github.com/l4zz3rj0d",
+          "contributions": 18
+        }
+      ]
+    },
+    "X5Sentry": {
+      "name": "X5Sentry",
+      "stars": 5,
+      "forks": 1,
+      "pushed_at": "2026-11-18T08:35:09Z",
+      "description": "Autonomous XSS Hunter \u2014 Maps attack surfaces, analyzes character survivability, and validates vulnerabilities through headless browser automation.",
+      "html_url": "https://github.com/projecthellhound/X5Sentry",
+      "contributors": [
+        {
+          "login": "l4zz3rj0d",
+          "avatar_url": "https://avatars.githubusercontent.com/u/174024476?v=4",
+          "html_url": "https://github.com/l4zz3rj0d",
+          "contributions": 13
+        },
+        {
+          "login": "L33TxGH05T",
+          "avatar_url": "https://avatars.githubusercontent.com/u/227826162?v=4",
+          "html_url": "https://github.com/L33TxGH05T",
+          "contributions": 4
+        }
+      ]
+    },
+    "cmdmap": {
+      "name": "cmdmap",
+      "stars": 7,
+      "forks": 1,
+      "pushed_at": "2026-11-18T08:32:44Z",
+      "description": "CMDMAP is a high-fidelity, autonomous command injection detector designed for the modern web. Unlike traditional scanners, CMDmap uses a multi-tier verification engine to eliminate false positives and bypass sophisticated filters.",
+      "html_url": "https://github.com/projecthellhound/cmdmap",
+      "contributors": [
+        {
+          "login": "l4zz3rj0d",
+          "avatar_url": "https://avatars.githubusercontent.com/u/174024476?v=4",
+          "html_url": "https://github.com/l4zz3rj0d",
+          "contributions": 14
+        }
+      ]
+    },
+    "GateForge": {
+      "name": "GateForge",
+      "stars": 1,
+      "forks": 0,
+      "pushed_at": "2026-11-17T03:49:06Z",
+      "description": "SEMI-AUTONOMOUS SSRF TESTING AGENT FOR ADVANCED VULNERABILITY DISCOVERY AND EXPLOITATION.",
+      "html_url": "https://github.com/projecthellhound/GateForge",
+      "contributors": [
+        {
+          "login": "Abinav3ac",
+          "avatar_url": "https://avatars.githubusercontent.com/u/180760229?v=4",
+          "html_url": "https://github.com/Abinav3ac",
+          "contributions": 10
+        }
+      ]
+    },
+    "HellCorp": {
+      "name": "HellCorp",
+      "stars": 1,
+      "forks": 0,
+      "pushed_at": "2026-11-17T03:50:51Z",
+      "description": "HELLCORP GLOBAL ENTERPRISE (HGE) INTENTIONALLY VULNERABLE WEB APPLICATION, DESIGNED FOR ENTERPRISE-FOCUSED SECURITY TRAINING AND TESTING.",
+      "html_url": "https://github.com/projecthellhound/HellCorp",
+      "contributors": [
+        {
+          "login": "Abinav3ac",
+          "avatar_url": "https://avatars.githubusercontent.com/u/180760229?v=4",
+          "html_url": "https://github.com/Abinav3ac",
+          "contributions": 22
+        }
+      ]
+    },
+    "Spectre": {
+      "name": "Spectre",
+      "stars": 0,
+      "forks": 0,
+      "pushed_at": "2026-11-17T03:48:16Z",
+      "description": "SPECTRE \u2014 INTELLIGENT DNS THREAT DETECTION FOR TUNNELING, DATA EXFILTRATION, ANOMALOUS TRAFFIC, AND COVERT C2 COMMUNICATIONS.",
+      "html_url": "https://github.com/projecthellhound/Spectre",
+      "contributors": [
+        {
+          "login": "Abinav3ac",
+          "avatar_url": "https://avatars.githubusercontent.com/u/180760229?v=4",
+          "html_url": "https://github.com/Abinav3ac",
+          "contributions": 13
+        }
+      ]
+    },
+    "JARVIS-Mobile": {
+      "name": "JARVIS-Mobile",
+      "stars": 2,
+      "forks": 0,
+      "pushed_at": "2026-11-18T08:36:07Z",
+      "description": null,
+      "html_url": "https://github.com/projecthellhound/JARVIS-Mobile",
+      "contributors": [
+        {
+          "login": "l4zz3rj0d",
+          "avatar_url": "https://avatars.githubusercontent.com/u/174024476?v=4",
+          "html_url": "https://github.com/l4zz3rj0d",
+          "contributions": 4
+        }
+      ]
+    },
+    "Constant": {
+      "name": "Constant",
+      "stars": 1,
+      "forks": 0,
+      "pushed_at": "2026-11-17T03:45:56Z",
+      "description": "CONSTANT \u2013 SIMPLIFY YOUR LIFE, BUILD BETTER HABITS, STAY CONSISTENT, AND GROW SMARTER WITH AI-POWERED INSIGHTS.",
+      "html_url": "https://github.com/projecthellhound/Constant",
+      "contributors": [
+        {
+          "login": "Abinav3ac",
+          "avatar_url": "https://avatars.githubusercontent.com/u/180760229?v=4",
+          "html_url": "https://github.com/Abinav3ac",
+          "contributions": 7
+        },
+        {
+          "login": "l4zz3rj0d",
+          "avatar_url": "https://avatars.githubusercontent.com/u/174024476?v=4",
+          "html_url": "https://github.com/l4zz3rj0d",
+          "contributions": 1
+        }
+      ]
+    },
+    "projecthellhound.github.io": {
+      "name": "projecthellhound.github.io",
+      "stars": 0,
+      "forks": 0,
+      "pushed_at": "2026-11-19T08:55:07Z",
+      "description": null,
+      "html_url": "https://github.com/projecthellhound/projecthellhound.github.io",
+      "contributors": [
+        {
+          "login": "l4zz3rj0d",
+          "avatar_url": "https://avatars.githubusercontent.com/u/174024476?v=4",
+          "html_url": "https://github.com/l4zz3rj0d",
+          "contributions": 13
+        }
+      ]
+    },
+    "HellHound-Pentest": {
+      "name": "HellHound-Pentest",
+      "stars": 2,
+      "forks": 0,
+      "pushed_at": "2026-11-19T07:49:33Z",
+      "description": "A RULE-BASED FRAMEWORK FOR WEB APPLICATION PENETRATION TESTING: A CORRELATION-DRIVEN FRAMEWORK DESIGNED FOR INTELLIGENT WEB APPLICATION OFFENSIVE SECURITY.",
+      "html_url": "https://github.com/projecthellhound/HellHound-Pentest",
+      "contributors": [
+        {
+          "login": "Abinav3ac",
+          "avatar_url": "https://avatars.githubusercontent.com/u/180760229?v=4",
+          "html_url": "https://github.com/Abinav3ac",
+          "contributions": 8
+        },
+        {
+          "login": "l4zz3rj0d",
+          "avatar_url": "https://avatars.githubusercontent.com/u/174024476?v=4",
+          "html_url": "https://github.com/l4zz3rj0d",
+          "contributions": 2
+        }
+      ]
+    }
+  }
+}
