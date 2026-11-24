@@ -753,6 +753,13 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
   display:flex;
   align-items:center;
   gap:1rem;
+  min-width:0;
+  flex:1;
+}
+.flagship-title-box{
+  min-width:0;
+  flex:1;
+  overflow:hidden;
 }
 .flagship-glyph{
   width:48px;
@@ -771,6 +778,13 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
   font-size:1.55rem;
   font-weight:700;
   line-height:1.2;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  transition:color .2s ease;
+}
+.flagship-card:hover .flagship-name{
+  color:var(--ember);
 }
 .flagship-cat{
   font-size:.75rem;
@@ -941,6 +955,13 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
   display:flex;
   align-items:center;
   gap:.85rem;
+  min-width:0;
+  flex:1;
+}
+.tool-title-box{
+  min-width:0;
+  flex:1;
+  overflow:hidden;
 }
 .tool-glyph{
   width:42px;
@@ -963,6 +984,20 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
 .tool-name{
   font-size:1.3rem;
   line-height:1.2;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  transition:color .2s ease;
+}
+.tool-card:hover .tool-name{
+  color:var(--ember);
+}
+.tool-sub-row{
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  flex-wrap:wrap;
+  margin-top:.2rem;
 }
 .tool-cat{
   font-size:.75rem;
@@ -1935,9 +1970,9 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
                 <span class="mega-item-name">JARVIS</span>
                 <span class="mega-item-desc">Autonomous OSINT infrastructure &amp; DNS reconnaissance engine</span>
               </a>
-              <a class="mega-item" href="#dossier-JARVIS-Mobile" onclick="openDossier('JARVIS-Mobile');closeAllNavMenus();">
-                <span class="mega-item-name">JARVIS-Mobile</span>
-                <span class="mega-item-desc">Static &amp; dynamic Android APK bytecode security analysis</span>
+              <a class="mega-item" href="#dossier-Spectre" onclick="openDossier('Spectre');closeAllNavMenus();">
+                <span class="mega-item-name">Spectre</span>
+                <span class="mega-item-desc">Covert DNS tunneling detection &amp; threat channel analyzer</span>
               </a>
             </div>
           </div>
@@ -1961,15 +1996,15 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
           </div>
 
           <div>
-            <div class="mega-col-title">Exploitation &amp; Utility</div>
+            <div class="mega-col-title">Everyday Apps &amp; Agents</div>
             <div class="mega-list">
               <a class="mega-item" href="#dossier-bounty-hunter" onclick="openDossier('bounty-hunter');closeAllNavMenus();">
                 <span class="mega-item-name">Bounty Hunter</span>
                 <span class="mega-item-desc">Autonomous multi-turn LLM agent for verified exploit triage</span>
               </a>
-              <a class="mega-item" href="#dossier-Spectre" onclick="openDossier('Spectre');closeAllNavMenus();">
-                <span class="mega-item-name">Spectre</span>
-                <span class="mega-item-desc">Covert DNS tunneling detection &amp; threat channel analyzer</span>
+              <a class="mega-item" href="#dossier-JARVIS-Mobile" onclick="openDossier('JARVIS-Mobile');closeAllNavMenus();">
+                <span class="mega-item-name">JARVIS Mobile</span>
+                <span class="mega-item-desc">Cross-platform Flutter companion for live intelligence in the field</span>
               </a>
               <a class="mega-item" href="#dossier-Constant" onclick="openDossier('Constant');closeAllNavMenus();">
                 <span class="mega-item-name">Constant</span>
@@ -3102,15 +3137,15 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
           </div>
         </div>
 
-        <!-- HARIKRISHNAN S -->
+        <!-- Harikrishnan S -->
         <div class="co-card">
           <div class="co-header">
-            <a href="https://github.com/L33TxGH05T" target="_blank" rel="noopener" class="avatar-link" aria-label="HARIKRISHNAN S GitHub Profile" title="HARIKRISHNAN S GitHub Profile">
-              <img class="co-avatar" src="assets/ghost.png" alt="HARIKRISHNAN S" onerror="this.outerHTML='<div class=&quot;co-avatar&quot;>H</div>'">
+            <a href="https://github.com/L33TxGH05T" target="_blank" rel="noopener" class="avatar-link" aria-label="Harikrishnan S GitHub Profile" title="Harikrishnan S GitHub Profile">
+              <img class="co-avatar" src="assets/ghost.png" alt="Harikrishnan S" onerror="this.outerHTML='<div class=&quot;co-avatar&quot;>H</div>'">
             </a>
             <div>
               <div class="role-badge">Co-Founder, Project Hellhound</div>
-              <h4 class="co-name">HARIKRISHNAN S</h4>
+              <h4 class="co-name">Harikrishnan S</h4>
               <span class="co-handle">@L33TxGH05T</span>
             </div>
           </div>
@@ -3412,7 +3447,7 @@ const projects = [
     repo: "JARVIS-Mobile",
     name: "JARVIS Mobile",
     glyph: "JM",
-    cat: "Offensive security",
+    cat: "Everyday apps",
     creator: "l4zz3rj0d",
     status: "Active development",
     tagline: "Tactical Flutter/Dart companion extending JARVIS intelligence operations to mobile devices.",
@@ -4476,8 +4511,9 @@ function renderFlagships() {
     glyph.textContent = p.glyph || p.name.slice(0, 2).toUpperCase();
 
     const titleBox = document.createElement("div");
+    titleBox.className = "flagship-title-box";
     const h = document.createElement("h3");
-    h.className = "flagship-name scramble-hover";
+    h.className = "flagship-name";
     h.textContent = p.name;
     const cat = document.createElement("div");
     cat.className = "flagship-cat";
@@ -4581,13 +4617,23 @@ function render(){
       glyph.textContent = p.glyph || p.name.slice(0, 2).toUpperCase();
       
       const titleBox = document.createElement("div");
+      titleBox.className = "tool-title-box";
       const h = document.createElement("h3");
-      h.className = "tool-name scramble-hover";
+      h.className = "tool-name";
       h.textContent = p.name;
+      const subRow = document.createElement("div");
+      subRow.className = "tool-sub-row";
       const cat = document.createElement("span");
       cat.className = "tool-cat";
       cat.textContent = p.cat;
-      titleBox.append(h, cat);
+      subRow.appendChild(cat);
+      if (p.status) {
+        const s = document.createElement("span");
+        s.className = "status live";
+        s.innerHTML = `<span>Active Dev</span>`;
+        subRow.appendChild(s);
+      }
+      titleBox.append(h, subRow);
       
       idWrap.append(glyph, titleBox);
       top.appendChild(idWrap);
@@ -4595,13 +4641,6 @@ function render(){
       const rightMeta = document.createElement("div");
       rightMeta.className = "card-live-meta-right";
       rightMeta.appendChild(renderLiveStars(p.repo));
-      
-      if (p.status) {
-        const s = document.createElement("span");
-        s.className = "status live";
-        s.innerHTML = `<span>Active Dev</span>`;
-        rightMeta.appendChild(s);
-      }
       top.appendChild(rightMeta);
       
       // Body: Tagline (Clean, minimalist)
