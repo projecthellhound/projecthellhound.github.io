@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Project Hellhound — We build what we think</title>
-<meta name="description" content="Project Hellhound builds autonomous offensive security tools, AI-powered applications, and developer systems.">
+<meta name="description" content="Project Hellhound builds autonomous offensive security tools, exploit automation systems, and security engineering frameworks.">
 <meta name="keywords" content="Project Hellhound, TriOps Security, offensive security, bug bounty, autonomous agents, pentesting, OSINT, l4zz3rj0d">
 <meta name="author" content="Project Hellhound">
 <meta name="theme-color" content="#FF4B2B">
@@ -18,13 +18,13 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://projecthellhound.github.io/">
 <meta property="og:title" content="Project Hellhound — We build what we think">
-<meta property="og:description" content="Project Hellhound builds autonomous offensive security tools, AI-powered applications, and developer systems.">
+<meta property="og:description" content="Project Hellhound builds autonomous offensive security tools, exploit automation systems, and security engineering frameworks.">
 <meta property="og:image" content="assets/banner_prof.png">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Project Hellhound — We build what we think">
-<meta name="twitter:description" content="Project Hellhound builds autonomous offensive security tools, AI-powered applications, and developer systems.">
+<meta name="twitter:description" content="Project Hellhound builds autonomous offensive security tools, exploit automation systems, and security engineering frameworks.">
 <meta name="twitter:image" content="assets/banner_prof.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,14 +35,15 @@
 :root{
   --page:#07080A; --card:#0C0E14; --card-hover:#121620; --ink:#F0F2F5; --muted:#8B92A0;
   --ember:#FF4B2B; --line:rgba(255,255,255,0.08); --line-active:rgba(255,255,255,0.18); --ember-ink:#000;
-  --head:'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --body:'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --mono:'Geist Mono', "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+  --head:'Geist', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "DejaVu Sans", "Helvetica Neue", Arial, sans-serif;
+  --body:'Geist', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "DejaVu Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono:'Geist Mono', "DejaVu Sans Mono", "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
 body{margin:0;background:var(--page);color:var(--ink);font:400 1.0625rem/1.65 var(--body);overflow-x:hidden}
+button,input,select,textarea{font-family:inherit}
 a{color:inherit}
 a:focus-visible,button:focus-visible{outline:3px solid var(--ember);outline-offset:3px}
 .wrap{max-width:68rem;margin:0 auto;padding:0 1.5rem}
@@ -146,111 +147,516 @@ nav a:hover{color:var(--ink);background:rgba(255,255,255,0.04);text-decoration:n
 @keyframes blink{50%{opacity:0}}
 .hero .lead{margin-top:1rem;max-width:40rem;color:var(--muted)}
 .btns{margin-top:2rem;display:flex;gap:.75rem;flex-wrap:wrap}
-.btn{display:inline-block;padding:.8rem 1.35rem;border-radius:6px;font-weight:500;text-decoration:none;border:2px solid var(--ink);transition:transform .2s,box-shadow .2s}
-.btn:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(255,75,43,.25)}
+.btn{display:inline-block;padding:.8rem 1.35rem;border-radius:6px;font-weight:600;text-decoration:none;border:2px solid var(--ink);color:var(--ink);background:transparent;transition:transform .2s,box-shadow .2s,background .22s,color .22s,border-color .22s}
+.btn:hover{transform:translateY(-3px);background:var(--ink);color:var(--page);box-shadow:0 8px 24px rgba(255,255,255,.15)}
 .btn.primary{background:var(--ember);border-color:var(--ember);color:var(--ember-ink)}
+.btn.primary:hover{background:#fff;border-color:#fff;color:#000;box-shadow:0 8px 26px rgba(255,75,43,.45)}
 
 /* stats */
 .stats{display:flex;gap:3.5rem;flex-wrap:wrap;padding:2rem 0 3rem}
 .stat b{display:block;font:700 clamp(2.2rem,6vw,3.4rem) var(--head);letter-spacing:-.03em;color:var(--ember)}
 .stat span{color:var(--muted)}
 
+/* Clean Numbered Section Eyebrows (No slashes, No AI tropes) */
+.section-idx{
+  font-family:var(--mono);
+  font-size:.72rem;
+  font-weight:700;
+  letter-spacing:.14em;
+  color:var(--ember);
+  text-transform:uppercase;
+  margin-bottom:.65rem;
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+}
+.section-idx::before{
+  content:"";
+  display:inline-block;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--ember);
+  box-shadow:0 0 8px rgba(255,75,43,.7);
+}
+
+/* High-Performance Telemetry Marquee Ribbon (Lando Norris & Unseen Studio inspiration) */
+.marquee-ribbon{
+  width:100%;
+  overflow:hidden;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  background:rgba(7,8,10,0.7);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  padding:.75rem 0;
+  margin:2.5rem 0 1.25rem;
+  position:relative;
+  user-select:none;
+}
+.marquee-ribbon::before,
+.marquee-ribbon::after{
+  content:"";
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:90px;
+  z-index:2;
+  pointer-events:none;
+}
+.marquee-ribbon::before{
+  left:0;
+  background:linear-gradient(90deg,var(--page) 0%,transparent 100%);
+}
+.marquee-ribbon::after{
+  right:0;
+  background:linear-gradient(270deg,var(--page) 0%,transparent 100%);
+}
+.marquee-track{
+  display:flex;
+  width:max-content;
+  animation:marqueeScroll 45s linear infinite;
+}
+.marquee-ribbon:hover .marquee-track{
+  animation-play-state:paused;
+}
+.marquee-content{
+  display:flex;
+  align-items:center;
+  gap:1.35rem;
+  padding-right:1.35rem;
+  font-family:var(--mono);
+  font-size:.75rem;
+  font-weight:600;
+  letter-spacing:.12em;
+  color:var(--muted);
+  white-space:nowrap;
+}
+.marquee-content .m-dot{
+  color:var(--ember);
+  opacity:.85;
+  font-size:.9rem;
+}
+@keyframes marqueeScroll{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+
+/* Precision Telemetry Corner Crosshairs (Lando Norris inspiration) */
+.card-corner-ticks{
+  position:relative;
+}
+.card-corner-ticks::before,
+.card-corner-ticks::after{
+  content:"+";
+  position:absolute;
+  font-family:var(--mono);
+  font-size:.72rem;
+  color:var(--muted);
+  opacity:.3;
+  pointer-events:none;
+  line-height:1;
+  transition:color .2s,opacity .2s;
+  z-index:2;
+}
+.card-corner-ticks::before{
+  top:8px;
+  right:10px;
+}
+.card-corner-ticks::after{
+  bottom:8px;
+  left:10px;
+}
+.card-corner-ticks:hover::before,
+.card-corner-ticks:hover::after{
+  color:var(--ember);
+  opacity:.85;
+}
+
+/* Kinetic Scramble Title */
+.scramble-hover{
+  display:inline-block;
+  transition:color .2s;
+}
+
 /* sections */
-section{padding:4rem 0;border-top:1px solid var(--line)}
+section{padding:4rem 0;border-top:1px solid var(--line);scroll-margin-top:5rem}
 section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-bottom:1.25rem}
 .about p{max-width:40rem}
 .about p+p{margin-top:1rem}
 .motto{margin-top:1.75rem;padding:1.1rem 1.25rem;background:var(--card);border-left:4px solid var(--ember);max-width:40rem;font:500 1.25rem var(--head)}
 .kinds{margin-top:2.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:1.25rem}
-.kind{padding:1.4rem;background:var(--card);border:1px solid var(--line);border-radius:8px;transition:transform .3s,border-color .3s}
-.kind:hover{transform:translateY(-6px);border-color:var(--ember)}
+.kind{
+  padding:1.6rem;
+  background:linear-gradient(180deg, rgba(16,20,28,.75) 0%, rgba(9,11,16,.92) 100%);
+  border:1px solid rgba(255,255,255,.06);
+  border-top:1px solid rgba(255,255,255,.14);
+  border-radius:12px;
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  box-shadow:0 14px 30px -8px rgba(0,0,0,.65);
+  transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s;
+}
+.kind:hover{
+  transform:translateY(-5px);
+  border-color:rgba(255,75,43,.4);
+  border-top-color:var(--ember);
+  box-shadow:0 20px 40px -8px rgba(0,0,0,.8), 0 0 20px rgba(255,75,43,.12);
+}
 .kind h3{font-size:1.2rem;margin-bottom:.4rem}
 .kind p{color:var(--muted);font-size:.95rem}
 
-/* pipeline section */
-.pipeline-section{padding:5rem 0;border-top:1px solid var(--line)}
-.pipeline-grid{
-  display:grid;
-  grid-template-columns:repeat(2, 1fr);
-  gap:1.85rem;
-  margin-top:2.25rem;
-}
-@media (max-width:820px){
-  .pipeline-grid{
-    grid-template-columns:1fr;
-    gap:1.35rem;
-  }
-}
-.pipeline-stage{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:2.25rem;
+/* Offensive Attack Lifecycle Pipeline (Interactive Graphical Showcase) */
+.pipeline-section{padding:5.5rem 0;border-top:1px solid var(--line);position:relative}
+.pipeline-subheading{color:var(--muted);max-width:44rem;margin-bottom:1.75rem;font-size:1.05rem;line-height:1.6}
+.pipeline-flow-wrap{display:flex;flex-direction:column;gap:1.5rem}
+
+/* 2. Expansive HexBrain Radial Attack Topology Canvas (Full Width) */
+.pipeline-dial-card{
+  background:rgba(10,13,18,0.82);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:18px;
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  padding:1.5rem 1.75rem;
   display:flex;
   flex-direction:column;
-  gap:1.15rem;
+  box-shadow:0 24px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.12);
   position:relative;
-  transition:border-color .3s,transform .3s,box-shadow .3s;
+  overflow:hidden;
 }
-.pipeline-stage:hover{
-  border-color:rgba(255,75,43,.5);
-  box-shadow:0 14px 36px rgba(255,75,43,.14);
-  transform:translateY(-3px);
-  background:var(--card-hover);
-}
-.stage-head{
+.dial-card-header{
   display:flex;
   align-items:center;
   justify-content:space-between;
+  flex-wrap:wrap;
+  gap:0.75rem;
+  margin-bottom:0.75rem;
+  padding-bottom:0.6rem;
+  border-bottom:1px solid rgba(255,255,255,0.08);
 }
-.stage-num{
+.dial-header-title{
+  display:inline-flex;
+  align-items:center;
+  gap:0.5rem;
   font-family:var(--head);
-  font-size:2.5rem;
   font-weight:700;
-  color:var(--ember);
-  line-height:1;
-  letter-spacing:-.03em;
-}
-.stage-flow-tag{
-  font-family:var(--mono);
-  font-size:.72rem;
-  color:var(--muted);
-  text-transform:uppercase;
-  letter-spacing:.08em;
-  background:#141414;
-  padding:.22rem .6rem;
-  border-radius:4px;
-  border:1px solid #242424;
-}
-.stage-title{
-  font-size:1.35rem;
-  font-weight:700;
+  font-size:0.95rem;
+  letter-spacing:0.04em;
   color:var(--ink);
-  letter-spacing:-.01em;
+  text-transform:uppercase;
 }
-.stage-tools{
+.dial-header-hint{
+  font-family:var(--mono);
+  font-size:0.75rem;
+  color:var(--muted);
+}
+
+.dial-svg-wrap{
+  width:100%;
+  position:relative;
   display:flex;
-  gap:.55rem;
+  align-items:center;
+  justify-content:center;
+  min-height:440px;
+  background:radial-gradient(circle at 10% 50%, rgba(255,75,43,0.04), transparent 60%),
+              radial-gradient(circle at 85% 50%, rgba(52,211,153,0.04), transparent 60%),
+              radial-gradient(circle at 50% 50%, rgba(14,19,29,0.9), rgba(7,9,13,0.98));
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:14px;
+  overflow:hidden;
+}
+.pipeline-dial-svg{
+  width:100%;
+  height:100%;
+  max-height:500px;
+  display:block;
+}
+
+/* Chords and Radial Tracks */
+.dial-radar-ring{
+  fill:none;
+  stroke:rgba(255,255,255,0.05);
+  stroke-dasharray:4 6;
+}
+.dial-degree-mark{
+  font-family:var(--mono);
+  font-size:8px;
+  fill:rgba(255,255,255,0.2);
+}
+.dial-azimuth{
+  font-family:var(--mono);
+  font-size:7.5px;
+  fill:rgba(255,255,255,0.3);
+  letter-spacing:0.04em;
+}
+.dial-radar-sweep{
+  transform-origin:510px 220px;
+  animation:radarSweep 6s linear infinite;
+}
+@keyframes radarSweep{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+
+.topo-chord{
+  fill:none;
+  stroke:rgba(255,255,255,0.1);
+  stroke-width:1.5;
+  stroke-dasharray:4 5;
+  transition:all 0.35s ease;
+}
+.topo-chord.active{
+  stroke:var(--ember);
+  stroke-width:2.5;
+  stroke-dasharray:6 6;
+  filter:drop-shadow(0 0 6px rgba(255,75,43,0.65));
+  animation:chordFlow 1.4s linear infinite;
+}
+.topo-chord.active-exploit{
+  stroke:#34d399 !important;
+  filter:drop-shadow(0 0 8px rgba(52,211,153,0.7)) !important;
+}
+
+/* Beast Brain Signal Traveling Pulse Dots */
+.topo-pulse-dot{
+  fill:var(--ember);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.3s ease;
+  filter:drop-shadow(0 0 5px rgba(255,75,43,0.85));
+}
+.topo-pulse-dot.active{
+  opacity:1;
+}
+.topo-pulse-dot.pulse-exploit{
+  fill:#34d399 !important;
+  filter:drop-shadow(0 0 6px rgba(52,211,153,0.9)) !important;
+}
+
+/* Nodes - Beast Brain Burst Ticks & Stable Hit Targets */
+.node-burst-tick{
+  stroke:rgba(255,255,255,0.14);
+  stroke-width:1.5;
+  transition:all 0.3s ease;
+}
+.topo-node-group:hover .node-burst-tick{
+  stroke:var(--ember);
+  stroke-width:2;
+  filter:drop-shadow(0 0 4px var(--ember));
+}
+.topo-node-group.active .node-burst-tick{
+  stroke:var(--ember);
+  stroke-width:2;
+  filter:drop-shadow(0 0 6px var(--ember));
+}
+.topo-node-group.active#node-bounty .node-burst-tick,
+.topo-node-group:hover#node-bounty .node-burst-tick{
+  stroke:#34d399;
+  stroke-width:2;
+  filter:drop-shadow(0 0 6px #34d399);
+}
+
+/* Nodes - Glitch-Free Stable Hover */
+.topo-node-group{
+  cursor:pointer;
+  outline:none;
+}
+.topo-node-group:hover .node-disc{
+  stroke:var(--ember);
+  stroke-width:2.5px;
+  filter:drop-shadow(0 0 10px rgba(255,75,43,0.7));
+}
+.topo-node-group:hover .node-halo{
+  stroke:rgba(255,75,43,0.45);
+  stroke-dasharray:4 4;
+}
+.topo-node-group:hover .node-label{
+  fill:#ff7b00;
+}
+.topo-node-group:hover#node-bounty .node-disc{
+  stroke:#34d399;
+  filter:drop-shadow(0 0 12px rgba(52,211,153,0.8));
+}
+.topo-node-group:hover#node-bounty .node-halo{
+  stroke:rgba(52,211,153,0.6);
+}
+.topo-node-group:hover#node-bounty .node-label{
+  fill:#34d399;
+}
+.node-halo{
+  fill:none;
+  stroke:transparent;
+  stroke-width:1.5;
+  transition:all 0.3s ease;
+}
+.node-disc{
+  fill:#0c1017;
+  stroke:rgba(255,255,255,0.2);
+  stroke-width:2;
+  transition:all 0.3s ease;
+}
+.node-scope{
+  fill:#111824;
+  stroke:rgba(56,189,248,0.5);
+}
+.node-exploit{
+  fill:#0a1712;
+  stroke:rgba(52,211,153,0.6);
+}
+.node-glyph{
+  font-family:var(--mono);
+  font-weight:700;
+  font-size:11px;
+  fill:#fff;
+  letter-spacing:-0.02em;
+  pointer-events:none;
+}
+.node-label{
+  font-family:var(--head);
+  font-weight:700;
+  font-size:11px;
+  fill:var(--ink);
+  pointer-events:none;
+  letter-spacing:-0.01em;
+}
+.node-sublabel{
+  font-family:var(--mono);
+  font-size:8.5px;
+  fill:var(--muted);
+  pointer-events:none;
+  letter-spacing:0.02em;
+}
+
+/* Active Node Halo & Disc */
+.topo-node-group.active .node-disc{
+  stroke:var(--ember);
+  fill:#1c110f;
+  filter:drop-shadow(0 0 12px rgba(255,75,43,0.65));
+}
+.topo-node-group.active .node-halo{
+  stroke:rgba(255,75,43,0.5);
+  animation:haloPulse 2s ease-in-out infinite;
+}
+.topo-node-group.active .node-label{
+  fill:#ff7b00;
+}
+.topo-node-group.active#node-bounty .node-disc{
+  stroke:#34d399;
+  fill:#091a13;
+  filter:drop-shadow(0 0 14px rgba(52,211,153,0.65));
+}
+.topo-node-group.active#node-bounty .node-halo{
+  stroke:rgba(52,211,153,0.5);
+}
+.topo-node-group.active#node-bounty .node-label{
+  fill:#34d399;
+}
+
+/* Grounded Pipeline Tool Inspection Dock */
+.pipeline-tool-dock{
+  background:rgba(10,13,18,0.82);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:14px;
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  padding:1.4rem 1.8rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1.5rem;
+  flex-wrap:wrap;
+  box-shadow:0 12px 36px rgba(0,0,0,0.5);
+  margin-top:0.25rem;
+}
+@media (max-width:860px){
+  .pipeline-tool-dock{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:1.1rem;
+    padding:1.25rem;
+  }
+}
+.tool-dock-info{
+  display:flex;
+  flex-direction:column;
+  gap:0.4rem;
+  max-width:48rem;
+}
+.tool-dock-header{
+  display:flex;
+  align-items:baseline;
+  gap:0.85rem;
   flex-wrap:wrap;
 }
-.stage-pill{
-  font-size:.82rem;
-  font-weight:600;
-  padding:.25rem .75rem;
-  background:#141414;
-  border:1px solid #282828;
-  border-radius:6px;
+.tool-dock-title{
+  font-size:1.45rem;
+  font-weight:700;
   color:var(--ink);
-  transition:border-color .2s;
+  margin:0;
+  letter-spacing:-0.02em;
 }
-.pipeline-stage:hover .stage-pill{
-  border-color:rgba(255,75,43,.35);
+.tool-dock-role{
+  font-family:var(--mono);
+  font-size:0.78rem;
+  color:var(--ember);
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  font-weight:600;
 }
-.stage-desc{
+.tool-dock-desc{
   color:var(--muted);
-  font-size:.95rem;
-  line-height:1.65;
-  margin-top:auto;
+  font-size:0.92rem;
+  line-height:1.55;
+  margin:0;
+}
+.tool-dock-actions{
+  display:flex;
+  align-items:center;
+  gap:0.75rem;
+  flex-shrink:0;
+}
+.hud-dossier-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:0.45rem;
+  padding:0.55rem 1.1rem;
+  background:var(--ember);
+  color:#fff;
+  border-radius:8px;
+  font-weight:600;
+  font-size:0.84rem;
+  text-decoration:none;
+  border:1px solid transparent;
+  cursor:pointer;
+  transition:all 0.25s;
+  box-shadow:0 4px 14px rgba(255,75,43,0.35);
+  font-family:inherit;
+}
+.hud-dossier-btn:hover{
+  background:#ff5722;
+  box-shadow:0 6px 20px rgba(255,75,43,0.55);
+  transform:translateY(-2px);
+}
+.hud-gh-link{
+  display:inline-flex;
+  align-items:center;
+  gap:0.4rem;
+  padding:0.55rem 0.9rem;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:8px;
+  color:var(--ink);
+  font-size:0.84rem;
+  font-weight:600;
+  text-decoration:none;
+  transition:all 0.25s;
+}
+.hud-gh-link:hover{
+  background:rgba(255,255,255,0.1);
+  border-color:rgba(255,255,255,0.25);
+  color:#fff;
+  transform:translateY(-2px);
 }
 
 /* Flagship Section */
@@ -295,23 +701,26 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
 }
 .flagship-card{
   position:relative;
-  background:#0A0A0A;
-  border:1px solid rgba(255,75,43,.4);
-  box-shadow:0 0 32px rgba(255,75,43,.1), 0 12px 30px rgba(0,0,0,.6);
-  border-radius:12px;
+  background:linear-gradient(180deg, rgba(16, 20, 28, 0.8) 0%, rgba(9, 11, 16, 0.94) 100%);
+  border:1px solid rgba(255,75,43,.35);
+  border-top:1px solid rgba(255,120,60,.55);
+  box-shadow:0 20px 45px -10px rgba(0,0,0,.75), 0 0 25px rgba(255,75,43,.08);
+  border-radius:14px;
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
   padding:2rem;
   display:flex;
   flex-direction:column;
   gap:1.25rem;
-  transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s;
+  transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s,background .3s;
   cursor:pointer;
   overflow:hidden;
 }
 .flagship-card:hover{
   transform:translateY(-5px);
   border-color:var(--ember);
-  box-shadow:0 0 45px rgba(255,75,43,.22), 0 16px 40px rgba(0,0,0,.8);
-  background:#0E0E0E;
+  box-shadow:0 25px 55px -10px rgba(0,0,0,.9), 0 0 40px rgba(255,75,43,.25);
+  background:linear-gradient(180deg, rgba(20, 26, 38, 0.88) 0%, rgba(12, 15, 22, 0.96) 100%);
 }
 .flagship-card::after{
   content:"";
@@ -455,9 +864,28 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
 
 /* filter chips */
 .chips{display:flex;gap:.6rem;flex-wrap:wrap}
-.chip{font:500 .92rem var(--body);color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:99px;padding:.4rem 1.1rem;cursor:pointer;transition:all .2s}
-.chip:hover{color:var(--ink);border-color:var(--ink)}
-.chip[aria-pressed="true"]{background:var(--ember);border-color:var(--ember);color:var(--ember-ink)}
+.chip{
+  font:600 .86rem var(--mono);
+  color:var(--muted);
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--line);
+  border-radius:99px;
+  padding:.4rem 1.1rem;
+  cursor:pointer;
+  transition:all .22s cubic-bezier(.2,.8,.2,1);
+  letter-spacing:0.04em;
+}
+.chip:hover{
+  color:var(--ink);
+  border-color:rgba(255,255,255,0.3);
+  background:rgba(255,255,255,0.07);
+}
+.chip[aria-pressed="true"]{
+  background:var(--ember);
+  border-color:var(--ember);
+  color:var(--ember-ink);
+  box-shadow:0 0 16px rgba(255,75,43,0.35);
+}
 
 /* Project Cards Grid */
 .projects-grid{
@@ -467,22 +895,27 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
 }
 .tool-card{
   position:relative;
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:10px;
+  background:linear-gradient(180deg, rgba(14, 17, 24, 0.75) 0%, rgba(8, 10, 15, 0.9) 100%);
+  border:1px solid rgba(255,255,255,0.06);
+  border-top:1px solid rgba(255,255,255,0.14);
+  border-radius:12px;
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  box-shadow:0 14px 32px -8px rgba(0,0,0,0.65);
   padding:1.6rem;
   display:flex;
   flex-direction:column;
   gap:1rem;
-  transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s;
+  transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s,background .3s;
   overflow:hidden;
   cursor:pointer;
 }
 .tool-card:hover{
   transform:translateY(-4px);
   border-color:rgba(255,75,43,.45);
-  box-shadow:0 12px 32px rgba(255,75,43,.14);
-  background:var(--card-hover);
+  border-top-color:rgba(255,100,50,.7);
+  box-shadow:0 20px 42px -8px rgba(0,0,0,0.8), 0 0 24px rgba(255,75,43,.14);
+  background:linear-gradient(180deg, rgba(18, 23, 33, 0.85) 0%, rgba(11, 14, 20, 0.95) 100%);
 }
 .tool-card::after{
   content:"";
@@ -1023,15 +1456,17 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
 
 /* leadership & team */
 .founder .who{display:flex;gap:1.75rem;align-items:flex-start;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);padding:2rem;border-radius:10px}
-.avatar{width:104px;height:104px;border-radius:50%;background:var(--card);border:2px solid var(--line);object-fit:cover;display:grid;place-items:center;font:700 2rem var(--head);color:var(--ember);flex-shrink:0}
+.avatar-link{display:inline-block;flex-shrink:0;border-radius:50%;text-decoration:none;cursor:pointer}
+.avatar{width:104px;height:104px;border-radius:50%;background:var(--card);border:2px solid var(--line);object-fit:cover;display:grid;place-items:center;font:700 2rem var(--head);color:var(--ember);flex-shrink:0;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.avatar-link:hover .avatar,.avatar-link:hover .co-avatar{border-color:var(--ember);transform:scale(1.05);box-shadow:0 0 24px rgba(255,75,43,0.35)}
 .role-badge{display:inline-block;padding:.15rem .6rem;border-radius:4px;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;background:rgba(255,75,43,.15);color:var(--ember);border:1px solid rgba(255,75,43,.3);margin-bottom:.5rem}
 .member-name{font-size:1.85rem;margin-bottom:.4rem}
 .founder p{max-width:38rem}
 .co-tags{margin-top:.75rem;display:flex;gap:.45rem;flex-wrap:wrap}
 .tag{font-size:.82rem;padding:.15rem .6rem;border-radius:4px;background:#151515;border:1px solid #222;color:var(--muted);transition:all .2s}
 .links{margin-top:1.15rem;display:flex;gap:1.15rem;flex-wrap:wrap}
-.links a{font-weight:500;color:var(--muted);transition:color .2s}
-.links a:hover{color:var(--ember);text-decoration:underline;text-underline-offset:4px}
+.links a{font-weight:600;color:var(--ink);transition:color .2s;display:inline-flex;align-items:center;gap:.35rem}
+.links a:hover{color:var(--ember);text-decoration:none}
 
 /* co-founders */
 .co-founders-wrap{margin-top:3.5rem;padding-top:2.5rem;border-top:1px solid var(--line)}
@@ -1041,7 +1476,7 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
 .co-card{padding:1.6rem;background:var(--card);border:1px solid var(--line);border-radius:10px;display:flex;flex-direction:column;gap:.9rem;transition:border-color .3s,transform .3s}
 .co-card:hover{border-color:var(--ember);transform:translateY(-4px);background:var(--card-hover)}
 .co-header{display:flex;align-items:center;gap:1rem}
-.co-avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--line);background:#1a1a1a;display:grid;place-items:center;font:700 1.4rem var(--head);color:var(--ember);flex-shrink:0}
+.co-avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--line);background:#1a1a1a;display:grid;place-items:center;font:700 1.4rem var(--head);color:var(--ember);flex-shrink:0;transition:transform .2s ease,border-color .2s ease}
 .co-name{font-size:1.2rem;margin:0}
 .co-handle{font-size:.85rem;color:var(--muted);font-family:var(--mono)}
 .co-bio{color:var(--muted);font-size:.95rem;margin:0;flex-grow:1;line-height:1.55}
@@ -1479,7 +1914,7 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
   <div class="header-bar">
     <a class="brand" href="#top">
       <img src="assets/logo.png" alt="Project Hellhound Logo" onerror="this.outerHTML='<span class=&quot;mark&quot;>H</span>'">
-      <span class="brand-text">Project Hellhound</span>
+      <span class="brand-text scramble-hover">Project Hellhound</span>
     </a>
     <nav aria-label="Main Navigation">
       <!-- 1. Arsenal Dropdown -->
@@ -1810,7 +2245,7 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
 <div class="hero wrap">
   <h1>We build what we think.</h1>
   <div class="typed" aria-live="off">We build <b id="typed"></b><span class="caret"></span></div>
-  <p class="lead">Project Hellhound is an open-source offensive security organization. We build autonomous reconnaissance crawlers, exploit automation systems, and persistent AI developer tools.</p>
+  <p class="lead">Project Hellhound is an open-source offensive security organization. We build autonomous reconnaissance crawlers, exploit automation systems, and persistent security engineering frameworks.</p>
   <div class="btns">
     <a class="btn primary" href="#projects">Browse projects</a>
     <a class="btn" href="https://github.com/projecthellhound" target="_blank" rel="noopener">GitHub organization</a>
@@ -1824,6 +2259,36 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
   </div>
 </div>
 
+<!-- High-Performance Telemetry Marquee Ribbon (Lando Norris & Unseen Studio inspiration) -->
+<div class="marquee-ribbon" aria-hidden="true">
+  <div class="marquee-track">
+    <div class="marquee-content">
+      <span>PROJECT HELLHOUND</span><span class="m-dot">·</span>
+      <span>OFFENSIVE SECURITY TOOLING</span><span class="m-dot">·</span>
+      <span>BOUNTY HUNTER</span><span class="m-dot">·</span>
+      <span>LONE SPIDER</span><span class="m-dot">·</span>
+      <span>SPIDER SUITE</span><span class="m-dot">·</span>
+      <span>EXPLOIT AUTOMATION</span><span class="m-dot">·</span>
+      <span>ZERO-DAY DISCOVERY</span><span class="m-dot">·</span>
+      <span>TRICERATOPS CORE</span><span class="m-dot">·</span>
+      <span>OPEN SOURCE RESEARCH</span><span class="m-dot">·</span>
+      <span>PERSISTENT RECONNAISSANCE</span><span class="m-dot">·</span>
+    </div>
+    <div class="marquee-content">
+      <span>PROJECT HELLHOUND</span><span class="m-dot">·</span>
+      <span>OFFENSIVE SECURITY TOOLING</span><span class="m-dot">·</span>
+      <span>BOUNTY HUNTER</span><span class="m-dot">·</span>
+      <span>LONE SPIDER</span><span class="m-dot">·</span>
+      <span>SPIDER SUITE</span><span class="m-dot">·</span>
+      <span>EXPLOIT AUTOMATION</span><span class="m-dot">·</span>
+      <span>ZERO-DAY DISCOVERY</span><span class="m-dot">·</span>
+      <span>TRICERATOPS CORE</span><span class="m-dot">·</span>
+      <span>OPEN SOURCE RESEARCH</span><span class="m-dot">·</span>
+      <span>PERSISTENT RECONNAISSANCE</span><span class="m-dot">·</span>
+    </div>
+  </div>
+</div>
+
 <!-- About Section -->
 <section id="about" class="about">
   <div class="wrap">
@@ -1832,77 +2297,344 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
     <p class="reveal">Security is where we started, not where we stop. If we think it should exist, we build it, and we publish it openly.</p>
     <div class="motto reveal">We build what we think.</div>
     <div class="kinds">
-      <div class="kind reveal"><h3>Offensive security</h3><p>Autonomous agents, scanners, and exploitation tools for bug bounty, pentesting, OSINT, and attack surface defense.</p></div>
-      <div class="kind reveal"><h3>AI developer tools</h3><p>Persistent, grounded execution assistants that plan, write code, run tests, and accelerate development.</p></div>
-      <div class="kind reveal"><h3>Everyday apps</h3><p>Tools for everyday focus and personal consistency, infused with AI where it genuinely assists.</p></div>
-      <div class="kind reveal"><h3>Training labs</h3><p>Intentionally vulnerable environments and applications for practicing security testing safely.</p></div>
+      <div class="kind reveal"><h3>Offensive security</h3><p>Autonomous crawlers, scanners, and exploitation tools for bug bounty, pentesting, OSINT, and attack surface defense.</p></div>
+      <div class="kind reveal"><h3>Exploit automation</h3><p>Persistent, grounded execution engines that plan, verify vulnerability impact, run tests, and accelerate research.</p></div>
+      <div class="kind reveal"><h3>Everyday apps</h3><p>Tools for everyday focus and personal consistency, engineered for operational discipline.</p></div>
+      <div class="kind reveal"><h3>Training labs</h3><p>Intentionally vulnerable environments and cyber ranges for practicing security testing safely.</p></div>
     </div>
   </div>
 </section>
 
-<!-- Offensive Tool Pipeline (Ecosystem Visualizer) -->
+<!-- Offensive Tool Pipeline (Interactive Attack Lifecycle & Topology) -->
 <section id="pipeline" class="pipeline-section">
   <div class="wrap">
-    <h2 class="reveal">Offensive Pipeline</h2>
-    <p class="reveal" style="color:var(--muted);max-width:44rem;margin-bottom:2.5rem;">
-      How Project Hellhound tools chain across a complete offensive lifecycle — from multi-vector intelligence gathering to autonomous proof-of-concept exploit validation.
+    <h2 class="reveal">Offensive Attack Lifecycle</h2>
+    <p class="reveal pipeline-subheading">
+      An orchestrated, autonomous attack chain progressing from perimeter reconnaissance to automated exploit verification.
     </p>
 
-    <div class="pipeline-grid reveal" id="pipeline-stages-grid">
-      <!-- Phase 1 -->
-      <div class="pipeline-stage">
-        <div class="stage-head">
-          <div class="stage-num">01</div>
-          <span class="stage-flow-tag">PHASE 1: OSINT &amp; INTEL</span>
+    <!-- Interactive Visual Pipeline Topology -->
+    <div class="pipeline-flow-wrap reveal">
+      <div class="pipeline-dial-card">
+        <div class="dial-card-header">
+          <div class="dial-header-title">
+            <span>Attack Surface Topology</span>
+          </div>
+          <span class="dial-header-hint">Click any node to inspect tool</span>
         </div>
-        <div class="stage-title">Tactical Recon &amp; Target Intelligence</div>
-        <div class="stage-tools">
-          <span class="stage-pill">JARVIS</span>
-          <span class="stage-pill">JARVIS-Mobile</span>
+
+        <div class="dial-svg-wrap">
+          <svg class="pipeline-dial-svg" viewBox="0 0 1020 440" preserveAspectRatio="xMidYMid meet">
+            <!-- Concentric Dial Radar Range Rings -->
+            <circle cx="510" cy="220" r="110" class="dial-radar-ring" />
+            <circle cx="510" cy="220" r="210" class="dial-radar-ring" />
+            <circle cx="510" cy="220" r="320" class="dial-radar-ring" />
+            <circle cx="510" cy="220" r="430" class="dial-radar-ring" />
+
+            <!-- Beast Brain Calibrated Compass Ring (48 Ticks & 8 Azimuths) -->
+            <g class="dial-compass-ring">
+              <line x1="510.0" y1="24.0" x2="510.0" y2="12.0" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+              <text x="510.0" y="39.0" class="dial-azimuth" text-anchor="middle">000°</text>
+              <line x1="536.4" y1="19.7" x2="537.1" y2="13.8" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="562.3" y1="24.9" x2="563.8" y2="19.1" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="587.3" y1="33.4" x2="589.6" y2="27.8" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="611.0" y1="45.1" x2="614.0" y2="39.9" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="633.0" y1="59.7" x2="636.6" y2="55.0" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="648.6" y1="81.4" x2="657.1" y2="72.9" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+              <text x="640.1" y="92.9" class="dial-azimuth" text-anchor="middle">045°</text>
+              <line x1="670.3" y1="97.0" x2="675.0" y2="93.4" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="684.9" y1="119.0" x2="690.1" y2="116.0" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="696.6" y1="142.7" x2="702.2" y2="140.4" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="705.1" y1="167.7" x2="710.9" y2="166.2" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="710.3" y1="193.6" x2="716.2" y2="192.9" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="706.0" y1="220.0" x2="718.0" y2="220.0" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+              <text x="694.0" y="223.0" class="dial-azimuth" text-anchor="middle">090°</text>
+              <line x1="710.3" y1="246.4" x2="716.2" y2="247.1" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="705.1" y1="272.3" x2="710.9" y2="273.8" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="696.6" y1="297.3" x2="702.2" y2="299.6" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="684.9" y1="321.0" x2="690.1" y2="324.0" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="670.3" y1="343.0" x2="675.0" y2="346.6" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="648.6" y1="358.6" x2="657.1" y2="367.1" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+              <text x="640.1" y="353.1" class="dial-azimuth" text-anchor="middle">135°</text>
+              <line x1="633.0" y1="380.3" x2="636.6" y2="385.0" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="611.0" y1="394.9" x2="614.0" y2="400.1" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="587.3" y1="406.6" x2="589.6" y2="412.2" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="562.3" y1="415.1" x2="563.8" y2="420.9" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="536.4" y1="420.3" x2="537.1" y2="426.2" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="510.0" y1="416.0" x2="510.0" y2="428.0" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+              <text x="510.0" y="407.0" class="dial-azimuth" text-anchor="middle">180°</text>
+              <line x1="483.6" y1="420.3" x2="482.9" y2="426.2" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="457.7" y1="415.1" x2="456.2" y2="420.9" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="432.7" y1="406.6" x2="430.4" y2="412.2" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="409.0" y1="394.9" x2="406.0" y2="400.1" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="387.0" y1="380.3" x2="383.4" y2="385.0" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="371.4" y1="358.6" x2="362.9" y2="367.1" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+              <text x="379.9" y="353.1" class="dial-azimuth" text-anchor="middle">225°</text>
+              <line x1="349.7" y1="343.0" x2="345.0" y2="346.6" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="335.1" y1="321.0" x2="329.9" y2="324.0" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="323.4" y1="297.3" x2="317.8" y2="299.6" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="314.9" y1="272.3" x2="309.1" y2="273.8" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="309.7" y1="246.4" x2="303.8" y2="247.1" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="314.0" y1="220.0" x2="302.0" y2="220.0" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+              <text x="326.0" y="223.0" class="dial-azimuth" text-anchor="middle">270°</text>
+              <line x1="309.7" y1="193.6" x2="303.8" y2="192.9" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="314.9" y1="167.7" x2="309.1" y2="166.2" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="323.4" y1="142.7" x2="317.8" y2="140.4" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="335.1" y1="119.0" x2="329.9" y2="116.0" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="349.7" y1="97.0" x2="345.0" y2="93.4" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="371.4" y1="81.4" x2="362.9" y2="72.9" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+              <text x="379.9" y="92.9" class="dial-azimuth" text-anchor="middle">315°</text>
+              <line x1="387.0" y1="59.7" x2="383.4" y2="55.0" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="409.0" y1="45.1" x2="406.0" y2="39.9" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="432.7" y1="33.4" x2="430.4" y2="27.8" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="457.7" y1="24.9" x2="456.2" y2="19.1" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+              <line x1="483.6" y1="19.7" x2="482.9" y2="13.8" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+            </g>
+
+            <!-- Degree Radial Axis Marks -->
+            <line x1="80" y1="220" x2="940" y2="220" stroke="rgba(255,255,255,0.04)" stroke-width="1" />
+            <line x1="510" y1="20" x2="510" y2="420" stroke="rgba(255,255,255,0.04)" stroke-width="1" />
+            <text x="510" y="32" class="dial-degree-mark" text-anchor="middle">000&deg; N</text>
+            <text x="930" y="215" class="dial-degree-mark" text-anchor="end">090&deg; E</text>
+            <text x="510" y="415" class="dial-degree-mark" text-anchor="middle">180&deg; S</text>
+            <text x="90" y="215" class="dial-degree-mark" text-anchor="start">270&deg; W</text>
+
+            <!-- Sweeping Radar Cone -->
+            <g class="dial-radar-sweep">
+              <path d="M 510 220 L 720 220 A 210 210 0 0 1 700 280 Z" fill="url(#sweep-grad)" opacity="0.3" />
+            </g>
+
+            <defs>
+              <linearGradient id="sweep-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="rgba(255,75,43,0)" />
+                <stop offset="100%" stop-color="rgba(255,75,43,0.3)" />
+              </linearGradient>
+            </defs>
+
+            <!-- Attack Vector Connection Chords -->
+            <g class="topo-chords" id="topo-chords-layer">
+              <!-- Tier 0 Target to Tier 1 Recon -->
+              <path id="chord-target-spider" class="topo-chord active" d="M 90 220 C 180 220, 190 140, 280 140" />
+              <path id="chord-target-ghost" class="topo-chord" d="M 90 220 C 180 220, 190 300, 280 300" />
+
+              <!-- Tier 1 Hellhound Spider to Tier 2 Vulnerability Engines -->
+              <path id="chord-spider-cmdmap" class="topo-chord active" d="M 280 140 C 400 140, 440 75, 560 75" />
+              <path id="chord-spider-gateforge" class="topo-chord active" d="M 280 140 C 400 140, 440 170, 560 170" />
+              <path id="chord-spider-agent389" class="topo-chord active" d="M 280 140 C 400 140, 440 265, 560 265" />
+              <path id="chord-spider-x5sentry" class="topo-chord active" d="M 280 140 C 400 140, 440 360, 560 360" />
+
+              <!-- Tier 2 Vulnerability Engines to Tier 3 Bounty Hunter -->
+              <path id="chord-cmdmap-bounty" class="topo-chord active" d="M 560 75 C 680 75, 740 220, 860 220" />
+              <path id="chord-gateforge-bounty" class="topo-chord active" d="M 560 170 C 680 170, 740 220, 860 220" />
+              <path id="chord-agent389-bounty" class="topo-chord active" d="M 560 265 C 680 265, 740 220, 860 220" />
+              <path id="chord-x5sentry-bounty" class="topo-chord active" d="M 560 360 C 680 360, 740 220, 860 220" />
+            </g>
+
+            <!-- Beast Brain Signal Traveling Pulse Packets -->
+            <g class="topo-pulse-layer" id="topo-pulse-layer">
+              <circle r="3.5" class="topo-pulse-dot active" id="pulse-target-spider">
+                <animateMotion dur="2.4s" repeatCount="indefinite" path="M 90 220 C 180 220, 190 140, 280 140" />
+              </circle>
+              <circle r="3.5" class="topo-pulse-dot" id="pulse-target-ghost">
+                <animateMotion dur="2.4s" repeatCount="indefinite" path="M 90 220 C 180 220, 190 300, 280 300" />
+              </circle>
+              <circle r="3.5" class="topo-pulse-dot active" id="pulse-spider-cmdmap">
+                <animateMotion dur="2.4s" repeatCount="indefinite" path="M 280 140 C 400 140, 440 75, 560 75" />
+              </circle>
+              <circle r="3.5" class="topo-pulse-dot active" id="pulse-spider-gateforge">
+                <animateMotion dur="2.4s" repeatCount="indefinite" path="M 280 140 C 400 140, 440 170, 560 170" />
+              </circle>
+              <circle r="3.5" class="topo-pulse-dot active" id="pulse-spider-agent389">
+                <animateMotion dur="2.4s" repeatCount="indefinite" path="M 280 140 C 400 140, 440 265, 560 265" />
+              </circle>
+              <circle r="3.5" class="topo-pulse-dot active" id="pulse-spider-x5sentry">
+                <animateMotion dur="2.4s" repeatCount="indefinite" path="M 280 140 C 400 140, 440 360, 560 360" />
+              </circle>
+              <circle r="4" class="topo-pulse-dot active pulse-exploit" id="pulse-cmdmap-bounty">
+                <animateMotion dur="2.4s" repeatCount="indefinite" path="M 560 75 C 680 75, 740 220, 860 220" />
+              </circle>
+              <circle r="4" class="topo-pulse-dot active pulse-exploit" id="pulse-gateforge-bounty">
+                <animateMotion dur="2.4s" repeatCount="indefinite" path="M 560 170 C 680 170, 740 220, 860 220" />
+              </circle>
+              <circle r="4" class="topo-pulse-dot active pulse-exploit" id="pulse-agent389-bounty">
+                <animateMotion dur="2.4s" repeatCount="indefinite" path="M 560 265 C 680 265, 740 220, 860 220" />
+              </circle>
+              <circle r="4" class="topo-pulse-dot active pulse-exploit" id="pulse-x5sentry-bounty">
+                <animateMotion dur="2.4s" repeatCount="indefinite" path="M 560 360 C 680 360, 740 220, 860 220" />
+              </circle>
+            </g>
+
+            <!-- Node Tier 0: Target Scope Asset -->
+            <g class="topo-node-group" id="node-target" onclick="manualSelectNode('spider')" tabindex="0" role="button" aria-label="Target Scope Node">
+              <circle cx="90" cy="220" r="38" fill="transparent" pointer-events="all"></circle>
+              <circle cx="90" cy="220" r="32" class="node-halo"></circle>
+              <line x1="117.0" y1="220.0" x2="121.0" y2="220.0" class="node-burst-tick" />
+              <line x1="109.1" y1="239.1" x2="111.9" y2="241.9" class="node-burst-tick" />
+              <line x1="90.0" y1="247.0" x2="90.0" y2="251.0" class="node-burst-tick" />
+              <line x1="70.9" y1="239.1" x2="68.1" y2="241.9" class="node-burst-tick" />
+              <line x1="63.0" y1="220.0" x2="59.0" y2="220.0" class="node-burst-tick" />
+              <line x1="70.9" y1="200.9" x2="68.1" y2="198.1" class="node-burst-tick" />
+              <line x1="90.0" y1="193.0" x2="90.0" y2="189.0" class="node-burst-tick" />
+              <line x1="109.1" y1="200.9" x2="111.9" y2="198.1" class="node-burst-tick" />
+              <circle cx="90" cy="220" r="22" class="node-disc node-scope"></circle>
+              <circle cx="90" cy="220" r="6" class="node-pulse"></circle>
+              <text x="90" y="262" class="node-label" text-anchor="middle">TARGET SCOPE</text>
+              <text x="90" y="276" class="node-sublabel" text-anchor="middle">*.target-org.com</text>
+            </g>
+
+            <!-- Node Tier 1: Recon & Discovery -->
+            <!-- Hellhound Spider -->
+            <g class="topo-node-group active" id="node-spider" onclick="manualSelectNode('spider')" tabindex="0" role="button" aria-label="Hellhound Spider Node">
+              <circle cx="280" cy="140" r="36" fill="transparent" pointer-events="all"></circle>
+              <circle cx="280" cy="140" r="28" class="node-halo"></circle>
+              <line x1="305.0" y1="140.0" x2="309.0" y2="140.0" class="node-burst-tick" />
+              <line x1="297.7" y1="157.7" x2="300.5" y2="160.5" class="node-burst-tick" />
+              <line x1="280.0" y1="165.0" x2="280.0" y2="169.0" class="node-burst-tick" />
+              <line x1="262.3" y1="157.7" x2="259.5" y2="160.5" class="node-burst-tick" />
+              <line x1="255.0" y1="140.0" x2="251.0" y2="140.0" class="node-burst-tick" />
+              <line x1="262.3" y1="122.3" x2="259.5" y2="119.5" class="node-burst-tick" />
+              <line x1="280.0" y1="115.0" x2="280.0" y2="111.0" class="node-burst-tick" />
+              <line x1="297.7" y1="122.3" x2="300.5" y2="119.5" class="node-burst-tick" />
+              <circle cx="280" cy="140" r="20" class="node-disc"></circle>
+              <text x="280" y="145" class="node-glyph" text-anchor="middle">HS</text>
+              <text x="280" y="180" class="node-label" text-anchor="middle">Hellhound Spider</text>
+              <text x="280" y="193" class="node-sublabel" text-anchor="middle">SPA DOM Recon &amp; Crawl</text>
+            </g>
+
+            <!-- Ghost ASM -->
+            <g class="topo-node-group" id="node-ghost" onclick="manualSelectNode('ghost')" tabindex="0" role="button" aria-label="Ghost ASM Node">
+              <circle cx="280" cy="300" r="36" fill="transparent" pointer-events="all"></circle>
+              <circle cx="280" cy="300" r="26" class="node-halo"></circle>
+              <line x1="304.0" y1="300.0" x2="308.0" y2="300.0" class="node-burst-tick" />
+              <line x1="297.0" y1="317.0" x2="299.8" y2="319.8" class="node-burst-tick" />
+              <line x1="280.0" y1="324.0" x2="280.0" y2="328.0" class="node-burst-tick" />
+              <line x1="263.0" y1="317.0" x2="260.2" y2="319.8" class="node-burst-tick" />
+              <line x1="256.0" y1="300.0" x2="252.0" y2="300.0" class="node-burst-tick" />
+              <line x1="263.0" y1="283.0" x2="260.2" y2="280.2" class="node-burst-tick" />
+              <line x1="280.0" y1="276.0" x2="280.0" y2="272.0" class="node-burst-tick" />
+              <line x1="297.0" y1="283.0" x2="299.8" y2="280.2" class="node-burst-tick" />
+              <circle cx="280" cy="300" r="19" class="node-disc"></circle>
+              <text x="280" y="305" class="node-glyph" text-anchor="middle">GH</text>
+              <text x="280" y="338" class="node-label" text-anchor="middle">Ghost ASM</text>
+              <text x="280" y="351" class="node-sublabel" text-anchor="middle">Shadow IT Radar</text>
+            </g>
+
+            <!-- Node Tier 2: Vulnerability Probing Engines -->
+            <!-- CMDMap -->
+            <g class="topo-node-group" id="node-cmdmap" onclick="manualSelectNode('cmdmap')" tabindex="0" role="button" aria-label="CMDMap Node">
+              <circle cx="560" cy="75" r="36" fill="transparent" pointer-events="all"></circle>
+              <circle cx="560" cy="75" r="26" class="node-halo"></circle>
+              <line x1="583.0" y1="75.0" x2="587.0" y2="75.0" class="node-burst-tick" />
+              <line x1="576.3" y1="91.3" x2="579.1" y2="94.1" class="node-burst-tick" />
+              <line x1="560.0" y1="98.0" x2="560.0" y2="102.0" class="node-burst-tick" />
+              <line x1="543.7" y1="91.3" x2="540.9" y2="94.1" class="node-burst-tick" />
+              <line x1="537.0" y1="75.0" x2="533.0" y2="75.0" class="node-burst-tick" />
+              <line x1="543.7" y1="58.7" x2="540.9" y2="55.9" class="node-burst-tick" />
+              <line x1="560.0" y1="52.0" x2="560.0" y2="48.0" class="node-burst-tick" />
+              <line x1="576.3" y1="58.7" x2="579.1" y2="55.9" class="node-burst-tick" />
+              <circle cx="560" cy="75" r="18" class="node-disc"></circle>
+              <text x="560" y="80" class="node-glyph" text-anchor="middle">CM</text>
+              <text x="560" y="110" class="node-label" text-anchor="middle">CMDMap</text>
+              <text x="560" y="122" class="node-sublabel" text-anchor="middle">CWE-78 Command Inj</text>
+            </g>
+
+            <!-- GateForge -->
+            <g class="topo-node-group" id="node-gateforge" onclick="manualSelectNode('gateforge')" tabindex="0" role="button" aria-label="GateForge Node">
+              <circle cx="560" cy="170" r="36" fill="transparent" pointer-events="all"></circle>
+              <circle cx="560" cy="170" r="26" class="node-halo"></circle>
+              <line x1="583.0" y1="170.0" x2="587.0" y2="170.0" class="node-burst-tick" />
+              <line x1="576.3" y1="186.3" x2="579.1" y2="189.1" class="node-burst-tick" />
+              <line x1="560.0" y1="193.0" x2="560.0" y2="197.0" class="node-burst-tick" />
+              <line x1="543.7" y1="186.3" x2="540.9" y2="189.1" class="node-burst-tick" />
+              <line x1="537.0" y1="170.0" x2="533.0" y2="170.0" class="node-burst-tick" />
+              <line x1="543.7" y1="153.7" x2="540.9" y2="150.9" class="node-burst-tick" />
+              <line x1="560.0" y1="147.0" x2="560.0" y2="143.0" class="node-burst-tick" />
+              <line x1="576.3" y1="153.7" x2="579.1" y2="150.9" class="node-burst-tick" />
+              <circle cx="560" cy="170" r="18" class="node-disc"></circle>
+              <text x="560" y="175" class="node-glyph" text-anchor="middle">GF</text>
+              <text x="560" y="205" class="node-label" text-anchor="middle">GateForge</text>
+              <text x="560" y="217" class="node-sublabel" text-anchor="middle">CWE-918 Cloud SSRF</text>
+            </g>
+
+            <!-- Agent389 -->
+            <g class="topo-node-group" id="node-agent389" onclick="manualSelectNode('agent389')" tabindex="0" role="button" aria-label="Agent389 Node">
+              <circle cx="560" cy="265" r="36" fill="transparent" pointer-events="all"></circle>
+              <circle cx="560" cy="265" r="26" class="node-halo"></circle>
+              <line x1="583.0" y1="265.0" x2="587.0" y2="265.0" class="node-burst-tick" />
+              <line x1="576.3" y1="281.3" x2="579.1" y2="284.1" class="node-burst-tick" />
+              <line x1="560.0" y1="288.0" x2="560.0" y2="292.0" class="node-burst-tick" />
+              <line x1="543.7" y1="281.3" x2="540.9" y2="284.1" class="node-burst-tick" />
+              <line x1="537.0" y1="265.0" x2="533.0" y2="265.0" class="node-burst-tick" />
+              <line x1="543.7" y1="248.7" x2="540.9" y2="245.9" class="node-burst-tick" />
+              <line x1="560.0" y1="242.0" x2="560.0" y2="238.0" class="node-burst-tick" />
+              <line x1="576.3" y1="248.7" x2="579.1" y2="245.9" class="node-burst-tick" />
+              <circle cx="560" cy="265" r="18" class="node-disc"></circle>
+              <text x="560" y="270" class="node-glyph" text-anchor="middle">389</text>
+              <text x="560" y="300" class="node-label" text-anchor="middle">Agent389</text>
+              <text x="560" y="312" class="node-sublabel" text-anchor="middle">CWE-90 LDAP Filter</text>
+            </g>
+
+            <!-- X5Sentry -->
+            <g class="topo-node-group" id="node-x5sentry" onclick="manualSelectNode('x5sentry')" tabindex="0" role="button" aria-label="X5Sentry Node">
+              <circle cx="560" cy="360" r="36" fill="transparent" pointer-events="all"></circle>
+              <circle cx="560" cy="360" r="26" class="node-halo"></circle>
+              <line x1="583.0" y1="360.0" x2="587.0" y2="360.0" class="node-burst-tick" />
+              <line x1="576.3" y1="376.3" x2="579.1" y2="379.1" class="node-burst-tick" />
+              <line x1="560.0" y1="383.0" x2="560.0" y2="387.0" class="node-burst-tick" />
+              <line x1="543.7" y1="376.3" x2="540.9" y2="379.1" class="node-burst-tick" />
+              <line x1="537.0" y1="360.0" x2="533.0" y2="360.0" class="node-burst-tick" />
+              <line x1="543.7" y1="343.7" x2="540.9" y2="340.9" class="node-burst-tick" />
+              <line x1="560.0" y1="337.0" x2="560.0" y2="333.0" class="node-burst-tick" />
+              <line x1="576.3" y1="343.7" x2="579.1" y2="340.9" class="node-burst-tick" />
+              <circle cx="560" cy="360" r="18" class="node-disc"></circle>
+              <text x="560" y="365" class="node-glyph" text-anchor="middle">X5</text>
+              <text x="560" y="395" class="node-label" text-anchor="middle">X5Sentry</text>
+              <text x="560" y="407" class="node-sublabel" text-anchor="middle">CWE-79 XSS Reduction</text>
+            </g>
+
+            <!-- Node Tier 3: Exploit Validation & Triage -->
+            <!-- Bounty Hunter -->
+            <g class="topo-node-group" id="node-bounty" onclick="manualSelectNode('bounty')" tabindex="0" role="button" aria-label="Bounty Hunter Node">
+              <circle cx="860" cy="220" r="40" fill="transparent" pointer-events="all"></circle>
+              <circle cx="860" cy="220" r="32" class="node-halo"></circle>
+              <line x1="889.0" y1="220.0" x2="893.0" y2="220.0" class="node-burst-tick" />
+              <line x1="880.5" y1="240.5" x2="883.3" y2="243.3" class="node-burst-tick" />
+              <line x1="860.0" y1="249.0" x2="860.0" y2="253.0" class="node-burst-tick" />
+              <line x1="839.5" y1="240.5" x2="836.7" y2="243.3" class="node-burst-tick" />
+              <line x1="831.0" y1="220.0" x2="827.0" y2="220.0" class="node-burst-tick" />
+              <line x1="839.5" y1="199.5" x2="836.7" y2="196.7" class="node-burst-tick" />
+              <line x1="860.0" y1="191.0" x2="860.0" y2="187.0" class="node-burst-tick" />
+              <line x1="880.5" y1="199.5" x2="883.3" y2="196.7" class="node-burst-tick" />
+              <circle cx="860" cy="220" r="24" class="node-disc node-exploit"></circle>
+              <text x="860" y="225" class="node-glyph" text-anchor="middle">BH</text>
+              <text x="860" y="265" class="node-label" text-anchor="middle">Bounty Hunter</text>
+              <text x="860" y="278" class="node-sublabel" text-anchor="middle">Zero-FP Exploit Proof</text>
+            </g>
+          </svg>
         </div>
-        <p class="stage-desc">Multi-vector intelligence framework maps organizational perimeter, correlates external asset telemetry, and provides real-time target intelligence.</p>
       </div>
 
-      <!-- Phase 2 -->
-      <div class="pipeline-stage">
-        <div class="stage-head">
-          <div class="stage-num">02</div>
-          <span class="stage-flow-tag">PHASE 2: SURFACE CRAWL</span>
+      <!-- Grounded Tool Inspection Dock -->
+      <div class="pipeline-tool-dock" id="pipeline-hud">
+        <div class="tool-dock-info">
+          <div class="tool-dock-header">
+            <h3 class="tool-dock-title" id="hud-title">Hellhound Spider</h3>
+            <span class="tool-dock-role" id="hud-role">SPA DOM Rehydration &amp; Dynamic Route Discovery</span>
+          </div>
+          <p class="tool-dock-desc" id="hud-desc">
+            Autonomous high-concurrency crawler mapping Single-Page Application endpoints, hidden parameters, and forms with zero blind spots.
+          </p>
         </div>
-        <div class="stage-title">Dynamic SPA Crawl &amp; Route Discovery</div>
-        <div class="stage-tools">
-          <span class="stage-pill">Hellhound Spider</span>
+        <div class="tool-dock-actions">
+          <button class="hud-dossier-btn" id="hud-dossier-btn" type="button" onclick="openDossier('Hellhound-Spider')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <span>Inspect Tool Dossier</span>
+          </button>
+          <a class="hud-gh-link" id="hud-gh-link" href="https://github.com/projecthellhound/Hellhound-Spider" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            <span>GitHub</span>
+          </a>
         </div>
-        <p class="stage-desc">Dual-engine crawler couples high-throughput async HTTP with headless Chromium DOM rehydration to map single-page app routes, hidden parameters, and forms with zero blind spots.</p>
-      </div>
-
-      <!-- Phase 3 -->
-      <div class="pipeline-stage">
-        <div class="stage-head">
-          <div class="stage-num">03</div>
-          <span class="stage-flow-tag">PHASE 3: PROTOCOL FUZZ</span>
-        </div>
-        <div class="stage-title">Targeted Protocol &amp; Boundary Fuzzing</div>
-        <div class="stage-tools">
-          <span class="stage-pill">CMDMap</span>
-          <span class="stage-pill">GateForge</span>
-          <span class="stage-pill">Agent389</span>
-        </div>
-        <p class="stage-desc">Specialized analyzers probe critical vectors: cloud metadata SSRF (AWS IMDSv1/v2), Active Directory LDAP injection, and WAF-bypassing OS command injection.</p>
-      </div>
-
-      <!-- Phase 4 -->
-      <div class="pipeline-stage">
-        <div class="stage-head">
-          <div class="stage-num">04</div>
-          <span class="stage-flow-tag">PHASE 4: EXPLOIT CHAIN</span>
-        </div>
-        <div class="stage-title">Autonomous Exploitation &amp; Triage</div>
-        <div class="stage-tools">
-          <span class="stage-pill">Bounty Hunter</span>
-          <span class="stage-pill">X5Sentry</span>
-        </div>
-        <p class="stage-desc">Autonomous AI execution agents chain discovered primitives into verified proof-of-concept exploits, validating impact in isolated headless sandboxes with zero false positives.</p>
       </div>
     </div>
   </div>
@@ -1947,7 +2679,7 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
           <tr>
             <td class="doctrine-dim">Exploit Triage &amp; Verification</td>
             <td class="cell-hellhound">
-              <span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><strong>Autonomous Agent Validation (Bounty Hunter).</strong> Multi-step autonomous LLM agents that construct, execute, and verify proof-of-concept exploits in sandbox isolation before reporting.
+              <span class="check-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><strong>Autonomous Engine Validation (Bounty Hunter).</strong> Multi-step autonomous security engines that construct, execute, and verify proof-of-concept exploits in sandbox isolation before reporting.
             </td>
             <td class="cell-legacy">
               <span class="cross-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Static heuristic rules producing hundreds of unvalidated alerts, causing severe triage fatigue and unverified noise.
@@ -2023,14 +2755,14 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
             <span class="status live"><span>Active Dev</span></span>
           </div>
           <h3 class="private-title">Oryn</h3>
-          <p class="private-subtitle">Autonomous AI Engineering Assistant — Chat + Code, Grounded in Evidence</p>
+          <p class="private-subtitle">Autonomous Engineering Assistant — Shell + Code, Grounded in Evidence</p>
         </div>
         <p class="private-desc">
           Oryn is a persistent, autonomous execution system that talks like a senior engineer and builds like one too. Ask it a question and it answers from real, curated knowledge. Give it a goal and it plans the work, writes and edits real code, runs tests, diagnoses failures, fixes them, and only calls the job done once the result is actually verified.
         </p>
         <div class="private-footer">
           <div class="meta">
-            <span class="tag">AI Developer Tools</span>
+            <span class="tag">Autonomous Systems</span>
             <a class="creator" href="https://github.com/H3xiee" target="_blank" rel="noopener">
               <img class="ava" src="https://github.com/H3xiee.png?size=48" alt="H3xiee">
               <span>H3xiee</span>
@@ -2326,7 +3058,9 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
     
     <!-- Founder: Sree Danush S -->
     <div class="who reveal">
-      <img class="avatar" src="assets/founder.jpg" alt="Sree Danush S (l4zz3rj0d)" onerror="this.outerHTML='<div class=&quot;avatar&quot; aria-hidden=&quot;true&quot;>S</div>'">
+      <a href="https://l4zz3rj0d.github.io/" target="_blank" rel="noopener" class="avatar-link" aria-label="Sree Danush S Portfolio" title="Sree Danush S Portfolio">
+        <img class="avatar" src="assets/founder.jpg" alt="Sree Danush S (l4zz3rj0d)" onerror="this.outerHTML='<div class=&quot;avatar&quot; aria-hidden=&quot;true&quot;>S</div>'">
+      </a>
       <div>
         <div class="role-badge">Founder Project Hellhound, Co-Founder TriOps Security</div>
         <h3 class="member-name">Sree Danush S</h3>
@@ -2337,14 +3071,6 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
           <span class="tag">Bug Bounty</span>
           <span class="tag">AI / LLM Research</span>
           <span class="tag">Tool Architecture</span>
-        </div>
-        <div class="links">
-          <a href="https://github.com/l4zz3rj0d" target="_blank" rel="noopener">GitHub</a>
-          <a href="https://www.linkedin.com/in/ssreedanush/" target="_blank" rel="noopener">LinkedIn</a>
-          <a href="https://medium.com/@l4zz3rj0d" target="_blank" rel="noopener">Medium</a>
-          <a href="https://hackerone.com/l4zz3rj0d" target="_blank" rel="noopener">HackerOne</a>
-          <a href="https://tryhackme.com/p/L4ZZ3RJ0D" target="_blank" rel="noopener">TryHackMe</a>
-          <a href="mailto:ssreedanush@gmail.com">Personal Email</a>
         </div>
       </div>
     </div>
@@ -2358,7 +3084,9 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
         <!-- Rithish Abinav AC -->
         <div class="co-card">
           <div class="co-header">
-            <img class="co-avatar" src="assets/abinav.png" alt="Rithish Abinav AC" onerror="this.outerHTML='<div class=&quot;co-avatar&quot;>R</div>'">
+            <a href="https://abinav3ac.github.io/" target="_blank" rel="noopener" class="avatar-link" aria-label="Rithish Abinav AC Portfolio" title="Rithish Abinav AC Portfolio">
+              <img class="co-avatar" src="assets/abinav.png" alt="Rithish Abinav AC" onerror="this.outerHTML='<div class=&quot;co-avatar&quot;>R</div>'">
+            </a>
             <div>
               <div class="role-badge">Co-Founder, Project Hellhound</div>
               <h4 class="co-name">Rithish Abinav AC</h4>
@@ -2372,16 +3100,14 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
             <span class="tag">Enterprise Labs</span>
             <span class="tag">Threat Detection</span>
           </div>
-          <div class="links">
-            <a href="https://github.com/Abinav3ac" target="_blank" rel="noopener">GitHub</a>
-            <a href="https://abinav3ac.github.io/" target="_blank" rel="noopener">Portfolio &rarr;</a>
-          </div>
         </div>
 
         <!-- HARIKRISHNAN S -->
         <div class="co-card">
           <div class="co-header">
-            <img class="co-avatar" src="assets/ghost.png" alt="HARIKRISHNAN S" onerror="this.outerHTML='<div class=&quot;co-avatar&quot;>H</div>'">
+            <a href="https://github.com/L33TxGH05T" target="_blank" rel="noopener" class="avatar-link" aria-label="HARIKRISHNAN S GitHub Profile" title="HARIKRISHNAN S GitHub Profile">
+              <img class="co-avatar" src="assets/ghost.png" alt="HARIKRISHNAN S" onerror="this.outerHTML='<div class=&quot;co-avatar&quot;>H</div>'">
+            </a>
             <div>
               <div class="role-badge">Co-Founder, Project Hellhound</div>
               <h4 class="co-name">HARIKRISHNAN S</h4>
@@ -2393,9 +3119,6 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
             <span class="tag">Autonomous XSS</span>
             <span class="tag">Headless Browser Testing</span>
             <span class="tag">Exploit Validation</span>
-          </div>
-          <div class="links">
-            <a href="https://github.com/L33TxGH05T" target="_blank" rel="noopener">GitHub Profile &rarr;</a>
           </div>
         </div>
       </div>
@@ -2499,7 +3222,7 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
         <h4 class="pd-footer-heading">Doctrine &amp; Specs</h4>
         <ul class="pd-footer-links">
           <li><a href="#doctrine">Why Project Hellhound</a></li>
-          <li><a href="#pipeline">4-Phase Attack Pipeline</a></li>
+          <li><a href="#pipeline">Attack Topology Pipeline</a></li>
           <li><a href="#triops">Headless Sandbox Isolation</a></li>
           <li><a href="#why">How We Work Principles</a></li>
           <li><a href="https://github.com/projecthellhound" target="_blank" rel="noopener">Security Disclosures</a></li>
@@ -2606,7 +3329,7 @@ const projects = [
     cat: "Offensive security",
     creator: "l4zz3rj0d",
     status: "Active development",
-    tagline: "Autonomous AI bug bounty agent chaining multi-step reconnaissance, exploit generation, and reporting.",
+    tagline: "Autonomous bug bounty engine chaining multi-step reconnaissance, exploit generation, and reporting.",
     quickCmd: "curl -fsSL https://raw.githubusercontent.com/projecthellhound/bounty-hunter/main/install.sh | bash",
     installMethods: [
       { key: "curl", label: "cURL One-Liner", cmd: "curl -fsSL https://raw.githubusercontent.com/projecthellhound/bounty-hunter/main/install.sh | bash" },
@@ -2617,7 +3340,7 @@ const projects = [
       { label: "Training Base", val: "15k+ Disclosed H1 Reports" },
       { label: "Verification", val: "Real Exploit Proof" }
     ],
-    overview: "Bounty Hunter is an autonomous AI penetration testing agent that bridges the gap between passive scanning and active exploit validation. Instead of drowning researchers in unverified alerts, the agent formulates an attack strategy, invokes appropriate tools, and autonomously chains findings.\n\nIt proves XSS via headless browser alert triggers, SSRF through cloud IAM metadata verification, and IDOR through multi-account privilege testing. Features a persistent per-target blackboard architecture (~/.beast/targets/) and automated markdown report generation.",
+    overview: "Bounty Hunter is an autonomous offensive penetration testing engine that bridges the gap between passive scanning and active exploit validation. Instead of drowning researchers in unverified alerts, the agent formulates an attack strategy, invokes appropriate tools, and autonomously chains findings.\n\nIt proves XSS via headless browser alert triggers, SSRF through cloud IAM metadata verification, and IDOR through multi-account privilege testing. Features a persistent per-target blackboard architecture (~/.beast/targets/) and automated markdown report generation.",
     why: "Repetitive recon and manual validation waste hours during bug bounty hunts. Bounty Hunter automates the end-to-end offensive workflow, validating bugs before human submission.",
     caps: ["Autonomous Attack Chaining", "Real Exploit Proofs", "15k+ Disclosed H1 Training", "Persistent Case Blackboard", "Headless Browser Validation"]
   },
@@ -2753,7 +3476,7 @@ const projects = [
     glyph: "CS",
     cat: "Everyday apps",
     creator: "abinav",
-    tagline: "Minimalist habit and focus consistency tracker engineered with AI behavioral analytics.",
+    tagline: "Minimalist habit and focus consistency tracker engineered with behavioral analytics.",
     quickCmd: "curl -fsSL https://raw.githubusercontent.com/projecthellhound/Constant/main/install.sh | bash",
     installMethods: [
       { key: "curl", label: "cURL One-Liner", cmd: "curl -fsSL https://raw.githubusercontent.com/projecthellhound/Constant/main/install.sh | bash" },
@@ -3129,56 +3852,9 @@ function watch(el, delay){
   el.style.transitionDelay = (delay || 0) + "ms"; io.observe(el);
 }
 
-/* Tactical Audio HUD (Web Audio API Synthesizer) */
-const AudioHUD = (() => {
-  let ctx = null;
-  // Enabled by default; user can mute tab audio in browser
-  let enabled = localStorage.getItem("hellhound_sfx") !== "0";
-
-  function getCtx() {
-    if (!ctx && (window.AudioContext || window.webkitAudioContext)) {
-      const AC = window.AudioContext || window.webkitAudioContext;
-      ctx = new AC();
-    }
-    if (ctx && ctx.state === "suspended") {
-      ctx.resume();
-    }
-    return ctx;
-  }
-
-  function playTone(freqStart, freqEnd, type, duration, gainVal = 0.025) {
-    if (!enabled) return;
-    try {
-      const c = getCtx();
-      if (!c) return;
-      const osc = c.createOscillator();
-      const gain = c.createGain();
-      osc.type = type;
-      osc.frequency.setValueAtTime(freqStart, c.currentTime);
-      if (freqEnd && freqEnd !== freqStart) {
-        osc.frequency.exponentialRampToValueAtTime(Math.max(freqEnd, 20), c.currentTime + duration);
-      }
-      gain.gain.setValueAtTime(gainVal, c.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + duration);
-      osc.connect(gain);
-      gain.connect(c.destination);
-      osc.start();
-      osc.stop(c.currentTime + duration);
-    } catch(e) {}
-  }
-
-  return {
-    click: () => playTone(950, 480, "sine", 0.035, 0.022),
-    tab: () => playTone(580, 1050, "sine", 0.04, 0.022),
-    copy: () => {
-      playTone(720, 1150, "triangle", 0.045, 0.03);
-      setTimeout(() => playTone(1350, 1750, "triangle", 0.045, 0.025), 50);
-    },
-    modalOpen: () => playTone(360, 720, "sine", 0.06, 0.025),
-    modalClose: () => playTone(720, 320, "sine", 0.05, 0.02),
-    init: () => {}
-  };
-})();
+/* Audio engine disabled per user request */
+const AudioHUD = { toggle:()=>{}, hover:()=>{}, click:()=>{}, tab:()=>{}, copy:()=>{}, modalOpen:()=>{}, modalClose:()=>{}, init:()=>{} };
+function toggleAudioEngine() {}
 
 /* Dossier Modal Management & Multi-Tab Install Switcher */
 const dossierOverlay = document.getElementById("dossier-overlay");
@@ -3411,19 +4087,18 @@ function getCmdItems() {
     });
   });
 
-  // Pipeline phases
-  const phases = [
-    { num: 1, title: "Phase 1: Tactical Recon & Target Intelligence", desc: "JARVIS & JARVIS-Mobile OSINT framework" },
-    { num: 2, title: "Phase 2: Dynamic SPA Crawl & Route Discovery", desc: "Hellhound Spider dual-engine crawler" },
-    { num: 3, title: "Phase 3: Targeted Protocol & Boundary Fuzzing", desc: "CMDMap, GateForge (SSRF), Agent389 (LDAP)" },
-    { num: 4, title: "Phase 4: Autonomous Exploitation & Triage", desc: "Bounty Hunter & X5Sentry autonomous AI agents" }
+  // Pipeline stages
+  const stages = [
+    { num: 1, title: "Recon & Surface Discovery", desc: "Hellhound Spider & Ghost ASM perimeter intelligence" },
+    { num: 2, title: "Targeted Vulnerability Probing", desc: "CMDMap, GateForge (SSRF), Agent389 (LDAP), X5Sentry" },
+    { num: 3, title: "Autonomous Exploit Validation", desc: "Bounty Hunter deterministic proof validation" }
   ];
-  phases.forEach(ph => {
+  stages.forEach(st => {
     items.push({
       type: "PIPELINE",
-      glyph: `0${ph.num}`,
-      title: ph.title,
-      desc: ph.desc,
+      glyph: `0${st.num}`,
+      title: st.title,
+      desc: st.desc,
       badge: "Pipeline",
       action: () => {
         closeCmdPalette();
@@ -3463,7 +4138,7 @@ function getCmdItems() {
       type: "SECTION",
       glyph: "PRV",
       title: "Private R&D (Oryn)",
-      desc: "Autonomous AI engineering assistant & attack surface research",
+      desc: "Autonomous engineering assistant & attack surface research",
       badge: "Research",
       action: () => {
         closeCmdPalette();
@@ -3502,7 +4177,7 @@ function getCmdItems() {
       type: "ACTION",
       glyph: "BTY",
       title: "Inspect Flagship: Bounty Hunter",
-      desc: "Autonomous offensive AI agent for vulnerability triage & exploit verification",
+      desc: "Autonomous offensive execution engine for vulnerability triage & exploit verification",
       badge: "Flagship",
       action: () => {
         closeCmdPalette();
@@ -3671,6 +4346,82 @@ window.addEventListener("keydown", (e) => {
 });
 
 /* Flagship & Specialized Arsenal renderer */
+/* Kinetic Glyph Scramble (Matrix Decrypt - Igloo Inc inspiration) */
+class GlyphScramble {
+  constructor(el) {
+    this.el = el;
+    this.originalText = el.textContent.trim();
+    this.chars = '!<>-_\\/[]{}—=+*^?#________0101';
+    this.update = this.update.bind(this);
+    this.frame = 0;
+    this.queue = [];
+    this.isScrambling = false;
+  }
+  start() {
+    if (this.isScrambling) return;
+    this.isScrambling = true;
+    const text = this.originalText;
+    this.queue = [];
+    for (let i = 0; i < text.length; i++) {
+      const from = this.el.textContent[i] || '';
+      const to = text[i];
+      const start = Math.floor(Math.random() * 3);
+      const end = start + Math.floor(Math.random() * 5) + 3;
+      this.queue.push({ from, to, start, end, char: '' });
+    }
+    cancelAnimationFrame(this.frameRequest);
+    this.frame = 0;
+    this.update();
+  }
+  stop() {
+    cancelAnimationFrame(this.frameRequest);
+    this.el.textContent = this.originalText;
+    this.isScrambling = false;
+  }
+  update() {
+    let output = '';
+    let complete = 0;
+    for (let i = 0, n = this.queue.length; i < n; i++) {
+      let item = this.queue[i];
+      if (this.frame >= item.end) {
+        complete++;
+        output += item.to;
+      } else if (this.frame >= item.start) {
+        if (!item.char || Math.random() < 0.35) {
+          item.char = this.chars[Math.floor(Math.random() * this.chars.length)];
+        }
+        output += `<span style="color:var(--ember);opacity:0.85">${item.char}</span>`;
+      } else {
+        output += item.from;
+      }
+    }
+    this.el.innerHTML = output;
+    if (complete === this.queue.length || this.frame > 14) {
+      this.stop();
+    } else {
+      this.frameRequest = requestAnimationFrame(this.update);
+      this.frame++;
+    }
+  }
+}
+
+function initGlyphScramblers() {
+  document.querySelectorAll(".scramble-hover").forEach(el => {
+    if (el._scrambler) return;
+    const scrambler = new GlyphScramble(el);
+    el._scrambler = scrambler;
+    const trigger = el.closest(".flagship-card, .tool-card, .brand") || el;
+    trigger.addEventListener("mouseenter", () => {
+      scrambler.start();
+      AudioHUD.hover();
+    });
+    trigger.addEventListener("mouseleave", () => {
+      scrambler.stop();
+    });
+  });
+}
+
+/* Flagship & Specialized Arsenal renderer */
 const flagships = ["Hellhound-Spider", "bounty-hunter"];
 const flagshipList = document.getElementById("flagship-list");
 const flagshipContainer = document.getElementById("flagship-container");
@@ -3682,7 +4433,7 @@ function renderFlagships() {
   const flagshipProjects = projects.filter(p => flagships.includes(p.repo));
   flagshipProjects.forEach((p, idx) => {
     const card = document.createElement("div");
-    card.className = "flagship-card reveal";
+    card.className = "flagship-card card-corner-ticks reveal";
     card.dataset.repo = p.repo;
     card.setAttribute("role", "button");
     card.setAttribute("tabindex", "0");
@@ -3701,7 +4452,7 @@ function renderFlagships() {
 
     const tag = document.createElement("span");
     tag.className = "flagship-tag";
-    tag.innerHTML = `<span>${idx === 0 ? "FLAGSHIP RECON CRAWLER" : "FLAGSHIP AI AGENT"}</span>`;
+    tag.innerHTML = `<span>${idx === 0 ? "FLAGSHIP RECON CRAWLER" : "FLAGSHIP EXPLOIT ENGINE"}</span>`;
 
     metaTop.appendChild(tag);
 
@@ -3726,7 +4477,7 @@ function renderFlagships() {
 
     const titleBox = document.createElement("div");
     const h = document.createElement("h3");
-    h.className = "flagship-name";
+    h.className = "flagship-name scramble-hover";
     h.textContent = p.name;
     const cat = document.createElement("div");
     cat.className = "flagship-cat";
@@ -3781,6 +4532,7 @@ function renderFlagships() {
     fx(h);
     watch(card, idx * 80);
   });
+  initGlyphScramblers();
 }
 
 /* project card grid renderer */
@@ -3804,7 +4556,7 @@ function render(){
     .filter(p => !flagships.includes(p.repo) && (active === "All" || p.cat === active))
     .forEach((p, i) => {
       const card = document.createElement("div");
-      card.className = "tool-card reveal";
+      card.className = "tool-card card-corner-ticks reveal";
       card.dataset.repo = p.repo;
       card.setAttribute("role", "button");
       card.setAttribute("tabindex", "0");
@@ -3830,7 +4582,7 @@ function render(){
       
       const titleBox = document.createElement("div");
       const h = document.createElement("h3");
-      h.className = "tool-name";
+      h.className = "tool-name scramble-hover";
       h.textContent = p.name;
       const cat = document.createElement("span");
       cat.className = "tool-cat";
@@ -3886,12 +4638,14 @@ function render(){
       fx(h);
       watch(card, Math.min(i, 6) * 60);
     });
+  initGlyphScramblers();
 }
 
 cats.forEach(c => {
   const b = document.createElement("button");
   b.className = "chip"; b.type = "button"; b.textContent = c;
   b.setAttribute("aria-pressed", c === active);
+  b.onmouseenter = () => AudioHUD.hover();
   b.onclick = () => {
     active = c;
     chipBox.querySelectorAll(".chip").forEach(x => x.setAttribute("aria-pressed", x === b));
@@ -3936,7 +4690,7 @@ Object.entries(targets).forEach(([id, n]) => {
 });
 
 /* typewriter */
-const phrases = ["offensive security tools.", "autonomous AI agents.", "developer tools.", "whatever we think of next."];
+const phrases = ["offensive security tools.", "autonomous exploit engines.", "reconnaissance systems.", "whatever we think of next."];
 const tEl = document.getElementById("typed");
 if (reduce) { tEl.textContent = phrases[0]; }
 else {
@@ -4018,6 +4772,263 @@ addEventListener("pointermove", e => {
   document.documentElement.style.setProperty("--mx", e.clientX + "px");
   document.documentElement.style.setProperty("--my", e.clientY + "px");
 });
+
+/* HexBrain-Inspired Interactive Attack Lifecycle Controller */
+const PIPELINE_NODES = {
+  spider: {
+    stageKey: "recon",
+    stageTag: "Phase 01: Recon & Discovery",
+    statusText: "Headless Chromium Active",
+    name: "Hellhound Spider",
+    role: "SPA DOM Rehydration & Dynamic Route Discovery",
+    repo: "Hellhound-Spider",
+    tagline: "Autonomous high-concurrency crawler mapping Single-Page Application endpoints, hidden parameters, and forms with zero blind spots.",
+    cwe: "CWE-200: Route & Parameter Exposure",
+    severity: "Attack Surface",
+    severityClass: "sev-medium",
+    vector: "Client-Side SPA Routing & REST/GraphQL APIs",
+    controls: ["Headless Chromium DOM", "Shadow DOM Forms", "Cloudflare Bot Evasion", "Hierarchical Path Walking", "XHR/Fetch Body Intercept"],
+    gauge1: { val: "100%", label: "Coverage", title: "SPA DOM Depth", offset: 0 },
+    gauge2: { val: "450+", label: "Discovery", title: "Mapped Routes", offset: 12 },
+    ghUrl: "https://github.com/projecthellhound/Hellhound-Spider",
+    activeChords: ["chord-target-spider", "chord-spider-cmdmap", "chord-spider-gateforge", "chord-spider-agent389", "chord-spider-x5sentry"]
+  },
+  ghost: {
+    stageKey: "recon",
+    stageTag: "Phase 01: Recon & Discovery",
+    statusText: "Perimeter Radar Active",
+    name: "Ghost ASM",
+    role: "Attack Surface Management & Shadow IT Intelligence",
+    repo: "ghost",
+    tagline: "Autonomous perimeter intelligence engine correlating DNS records, certificate transparency, and unmapped cloud assets.",
+    cwe: "CWE-16: Configuration & Perimeter Exposure",
+    severity: "High 8.4",
+    severityClass: "sev-high",
+    vector: "External DNS, Multi-Cloud Ingress & Subdomain Infrastructure",
+    controls: ["Cloud Tenant Isolation", "Multi-Cloud DNS Correlation", "Subdomain Wildcard Enumeration", "CDN Origin Discovery"],
+    gauge1: { val: "99.4%", label: "Perimeter", title: "Asset Resolution", offset: 6 },
+    gauge2: { val: "1.8k", label: "Inventory", title: "Correlated Nodes", offset: 16 },
+    ghUrl: "https://github.com/projecthellhound",
+    activeChords: ["chord-target-ghost"]
+  },
+  cmdmap: {
+    stageKey: "probe",
+    stageTag: "Phase 02: Vulnerability Probing",
+    statusText: "AST Verification Active",
+    name: "CMDMap",
+    role: "OS Command Injection Boundary Evasion",
+    repo: "cmdmap",
+    tagline: "Specialized command injection detection engine engineered with behavioral timing, out-of-band echo callbacks, and AST response analysis.",
+    cwe: "CWE-78: OS Command Injection",
+    severity: "Critical 9.8",
+    severityClass: "sev-critical",
+    vector: "POSIX Shell & Windows CMD Execution Boundaries",
+    controls: ["WAF Space/Pipe Filters", "Base64 & $IFS Quoting Contexts", "Out-of-Band Callbacks", "Zero False-Positive Gate"],
+    gauge1: { val: "0ms", label: "Latency", title: "AST Response Verification", offset: 0 },
+    gauge2: { val: "42", label: "Mutations", title: "Payload Synthesizers", offset: 15 },
+    ghUrl: "https://github.com/projecthellhound/cmdmap",
+    activeChords: ["chord-target-spider", "chord-spider-cmdmap", "chord-cmdmap-bounty"]
+  },
+  gateforge: {
+    stageKey: "probe",
+    stageTag: "Phase 02: Vulnerability Probing",
+    statusText: "Cloud Metadata Fuzzer Active",
+    name: "GateForge",
+    role: "Cloud IMDSv1/v2 SSRF Extraction",
+    repo: "GateForge",
+    tagline: "Advanced SSRF weaponization engine automating AWS, GCP, and Azure instance metadata extraction through defensive egress controls.",
+    cwe: "CWE-918: Server-Side Request Forgery",
+    severity: "High 8.6",
+    severityClass: "sev-high",
+    vector: "Cloud Provider Instance Metadata Services (169.254.169.254)",
+    controls: ["IMDSv2 Session Token Headers", "Private IP Egress Whitelists", "Octal/Hex IP Obfuscation", "Dual-Stack IPv6 Egress"],
+    gauge1: { val: "88%", label: "Bypass Rate", title: "IMDSv2 Token Negotiation", offset: 14 },
+    gauge2: { val: "14", label: "Providers", title: "Cloud Target Engines", offset: 25 },
+    ghUrl: "https://github.com/projecthellhound/GateForge",
+    activeChords: ["chord-target-spider", "chord-spider-gateforge", "chord-gateforge-bounty"]
+  },
+  agent389: {
+    stageKey: "probe",
+    stageTag: "Phase 02: Vulnerability Probing",
+    statusText: "LDAP Filter Fuzzer Active",
+    name: "Agent389",
+    role: "Active Directory LDAP Filter Tampering",
+    repo: "Agent389",
+    tagline: "Directory exploitation engine targeting LDAP injection flaws to bypass authentication and extract Active Directory attributes via blind queries.",
+    cwe: "CWE-90: LDAP Injection",
+    severity: "High 8.8",
+    severityClass: "sev-high",
+    vector: "Active Directory Domain Services & RFC 4515 LDAP Filters",
+    controls: ["LDAP Attribute Whitelists", "Blind Boolean Timing Filters", "Active Directory Forest ACLs", "Authentication Bypass"],
+    gauge1: { val: "95%", label: "Precision", title: "Blind Query Accuracy", offset: 6 },
+    gauge2: { val: "64", label: "Heuristics", title: "Filter Syntax Probes", offset: 20 },
+    ghUrl: "https://github.com/projecthellhound/Agent389",
+    activeChords: ["chord-target-spider", "chord-spider-agent389", "chord-agent389-bounty"]
+  },
+  x5sentry: {
+    stageKey: "probe",
+    stageTag: "Phase 02: Vulnerability Probing",
+    statusText: "Filter Reduction Active",
+    name: "X5Sentry",
+    role: "XSS Attack Surface Reduction & Verification",
+    repo: "X5Sentry",
+    tagline: "Autonomous XSS surface analyzer classifying DOM contexts, reducing filter matrices, and verifying execution in headless browser environments.",
+    cwe: "CWE-79: Cross-Site Scripting",
+    severity: "High 8.2",
+    severityClass: "sev-high",
+    vector: "Client-Side Document Object Model & Reflection Contexts",
+    controls: ["DOMPurify Sanitization", "CSP Nonce Isolation", "Contextual Attribute Evasion", "HTML Entity Normalization"],
+    gauge1: { val: "100%", label: "Accuracy", title: "Context Classification", offset: 0 },
+    gauge2: { val: "32", label: "Reductions", title: "Filter Matrices", offset: 18 },
+    ghUrl: "https://github.com/projecthellhound/X5Sentry",
+    activeChords: ["chord-target-spider", "chord-spider-x5sentry", "chord-x5sentry-bounty"]
+  },
+  bounty: {
+    stageKey: "exploit",
+    stageTag: "Phase 03: Exploit Validation",
+    statusText: "Isolated Sandbox Confirmed",
+    name: "Bounty Hunter",
+    role: "Multi-Turn Exploit Chaining & Deterministic Proof",
+    repo: "bounty-hunter",
+    tagline: "Autonomous offensive engine chaining discovered primitives into verified proof-of-concept exploits, executed in isolated sandboxes with zero false positives.",
+    cwe: "Multi-Stage Autonomous Exploit Chaining",
+    severity: "Deterministic PoC",
+    severityClass: "sev-critical",
+    vector: "End-to-End Vulnerability Chaining & Headless Verification",
+    controls: ["Zero False-Positive Gate", "Multi-Turn Autonomous State", "Headless Browser Alert Proof", "Target Blackboard (~/.beast/)"],
+    gauge1: { val: "100%", label: "Precision", title: "Verified Proof-of-Concept", offset: 0 },
+    gauge2: { val: "0", label: "False Positives", title: "Deterministic Validation", offset: 113 },
+    ghUrl: "https://github.com/projecthellhound/bounty-hunter",
+    activeChords: ["chord-cmdmap-bounty", "chord-gateforge-bounty", "chord-agent389-bounty", "chord-x5sentry-bounty"]
+  }
+};
+
+let currentPipelineNode = "spider";
+const PIPELINE_KEYS = ["spider", "cmdmap", "gateforge", "agent389", "x5sentry", "bounty"];
+let autoCycleTimer = null;
+let isUserInteracting = false;
+
+function manualSelectNode(key) {
+  isUserInteracting = true;
+  if (autoCycleTimer) {
+    clearInterval(autoCycleTimer);
+    autoCycleTimer = null;
+  }
+  selectPipelineNode(key);
+}
+
+function selectPipelineNode(key) {
+  if (!PIPELINE_NODES[key]) key = "spider";
+  currentPipelineNode = key;
+  const node = PIPELINE_NODES[key];
+
+  /* 1. Highlight SVG Nodes */
+  document.querySelectorAll(".topo-node-group").forEach(el => {
+    const isNodeActive = el.id === `node-${key}`;
+    el.classList.toggle("active", isNodeActive);
+  });
+
+  /* 2. Highlight Connecting Chords & Signal Pulses */
+  document.querySelectorAll(".topo-chord").forEach(chord => {
+    const isChordActive = node.activeChords.includes(chord.id);
+    chord.classList.toggle("active", isChordActive);
+    const isExploitChord = isChordActive && (chord.id.includes("bounty") || key === "bounty");
+    chord.classList.toggle("active-exploit", isExploitChord);
+  });
+
+  document.querySelectorAll(".topo-pulse-dot").forEach(dot => {
+    const chordId = dot.id.replace("pulse-", "chord-");
+    const isChordActive = node.activeChords.includes(chordId);
+    dot.classList.toggle("active", isChordActive);
+  });
+
+  /* 3. Update Clean Tool Dock */
+  const titleEl = document.getElementById("hud-title");
+  if (titleEl) titleEl.textContent = node.name;
+
+  const roleEl = document.getElementById("hud-role");
+  if (roleEl) roleEl.textContent = node.role;
+
+  const descEl = document.getElementById("hud-desc");
+  if (descEl) descEl.textContent = node.tagline;
+
+  const dossierBtn = document.getElementById("hud-dossier-btn");
+  if (dossierBtn) {
+    if (node.repo === "ghost") {
+      dossierBtn.onclick = (e) => {
+        e.preventDefault();
+        window.open(node.ghUrl, "_blank", "noopener");
+      };
+      const span = dossierBtn.querySelector("span");
+      if (span) span.textContent = "Roadmap Repository";
+    } else {
+      dossierBtn.onclick = (e) => {
+        e.preventDefault();
+        openDossier(node.repo);
+      };
+      const span = dossierBtn.querySelector("span");
+      if (span) span.textContent = "Inspect Tool Dossier";
+    }
+  }
+
+  const ghLink = document.getElementById("hud-gh-link");
+  if (ghLink) {
+    ghLink.href = node.ghUrl;
+  }
+}
+
+/* Subtle automatic cycling until user interacts */
+(function() {
+  let cycleIdx = 0;
+  function startCycling() {
+    if (autoCycleTimer || isUserInteracting) return;
+    autoCycleTimer = setInterval(() => {
+      if (isUserInteracting) {
+        clearInterval(autoCycleTimer);
+        return;
+      }
+      cycleIdx = (cycleIdx + 1) % PIPELINE_KEYS.length;
+      selectPipelineNode(PIPELINE_KEYS[cycleIdx]);
+    }, 4500);
+  }
+
+  const pSection = document.getElementById("pipeline");
+  if (pSection && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !isUserInteracting) {
+          startCycling();
+        } else if (!isUserInteracting && autoCycleTimer) {
+          clearInterval(autoCycleTimer);
+          autoCycleTimer = null;
+        }
+      });
+    }, { threshold: 0.15 });
+    observer.observe(pSection);
+  } else {
+    startCycling();
+  }
+})();
+
+/* 3D Holographic Card Tilt (Tactile feedback) */
+function initHoloTilt() {
+  const cards = document.querySelectorAll(".flagship-card, .tool-card, .who, .co-card, .pd-cell");
+  cards.forEach(card => {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rx = ((y - centerY) / centerY) * -5.5;
+      const ry = ((x - centerX) / centerX) * 5.5;
+      card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
+    });
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "";
+    });
+  });
+}
 
 /* Top Navigation Dropdown Controller (Hover & Click support for all sections) */
 let activeNavDropdown = null;
@@ -4140,6 +5151,8 @@ function toggleAccordion(id) {
 
 document.getElementById("yr").textContent = new Date().getFullYear();
 AudioHUD.init();
+initGlyphScramblers();
+initHoloTilt();
 </script>
 </body>
 </html>
