@@ -1,6 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="booting">
 <head>
+<script>
+if(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+  document.documentElement.classList.remove("booting");
+}
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Project Hellhound — We build what we think</title>
@@ -30,7 +35,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}html.booting .header-bar nav{opacity:1!important}#boot-overlay{display:none!important}</style></noscript>
 <style>
 :root{
   --page:#07080A; --card:#0C0E14; --card-hover:#121620; --ink:#F0F2F5; --muted:#8B92A0;
@@ -63,11 +68,11 @@ header.top,main,footer{position:relative;z-index:1}
 
 /* header - floating pill layout (XBOW style) */
 header.top{position:sticky;top:0.85rem;z-index:40;width:100%;padding:0 1.25rem;pointer-events:none}
-.header-bar{pointer-events:auto;max-width:74rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1.15rem;background:rgba(11,13,18,0.86);border:1px solid var(--line);border-radius:9999px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 8px 32px rgba(0,0,0,0.55);position:relative}
+.header-bar{pointer-events:auto;max-width:74rem;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0.5rem 1.15rem;background:rgba(11,13,18,0.86);border:1px solid var(--line);border-radius:9999px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 8px 32px rgba(0,0,0,0.55);position:relative;transition:background-color .85s cubic-bezier(0.16, 1, 0.3, 1),border-color .85s ease,box-shadow .85s ease,backdrop-filter .85s ease,-webkit-backdrop-filter .85s ease}
 .brand{display:flex;align-items:center;gap:.65rem;text-decoration:none;font:600 1.15rem var(--head);letter-spacing:-0.02em}
 .brand img,.brand .mark{width:32px;height:32px;border-radius:6px;display:block;object-fit:cover}
 .brand .mark{background:var(--ember);color:var(--ember-ink);display:grid;place-items:center;font:700 1rem var(--head)}
-nav{display:flex;align-items:center;gap:0.35rem}
+nav{display:flex;align-items:center;gap:0.35rem;transition:opacity .6s cubic-bezier(0.16, 1, 0.3, 1) .25s}
 nav a{padding:0.4rem 0.75rem;text-decoration:none;color:var(--muted);font-weight:500;transition:color .2s,background .2s;font-size:0.92rem;border-radius:6px}
 nav a:hover{color:var(--ink);background:rgba(255,255,255,0.04);text-decoration:none}
 
@@ -138,22 +143,108 @@ nav a:hover{color:var(--ink);background:rgba(255,255,255,0.04);text-decoration:n
   .mega-menu.active,.nav-sub-panel.active{grid-template-columns:1fr;max-height:75vh;overflow-y:auto;padding:1.15rem;width:95vw}
 }
 
+/* ==========================================================================
+   OVERPASS IP-STYLE CYBERNETIC BOOT SEQUENCE (FLIP ON AUTHENTIC BRAND)
+   ========================================================================== */
+html.booting,
+html.booting body{
+  overflow:hidden !important;
+}
+
+.boot-overlay{
+  position:fixed;
+  inset:0;
+  z-index:998;
+  background:#05070a;
+  pointer-events:all;
+  user-select:none;
+  transition:opacity .85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.boot-grid-bg{
+  position:absolute;
+  inset:0;
+  background-image:linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                   linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size:40px 40px;
+  pointer-events:none;
+  opacity:0.6;
+}
+
+/* While booting, keep header on top of overlay, but hide its container pill and nav links */
+html.booting header.top{
+  z-index:999 !important;
+}
+
+html.booting:not(.boot-revealing) .header-bar{
+  background:transparent !important;
+  border-color:transparent !important;
+  box-shadow:none !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+
+html.booting:not(.boot-revealing) .header-bar nav{
+  opacity:0 !important;
+  pointer-events:none !important;
+}
+
+/* The single authentic header brand element */
+.header-bar .brand{
+  position:relative;
+  z-index:1001;
+  will-change:transform;
+  transform-origin:center center;
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+}
+
+/* Hide brand initially until its center coordinates are calculated to avoid any top-left flash */
+html.booting .header-bar .brand:not(.boot-positioned){
+  opacity:0 !important;
+  visibility:hidden !important;
+}
+
+html.booting .header-bar .brand.boot-positioned{
+  opacity:1 !important;
+  visibility:visible !important;
+}
+
+/* Radiant ember glow ignition in center */
+.header-bar .brand.boot-ignited .brand-text{
+  color:#ffffff !important;
+  text-shadow:0 0 18px rgba(255, 255, 255, 0.5), 0 0 36px rgba(255, 75, 43, 0.45);
+}
+
+.header-bar .brand.boot-ignited img{
+  filter:drop-shadow(0 0 20px rgba(255, 75, 43, 0.95));
+  transform:scale(1.1);
+  transition:filter .5s ease, transform .5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Dissolve state */
+html.boot-revealing .boot-overlay{
+  opacity:0;
+  pointer-events:none;
+}
+
+
 /* hero */
-.hero{padding:5.5rem 0 3.5rem}
+.hero{padding:4.2rem 0 0}
 .hero h1{font-size:clamp(2.8rem,9vw,6.4rem);font-weight:700;letter-spacing:-.035em;max-width:12ch}
-.typed{margin-top:1.75rem;font:500 clamp(1.15rem,3vw,1.6rem) var(--head);color:var(--muted);min-height:2.2em}
+.typed{margin-top:1.25rem;font:500 clamp(1.15rem,3vw,1.6rem) var(--head);color:var(--muted);min-height:1.9em}
 .typed b{color:var(--ink);font-weight:500}
 .caret{display:inline-block;width:.1em;height:1em;margin-left:.15em;background:var(--ember);vertical-align:-.12em;animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
-.hero .lead{margin-top:1rem;max-width:40rem;color:var(--muted)}
-.btns{margin-top:2rem;display:flex;gap:.75rem;flex-wrap:wrap}
+.hero .lead{margin-top:.75rem;max-width:40rem;color:var(--muted)}
+.btns{margin-top:1.5rem;display:flex;gap:.75rem;flex-wrap:wrap}
 .btn{display:inline-block;padding:.8rem 1.35rem;border-radius:6px;font-weight:600;text-decoration:none;border:2px solid var(--ink);color:var(--ink);background:transparent;transition:transform .2s,box-shadow .2s,background .22s,color .22s,border-color .22s}
 .btn:hover{transform:translateY(-3px);background:var(--ink);color:var(--page);box-shadow:0 8px 24px rgba(255,255,255,.15)}
 .btn.primary{background:var(--ember);border-color:var(--ember);color:var(--ember-ink)}
 .btn.primary:hover{background:#fff;border-color:#fff;color:#000;box-shadow:0 8px 26px rgba(255,75,43,.45)}
 
 /* stats */
-.stats{display:flex;gap:3.5rem;flex-wrap:wrap;padding:2rem 0 3rem}
+.stats{display:flex;gap:3.5rem;flex-wrap:wrap;padding:1.1rem 0 .4rem}
 .stat b{display:block;font:700 clamp(2.2rem,6vw,3.4rem) var(--head);letter-spacing:-.03em;color:var(--ember)}
 .stat span{color:var(--muted)}
 
@@ -180,66 +271,110 @@ nav a:hover{color:var(--ink);background:rgba(255,255,255,0.04);text-decoration:n
   box-shadow:0 0 8px rgba(255,75,43,.7);
 }
 
-/* High-Performance Telemetry Marquee Ribbon (Lando Norris & Unseen Studio inspiration) */
-.marquee-ribbon{
+/* ==========================================================================
+   XBOW-INSPIRED ATTACK SURFACE & RESEARCH MARQUEE
+   ========================================================================== */
+.xbow-ticker-wrap{
   width:100%;
   overflow:hidden;
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-  background:rgba(7,8,10,0.7);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-  padding:.75rem 0;
-  margin:2.5rem 0 1.25rem;
   position:relative;
+  padding:.5rem 0 1.25rem;
+  margin:2.5rem 0 2rem;
   user-select:none;
 }
-.marquee-ribbon::before,
-.marquee-ribbon::after{
+.xbow-ticker-wrap::before,
+.xbow-ticker-wrap::after{
   content:"";
   position:absolute;
   top:0;
   bottom:0;
-  width:90px;
-  z-index:2;
+  width:140px;
+  z-index:3;
   pointer-events:none;
 }
-.marquee-ribbon::before{
+.xbow-ticker-wrap::before{
   left:0;
   background:linear-gradient(90deg,var(--page) 0%,transparent 100%);
 }
-.marquee-ribbon::after{
+.xbow-ticker-wrap::after{
   right:0;
   background:linear-gradient(270deg,var(--page) 0%,transparent 100%);
 }
-.marquee-track{
+.xbow-ticker-track{
   display:flex;
   width:max-content;
-  animation:marqueeScroll 45s linear infinite;
+  animation:xbowMarqueeScroll 42s linear infinite;
 }
-.marquee-ribbon:hover .marquee-track{
+.xbow-ticker-wrap:hover .xbow-ticker-track{
   animation-play-state:paused;
 }
-.marquee-content{
+.xbow-ticker-content{
   display:flex;
   align-items:center;
-  gap:1.35rem;
-  padding-right:1.35rem;
-  font-family:var(--mono);
-  font-size:.75rem;
-  font-weight:600;
-  letter-spacing:.12em;
-  color:var(--muted);
+  gap:1.1rem;
+  padding-right:1.1rem;
+}
+.xbow-card{
+  display:inline-flex;
+  align-items:center;
+  gap:.75rem;
+  padding:.85rem 1.55rem;
+  background:rgba(255, 255, 255, 0.025);
+  border:1px solid rgba(255, 255, 255, 0.07);
+  border-radius:12px;
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  color:#d8e2ec;
+  text-decoration:none;
   white-space:nowrap;
+  transition:border-color .25s, transform .25s, box-shadow .25s, color .25s, background-color .25s;
+  cursor:pointer;
+  box-shadow:0 4px 16px rgba(0, 0, 0, 0.25);
 }
-.marquee-content .m-dot{
+.xbow-card:hover{
+  border-color:rgba(255, 75, 43, 0.45);
+  background:rgba(255, 75, 43, 0.06);
+  transform:translateY(-2px);
+  box-shadow:0 12px 28px -4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 75, 43, 0.15);
+  color:#ffffff;
+}
+.xbow-card svg{
   color:var(--ember);
-  opacity:.85;
-  font-size:.9rem;
+  flex-shrink:0;
+  transition:transform .25s ease, color .25s ease;
 }
-@keyframes marqueeScroll{
+.xbow-card:hover svg{
+  transform:scale(1.12);
+  color:#ff6b4a;
+}
+.xbow-card-name{
+  font-family:var(--head);
+  font-size:.95rem;
+  font-weight:700;
+  letter-spacing:-.01em;
+}
+@keyframes xbowMarqueeScroll{
   0%{transform:translateX(0)}
   100%{transform:translateX(-50%)}
+}
+@media (max-width:768px){
+  .xbow-ticker-wrap::before,
+  .xbow-ticker-wrap::after{
+    width:60px;
+  }
+  .xbow-card{
+    padding:.75rem 1.25rem;
+    gap:.6rem;
+  }
+  .xbow-card-name{
+    font-size:.88rem;
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  .xbow-ticker-track{
+    animation:none;
+    overflow-x:auto;
+  }
 }
 
 /* Precision Telemetry Corner Crosshairs (Lando Norris inspiration) */
@@ -1940,6 +2075,10 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
 </style>
 </head>
 <body id="top">
+<!-- Overpass IP-Inspired Cybernetic Boot Backdrop Overlay -->
+<div id="boot-overlay" class="boot-overlay" aria-hidden="true">
+  <div class="boot-grid-bg"></div>
+</div>
 <div class="grid-overlay" aria-hidden="true"></div>
 <canvas id="bg" aria-hidden="true"></canvas>
 <div id="glow" aria-hidden="true"></div>
@@ -1947,9 +2086,9 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
 <!-- Floating Pill Header with XBOW-style Mega-Menu (media_1794994575366.png) -->
 <header class="top">
   <div class="header-bar">
-    <a class="brand" href="#top">
+    <a class="brand" id="site-brand" href="#top">
       <img src="assets/logo.png" alt="Project Hellhound Logo" onerror="this.outerHTML='<span class=&quot;mark&quot;>H</span>'">
-      <span class="brand-text scramble-hover">Project Hellhound</span>
+      <span class="brand-text">Project Hellhound</span>
     </a>
     <nav aria-label="Main Navigation">
       <!-- 1. Arsenal Dropdown -->
@@ -2294,32 +2433,111 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
   </div>
 </div>
 
-<!-- High-Performance Telemetry Marquee Ribbon (Lando Norris & Unseen Studio inspiration) -->
-<div class="marquee-ribbon" aria-hidden="true">
-  <div class="marquee-track">
-    <div class="marquee-content">
-      <span>PROJECT HELLHOUND</span><span class="m-dot">·</span>
-      <span>OFFENSIVE SECURITY TOOLING</span><span class="m-dot">·</span>
-      <span>BOUNTY HUNTER</span><span class="m-dot">·</span>
-      <span>LONE SPIDER</span><span class="m-dot">·</span>
-      <span>SPIDER SUITE</span><span class="m-dot">·</span>
-      <span>EXPLOIT AUTOMATION</span><span class="m-dot">·</span>
-      <span>ZERO-DAY DISCOVERY</span><span class="m-dot">·</span>
-      <span>TRICERATOPS CORE</span><span class="m-dot">·</span>
-      <span>OPEN SOURCE RESEARCH</span><span class="m-dot">·</span>
-      <span>PERSISTENT RECONNAISSANCE</span><span class="m-dot">·</span>
+<!-- XBOW-Inspired Autonomous Attack Surface & Research Marquee -->
+<div class="xbow-ticker-wrap reveal" aria-label="Core Tools and Strategic Partners">
+  <div class="xbow-ticker-track">
+    <!-- Set 1 -->
+    <div class="xbow-ticker-content">
+      <a class="xbow-card" href="#dossier-Hellhound-Spider" onclick="openDossier('Hellhound-Spider')" aria-label="Inspect Hellhound Spider">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07l14.14-14.14"/><circle cx="12" cy="12" r="3.5" fill="currentColor"/></svg>
+        <span class="xbow-card-name">Hellhound Spider</span>
+      </a>
+      <a class="xbow-card" href="https://triopsecurity.com/" target="_blank" rel="noopener" aria-label="TriOps Security Portal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 22h20L12 2z"/><circle cx="12" cy="15" r="2" fill="currentColor"/></svg>
+        <span class="xbow-card-name">TriOps Security</span>
+      </a>
+      <a class="xbow-card" href="#dossier-bounty-hunter" onclick="openDossier('bounty-hunter')" aria-label="Inspect Bounty Hunter">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>
+        <span class="xbow-card-name">Bounty Hunter</span>
+      </a>
+      <a class="xbow-card" href="#triops" aria-label="Ghost ASM Platform">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+        <span class="xbow-card-name">Ghost ASM</span>
+      </a>
+      <a class="xbow-card" href="#dossier-X5Sentry" onclick="openDossier('X5Sentry')" aria-label="Inspect X5Sentry">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 11 12 14 15 11"/></svg>
+        <span class="xbow-card-name">X5Sentry</span>
+      </a>
+      <a class="xbow-card" href="#dossier-GateForge" onclick="openDossier('GateForge')" aria-label="Inspect GateForge">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+        <span class="xbow-card-name">GateForge</span>
+      </a>
+      <a class="xbow-card" href="#dossier-CMDMap" onclick="openDossier('CMDMap')" aria-label="Inspect CMDMap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+        <span class="xbow-card-name">CMDMap</span>
+      </a>
+      <a class="xbow-card" href="#dossier-JARVIS-Mobile" onclick="openDossier('JARVIS-Mobile')" aria-label="Inspect JARVIS Mobile">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        <span class="xbow-card-name">JARVIS Mobile</span>
+      </a>
+      <a class="xbow-card" href="#dossier-Spectre" onclick="openDossier('Spectre')" aria-label="Inspect Spectre">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h2l3-6 4 12 4-8 3 5 4-3h2"/></svg>
+        <span class="xbow-card-name">Spectre</span>
+      </a>
+      <a class="xbow-card" href="#triops" aria-label="HellCorp Cyber Range">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+        <span class="xbow-card-name">HellCorp Range</span>
+      </a>
+      <a class="xbow-card" href="#dossier-Constant" onclick="openDossier('Constant')" aria-label="Inspect Constant">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        <span class="xbow-card-name">Constant</span>
+      </a>
+      <a class="xbow-card" href="#private-projects" aria-label="Inspect Oryn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8.66 5v10L12 22l-8.66-5V7L12 2z"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+        <span class="xbow-card-name">Oryn</span>
+      </a>
     </div>
-    <div class="marquee-content">
-      <span>PROJECT HELLHOUND</span><span class="m-dot">·</span>
-      <span>OFFENSIVE SECURITY TOOLING</span><span class="m-dot">·</span>
-      <span>BOUNTY HUNTER</span><span class="m-dot">·</span>
-      <span>LONE SPIDER</span><span class="m-dot">·</span>
-      <span>SPIDER SUITE</span><span class="m-dot">·</span>
-      <span>EXPLOIT AUTOMATION</span><span class="m-dot">·</span>
-      <span>ZERO-DAY DISCOVERY</span><span class="m-dot">·</span>
-      <span>TRICERATOPS CORE</span><span class="m-dot">·</span>
-      <span>OPEN SOURCE RESEARCH</span><span class="m-dot">·</span>
-      <span>PERSISTENT RECONNAISSANCE</span><span class="m-dot">·</span>
+
+    <!-- Set 2 (Identical for seamless infinite scroll) -->
+    <div class="xbow-ticker-content" aria-hidden="true">
+      <a class="xbow-card" href="#dossier-Hellhound-Spider" onclick="openDossier('Hellhound-Spider')" tabindex="-1">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07l14.14-14.14"/><circle cx="12" cy="12" r="3.5" fill="currentColor"/></svg>
+        <span class="xbow-card-name">Hellhound Spider</span>
+      </a>
+      <a class="xbow-card" href="https://triopsecurity.com/" target="_blank" rel="noopener" tabindex="-1">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 22h20L12 2z"/><circle cx="12" cy="15" r="2" fill="currentColor"/></svg>
+        <span class="xbow-card-name">TriOps Security</span>
+      </a>
+      <a class="xbow-card" href="#dossier-bounty-hunter" onclick="openDossier('bounty-hunter')" tabindex="-1">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>
+        <span class="xbow-card-name">Bounty Hunter</span>
+      </a>
+      <a class="xbow-card" href="#triops" tabindex="-1">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+        <span class="xbow-card-name">Ghost ASM</span>
+      </a>
+      <a class="xbow-card" href="#dossier-X5Sentry" onclick="openDossier('X5Sentry')" tabindex="-1">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 11 12 14 15 11"/></svg>
+        <span class="xbow-card-name">X5Sentry</span>
+      </a>
+      <a class="xbow-card" href="#dossier-GateForge" onclick="openDossier('GateForge')" tabindex="-1">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+        <span class="xbow-card-name">GateForge</span>
+      </a>
+      <a class="xbow-card" href="#dossier-CMDMap" onclick="openDossier('CMDMap')" tabindex="-1">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+        <span class="xbow-card-name">CMDMap</span>
+      </a>
+      <a class="xbow-card" href="#dossier-JARVIS-Mobile" onclick="openDossier('JARVIS-Mobile')" tabindex="-1">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        <span class="xbow-card-name">JARVIS Mobile</span>
+      </a>
+      <a class="xbow-card" href="#dossier-Spectre" onclick="openDossier('Spectre')" tabindex="-1">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h2l3-6 4 12 4-8 3 5 4-3h2"/></svg>
+        <span class="xbow-card-name">Spectre</span>
+      </a>
+      <a class="xbow-card" href="#triops" tabindex="-1">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+        <span class="xbow-card-name">HellCorp Range</span>
+      </a>
+      <a class="xbow-card" href="#dossier-Constant" onclick="openDossier('Constant')" tabindex="-1">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        <span class="xbow-card-name">Constant</span>
+      </a>
+      <a class="xbow-card" href="#private-projects" tabindex="-1">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8.66 5v10L12 22l-8.66-5V7L12 2z"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+        <span class="xbow-card-name">Oryn</span>
+      </a>
     </div>
   </div>
 </div>
@@ -2929,101 +3147,7 @@ section h2{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin-botto
       </div>
     </div>
 
-    <!-- Dynamic Collapsible Deep-Dive Panels (Accordions) -->
-    <div class="accordion-group reveal">
-      <div class="accordion-panel" id="panel-foundations">
-        <button class="accordion-header" type="button" aria-expanded="false" onclick="toggleAccordion('panel-foundations')">
-          <div class="accordion-title-wrap">
-            <span class="accordion-tag">FOUNDATIONS</span>
-            <span class="accordion-title">Shared Research Architecture &amp; Founding Leadership</span>
-          </div>
-          <span class="accordion-chevron">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>
-          </span>
-        </button>
-        <div class="accordion-body">
-          <div class="accordion-inner">
-            <p>Project Hellhound was established as an open-source offensive research laboratory. Sree Danush S (known as <strong>l4zz3rj0d</strong>) serves as Founder of Project Hellhound and Co-Founder at TriOps Security alongside a core team of four security researchers. This organizational structure bridges community-driven research with high-assurance enterprise security engineering.</p>
-            <div class="accordion-specs">
-              <div class="spec-col">
-                <span class="spec-label">LEADERSHIP ROLE</span>
-                <span class="spec-val">Sree Danush S (l4zz3rj0d) &amp; TriOps Core Team</span>
-              </div>
-              <div class="spec-col">
-                <span class="spec-label">RESEARCH EMPHASIS</span>
-                <span class="spec-val">Autonomous Agents, Bug Bounty Automation, Exploit Chaining</span>
-              </div>
-              <div class="spec-col">
-                <span class="spec-label">DUAL-TRACK MODEL</span>
-                <span class="spec-val">Public OSS Tools and Private Enterprise ASM</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="accordion-panel" id="panel-ghost">
-        <button class="accordion-header" type="button" aria-expanded="false" onclick="toggleAccordion('panel-ghost')">
-          <div class="accordion-title-wrap">
-            <span class="accordion-tag">ENTERPRISE ASM</span>
-            <span class="accordion-title">Ghost: Continuous Attack Surface Management Architecture</span>
-          </div>
-          <span class="accordion-chevron">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>
-          </span>
-        </button>
-        <div class="accordion-body">
-          <div class="accordion-inner">
-            <p>Ghost is an attack surface management platform developed by TriOps Security. Engineered for active corporate perimeters, Ghost continuously tracks internet-facing assets, correlates certificate transparency logs, detects forgotten cloud buckets, and identifies exposed RPC APIs before external attackers locate them.</p>
-            <div class="accordion-specs">
-              <div class="spec-col">
-                <span class="spec-label">DISCOVERY SCOPE</span>
-                <span class="spec-val">Subdomains, Dynamic DNS, Cloud Buckets, Shadow IT</span>
-              </div>
-              <div class="spec-col">
-                <span class="spec-label">MONITORING CYCLE</span>
-                <span class="spec-val">Real-time passive telemetry and continuous perimeter checks</span>
-              </div>
-              <div class="spec-col">
-                <span class="spec-label">TIER ACCESS</span>
-                <span class="spec-val">Enterprise private deployment under active testing</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-panel" id="panel-sandbox">
-        <button class="accordion-header" type="button" aria-expanded="false" onclick="toggleAccordion('panel-sandbox')">
-          <div class="accordion-title-wrap">
-            <span class="accordion-tag">VALIDATION MODEL</span>
-            <span class="accordion-title">Headless Sandbox Isolation &amp; Zero False-Positive Proofs</span>
-          </div>
-          <span class="accordion-chevron">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>
-          </span>
-        </button>
-        <div class="accordion-body">
-          <div class="accordion-inner">
-            <p>Standard scanners overwhelm developers with theoretical CVE alerts inferred from version strings. Project Hellhound adheres to an explicit validation doctrine: candidate primitives discovered during surface crawl or protocol fuzzing are executed within isolated, ephemeral headless containers to verify actual execution impact before a report is ever compiled.</p>
-            <div class="accordion-specs">
-              <div class="spec-col">
-                <span class="spec-label">CONTAINER BOUNDARY</span>
-                <span class="spec-val">Isolated ephemeral sandbox with strict execution timeouts</span>
-              </div>
-              <div class="spec-col">
-                <span class="spec-label">VERIFIED CLASSES</span>
-                <span class="spec-val">Remote Code Execution, SSRF IMDSv2, Dynamic Command Injection</span>
-              </div>
-              <div class="spec-col">
-                <span class="spec-label">PROOF ARTIFACT</span>
-                <span class="spec-val">Reproducible curl payload, execution log, patch guideline</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -4441,19 +4565,7 @@ class GlyphScramble {
 }
 
 function initGlyphScramblers() {
-  document.querySelectorAll(".scramble-hover").forEach(el => {
-    if (el._scrambler) return;
-    const scrambler = new GlyphScramble(el);
-    el._scrambler = scrambler;
-    const trigger = el.closest(".flagship-card, .tool-card, .brand") || el;
-    trigger.addEventListener("mouseenter", () => {
-      scrambler.start();
-      AudioHUD.hover();
-    });
-    trigger.addEventListener("mouseleave", () => {
-      scrambler.stop();
-    });
-  });
+  // Disabled: The company site uses clean, proportional letter-by-letter hover popping (fx) instead of glitch scramblers
 }
 
 /* Flagship & Specialized Arsenal renderer */
@@ -4706,6 +4818,9 @@ GitHubSync.onUpdate(() => {
 
 // Initialize GitHub data sync
 GitHubSync.init();
+
+// Attach tactical audio to xbow cards
+document.querySelectorAll(".xbow-card").forEach(el => el.addEventListener("mouseenter", () => AudioHUD.hover()));
 
 /* headings: hover letters + reveal */
 document.querySelectorAll("h1,h2,.kind h3,.trio h3,.brand-text,.contact-details h3,.private-title,.stage-title").forEach(fx);
@@ -5188,10 +5303,109 @@ function toggleAccordion(id) {
   }
 }
 
+/* ==========================================================================
+   OVERPASS IP-STYLE CYBERNETIC BOOT SEQUENCE (FLIP ON AUTHENTIC BRAND)
+   ========================================================================== */
+function resolveBootText(el, targetText, duration, onComplete) {
+  const chars = '01ABCDEFGHIKLMNOPQRSTVXYZ!<>_#';
+  const len = targetText.length;
+  const start = performance.now();
+
+  function step(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const resolvedChars = Math.floor(progress * len);
+
+    let output = '';
+    for (let i = 0; i < len; i++) {
+      if (targetText[i] === ' ') {
+        output += ' ';
+      } else if (i < resolvedChars) {
+        output += targetText[i];
+      } else if (i === resolvedChars) {
+        output += `<span style="color:var(--ember);font-weight:700;">${chars[Math.floor(Math.random() * chars.length)]}</span>`;
+      } else {
+        output += `<span style="opacity:0.3;">${chars[Math.floor(Math.random() * chars.length)]}</span>`;
+      }
+    }
+    el.innerHTML = output;
+
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      el.textContent = targetText;
+      delete el.dataset.fx;
+      fx(el);
+      if (onComplete) onComplete();
+    }
+  }
+  requestAnimationFrame(step);
+}
+
+function initBootSequence() {
+  const overlay = document.getElementById("boot-overlay");
+  const brand = document.getElementById("site-brand") || document.querySelector(".header-bar .brand");
+  const brandText = brand ? brand.querySelector(".brand-text") : null;
+
+  if (!overlay || !brand) return;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    overlay.remove();
+    document.documentElement.classList.remove("booting");
+    document.documentElement.classList.add("boot-ready");
+    if (brandText) fx(brandText);
+    return;
+  }
+
+  // Calculate coordinate delta to dead-center the authentic brand element in the viewport
+  const brandRect = brand.getBoundingClientRect();
+  const centerX = window.innerWidth / 2;
+  const centerY = window.innerHeight / 2;
+  const currentCenterX = brandRect.left + brandRect.width / 2;
+  const currentCenterY = brandRect.top + brandRect.height / 2;
+  const deltaX = centerX - currentCenterX;
+  const deltaY = centerY - currentCenterY;
+  const scale = window.innerWidth < 768 ? 1.25 : 1.55;
+
+  // Immediately place authentic brand in dead center and reveal it
+  brand.style.transform = `translate3d(${deltaX}px, ${deltaY}px, 0) scale(${scale})`;
+  brand.classList.add("boot-positioned");
+
+  // Step 1: Ignite radiant ember glow in center (120ms) and resolve text once character-by-character
+  setTimeout(() => {
+    brand.classList.add("boot-ignited");
+    if (brandText) {
+      resolveBootText(brandText, "Project Hellhound", 420);
+    }
+  }, 120);
+
+  // Step 2: Overpass IP glide into top-left header position (1100ms)
+  setTimeout(() => {
+    // Add revealing class to trigger CSS transitions for header pill & backdrop overlay
+    document.documentElement.classList.add("boot-revealing");
+
+    // Ultra-smooth GPU glide to native docked position (0, 0, scale 1)
+    brand.style.transition = "transform 1.05s cubic-bezier(0.16, 1, 0.3, 1)";
+    brand.style.transform = "translate3d(0, 0, 0) scale(1)";
+
+    // Step 3: Complete handoff (2250ms)
+    setTimeout(() => {
+      document.documentElement.classList.remove("booting", "boot-revealing");
+      document.documentElement.classList.add("boot-ready");
+      overlay.remove();
+      brand.classList.remove("boot-ignited", "boot-positioned");
+      brand.style.transform = "";
+      brand.style.transition = "";
+      if (brandText && !brandText.dataset.fx) fx(brandText);
+    }, 1150);
+  }, 1100);
+}
+
 document.getElementById("yr").textContent = new Date().getFullYear();
 AudioHUD.init();
 initGlyphScramblers();
 initHoloTilt();
+initBootSequence();
 </script>
 </body>
 </html>
